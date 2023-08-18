@@ -16,8 +16,8 @@ public class TwinklingStarManager : MonoBehaviour
     readonly float maxLifeTime = 15f;
 
     float randomSize;
-    readonly float minSize = 0.05f;
-    readonly float maxSize = 0.1f;
+    readonly float minSize = 0.005f;
+    readonly float maxSize = 0.01f;
 
     readonly float minBlinkBorderBeforeDestroy = 0.01f;
 

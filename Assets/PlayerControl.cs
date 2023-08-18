@@ -6,7 +6,7 @@ public class PlayerControl : MonoBehaviour
 {
     Rigidbody rb;
 
-    float playerSpeed = 1000f;
+    float playerSpeed = 100f;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +27,6 @@ public class PlayerControl : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
 
         rb.AddForce(horizontalInput * playerSpeed * Vector3.right);
-        rb.AddForce(verticalInput * playerSpeed * Vector3.up);        
+        rb.AddForce(verticalInput * playerSpeed * Vector3.forward);        
     }
 }

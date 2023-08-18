@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class StarSpawning : MonoBehaviour
 {
@@ -12,11 +9,11 @@ public class StarSpawning : MonoBehaviour
     readonly float maxStartSpawnDelay = 5f;
 
     float repitSpawnDelay;
-    readonly float minRepitSpawnDelay = 2f;
-    readonly float maxRepitSpawnDelay = 10f;
+    readonly float minRepitSpawnDelay = 3f;
+    readonly float maxRepitSpawnDelay = 5f;
 
-    readonly float spawnPosXValue = 4.8f;
-    readonly float spawnPosYValue = 2.6f;
+    readonly float spawnPosXValue = 4.4f;
+    readonly float spawnPosZValue = 2.1f;
     float bGScale;
 
     Vector3 spawnPos;
@@ -24,7 +21,7 @@ public class StarSpawning : MonoBehaviour
     void Start()
     {
         bGScale = transform.parent.localScale.x;
-        Debug.Log(bGScale);
+
         startSpawnDelay = Random.Range(minStartSpawnDelay, maxStartSpawnDelay);
         Invoke(nameof(StarSpawn), startSpawnDelay);
     }
@@ -32,13 +29,12 @@ public class StarSpawning : MonoBehaviour
     void StarSpawn()
     {
         float spawnPosX = Random.Range(-spawnPosXValue, spawnPosXValue) * bGScale;
-        float spawnPosY = Random.Range(-spawnPosYValue, spawnPosYValue) * bGScale;
-        spawnPos = new Vector3(spawnPosX, spawnPosY, -1);
+        float spawnPosZ = Random.Range(-spawnPosZValue, spawnPosZValue) * bGScale;
+        spawnPos = new Vector3(spawnPosX, 1 , spawnPosZ);
 
         Instantiate(twinklingStar, spawnPos, twinklingStar.transform.rotation, transform);
 
         repitSpawnDelay = Random.Range(minRepitSpawnDelay, maxRepitSpawnDelay);
-
         Invoke(nameof(StarSpawn), repitSpawnDelay);
     }
 }
