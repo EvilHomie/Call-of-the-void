@@ -29,7 +29,7 @@ public class TwinklingStarManager : MonoBehaviour
         randomSize = UnityEngine.Random.Range(minSize, maxSize);
         transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
-        lifeTime = UnityEngine.Random.Range(minLifeTime, maxLifeTime);
+        
 
         StartCoroutine(nameof(DestroyStar));
     }
@@ -48,6 +48,8 @@ public class TwinklingStarManager : MonoBehaviour
 
     IEnumerator DestroyStar()
     {
+        lifeTime = UnityEngine.Random.Range(minLifeTime, maxLifeTime);
+
         yield return new WaitForSeconds(lifeTime);
 
         while (starColor.a > minBlinkBorderBeforeDestroy)
