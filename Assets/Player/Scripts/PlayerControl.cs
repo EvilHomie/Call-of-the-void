@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    // закоментированы участки кода имеющие отношение к имитации влияния отдалености планеты на скорость корабля в скрипте BigObjectManager
     Rigidbody rb;
     public Camera mainCamera;
     public LayerMask layerMask;
+    //public static Action<Vector3> playerVelocity;
 
     readonly float playerSpeed = 50f;
     readonly float playerRotateSpeed = 180f;
@@ -17,7 +20,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     
-    void Update()
+    void FixedUpdate()
     {
         MousePosTrack();
         MoveToMouse();        
@@ -40,6 +43,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             rb.AddForce( transform.forward * playerSpeed, ForceMode.Acceleration);
+            //playerVelocity?.Invoke(rb.velocity);
         }
     }        
 }

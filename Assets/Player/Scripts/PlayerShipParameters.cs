@@ -7,12 +7,9 @@ using UnityEngine.UI;
 
 public class PlayerShipParameters : MonoBehaviour
 {
-    [SerializeField] Slider hullSlider;
-    [SerializeField] Slider armorSlider;
-    [SerializeField] Slider shieldSlider;
-    [SerializeField] TextMeshProUGUI shieldHPText;
+    public static Action onTakeDamageEvents;
 
-    public static Action<float, float, float> onTakeDamage;
+    public static Action<float, float, float> curentParameters;
 
     float hullHP = 100f;
     float armorHP = 100f;
@@ -32,21 +29,17 @@ public class PlayerShipParameters : MonoBehaviour
 
     void ParametersUpdate()
     {
-        hullSlider.value = hullHP;
-        armorSlider.value = armorHP;
-        shieldSlider.value = shieldHP;
-
-        shieldHPText.text = $"{Mathf.Round(shieldHP)} %";
+        curentParameters?.Invoke(hullHP, armorHP, shieldHP);
     }
     public void TakeDamage(float damage)
     {
         shieldHP -= damage;
-        onTakeDamage?.Invoke(2,2,1);
+        onTakeDamageEvents?.Invoke();
     }
 
     void RegShield()
     {
-        if (shieldSlider.value < fullHp)
+        if (shieldHP < fullHp)
         {
             shieldHP += shieldRegRate * Time.deltaTime;
         }        

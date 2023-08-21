@@ -16,7 +16,7 @@ public class AsteroidManager : MonoBehaviour
     float playerYPos;
 
     float curentDistanceFromThePlayer;
-    readonly float maxDistanceFromThePlayer = 300f;
+    readonly float maxDistanceFromThePlayer = 400f;
 
     void Awake()
     {
@@ -70,7 +70,7 @@ public class AsteroidManager : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         }  
     }
 }

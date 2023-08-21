@@ -7,8 +7,8 @@ public class ShipCollisionEvent : MonoBehaviour
     PlayerShipParameters shipParameters;
 
     float loseControllDuration;
-    float damage;
-    float damageMod = 10f;
+    float damageValue;
+    float damageMod = 30f;
 
     Vector3 collisionForce;
     readonly float resistToCollision = 100000f;
@@ -45,8 +45,7 @@ public class ShipCollisionEvent : MonoBehaviour
 
     void TakeDamage(float colForce)
     {
-        damage = colForce/resistToCollision * damageMod;
-        Debug.Log(damage);
-        shipParameters.TakeDamage(damage);
+        damageValue = colForce/resistToCollision * damageMod;
+        shipParameters.TakeDamage(damageValue);
     }
 }
