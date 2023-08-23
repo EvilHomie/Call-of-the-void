@@ -30,7 +30,7 @@ public class StarSpawning : MonoBehaviour
     {
         float spawnPosX = Random.Range(-spawnPosXValue, spawnPosXValue) * bGScale;
         float spawnPosZ = Random.Range(-spawnPosZValue, spawnPosZValue) * bGScale;
-        spawnPos = new Vector3(spawnPosX, 1 , spawnPosZ);
+        spawnPos = new Vector3(spawnPosX, transform.position.y , spawnPosZ);
 
         Instantiate(twinklingStar, spawnPos, twinklingStar.transform.rotation, transform);
 

@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
-    GameObject player;
-    Rigidbody rb;
+    GameObject asteroidsSpawnManager;
+    Rigidbody asteroidRB;
     
     float speed;
     readonly float minSpeed = 0.05f;
@@ -13,42 +12,42 @@ public class AsteroidManager : MonoBehaviour
 
     readonly float radiusGameZone = 150f;
     Vector3 direction;
-    float playerYPos;
+    //float asteroidsSpawnPointPosY;
 
-    float curentDistanceFromThePlayer;
-    readonly float maxDistanceFromThePlayer = 400f;
+    float curentDistanceFromSpawnPoint;
+    readonly float maxDistanceFromSpawnPoint = 400f;
 
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
-        rb = GetComponent<Rigidbody>();
+        asteroidsSpawnManager = GameObject.Find("Asteroids Spawn Manager");
+        asteroidRB = GetComponent<Rigidbody>();
 
-        playerYPos = player.transform.position.y;
+        //asteroidsSpawnPointPosY = asteroidsSpawnManager.transform.position.y;
         MoveToGameZone();
         StartCoroutine(nameof(DestroyAsteroid));
-        StartCoroutine(nameof(SaveYPos));
+        //StartCoroutine(nameof(SaveYPos));
     }
 
-    IEnumerator SaveYPos()
-    {
-        while (true)
-        {
-            if (transform.position.y != playerYPos)
-            {
-                transform.position = new Vector3(transform.position.x, playerYPos, transform.position.z);
-            }
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
+    //IEnumerator SaveYPos()
+    //{
+    //    while (true)
+    //    {
+    //        if (transform.position.y != asteroidsSpawnPointPosY)
+    //        {
+    //            transform.position = new Vector3(transform.position.x, asteroidsSpawnPointPosY, transform.position.z);
+    //        }
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //}
 
     void MoveToGameZone()
     {
-        rb.AddForce(DirectionCoordonates() * SpeedCalc(), ForceMode.VelocityChange);
+        asteroidRB.AddForce(DirectionCoordonates() * SpeedCalc(), ForceMode.VelocityChange);
     }
 
     Vector3 DirectionCoordonates()
     {
-        Vector3 randomDirectionPos = new Vector3(Random.insideUnitCircle.x, player.transform.position.y, Random.insideUnitCircle.y) * radiusGameZone + player.transform.position;
+        Vector3 randomDirectionPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusGameZone + asteroidsSpawnManager.transform.position;
         direction = randomDirectionPos - transform.position;
         return direction;
     }
@@ -65,8 +64,8 @@ public class AsteroidManager : MonoBehaviour
     {
         while (true)
         {
-            curentDistanceFromThePlayer = Vector3.Distance(transform.position, player.transform.position);
-            if (curentDistanceFromThePlayer > maxDistanceFromThePlayer)
+            curentDistanceFromSpawnPoint = Vector3.Distance(transform.position, asteroidsSpawnManager.transform.position);
+            if (curentDistanceFromSpawnPoint > maxDistanceFromSpawnPoint)
             {
                 Destroy(gameObject);
             }

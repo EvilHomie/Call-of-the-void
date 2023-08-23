@@ -1,17 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-public class ShipCollisionEvent : MonoBehaviour
+public class PlayerShipCollisionEvent : MonoBehaviour
 {
     PlayerControl playerControl;
     PlayerShipParameters shipParameters;
 
     float loseControllDuration;
     float damageValue;
-    float damageMod = 30f;
 
     Vector3 collisionForce;
-    readonly float resistToCollision = 100000f;
+    readonly float resistToCollision = 10000f;
+    readonly float damageMultipler = 10;
 
 
     private void Start()
@@ -25,6 +25,7 @@ public class ShipCollisionEvent : MonoBehaviour
 
         LoseControllOnCollision(collisionForce.magnitude);
         TakeDamage(collisionForce.magnitude);
+        
     }
 
     void LoseControllOnCollision(float colForce)
@@ -40,12 +41,11 @@ public class ShipCollisionEvent : MonoBehaviour
             yield return new WaitForSeconds(loseControllDuration);
             playerControl.enabled = true;
         }
-    }
-    
+    }    
 
     void TakeDamage(float colForce)
     {
-        damageValue = colForce/resistToCollision * damageMod;
+        damageValue = colForce/resistToCollision * damageMultipler;
         shipParameters.TakeDamage(damageValue);
     }
 }

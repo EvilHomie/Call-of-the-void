@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 874988649525836267}
   - component: {fileID: 11467940}
   - component: {fileID: 9162046588495853125}
+  - component: {fileID: 9023986328386396133}
+  - component: {fileID: -449060955442912112}
   m_Layer: 0
   m_Name: Asteroid 3
   m_TagString: Enemy
@@ -46,7 +48,7 @@ Rigidbody:
   m_GameObject: {fileID: 130102}
   serializedVersion: 4
   m_Mass: 150
-  m_Drag: 0.01
+  m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -61,7 +63,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!135 &874988649525836267
@@ -107,6 +109,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58b24ff56bd36454991e3075c7ac1f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9023986328386396133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6364e9c1e107022499b83c33b810e759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-449060955442912112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51a2776cd2fd644eb3a2baa9ce5c60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &164382

@@ -6,20 +6,20 @@ using UnityEngine;
 public class BigObjectManager : MonoBehaviour
 {
     // закоментировал возможность планеты двигаться вместе с игроком (для имитации влияния отдалености планеты на скорость корабля)
-    GameObject player;
+    GameObject asteroidsSpawnManager;
     Rigidbody rb;
 
     public static Action onBigObjectDestroy;
 
-    float curentDistanceFromThePlayer;
-    readonly float maxDistanceFromThePlayer = 1000f;
+    float curentDistanceFromSpawnPoint;
+    readonly float maxDistanceFromSpawnPoint = 2000f;
 
     float randomSize;
     readonly float minSize = 5f;
     readonly float maxSize = 100f;
 
-    float constMoveSpeedLikeDistance;
-    readonly float distanceImitation = 200f;
+    float constMoveSpeedBasedOnSize;
+    readonly float distanceImitation = 10f;
 
     //float differenceSpeedWithPlayer;
     //readonly float minDifference = 1;
@@ -27,7 +27,7 @@ public class BigObjectManager : MonoBehaviour
 
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
+        asteroidsSpawnManager = GameObject.Find("Asteroids Spawn Manager");
         rb = GetComponent<Rigidbody>();
 
         RandomizeSize();
@@ -39,7 +39,7 @@ public class BigObjectManager : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
         ConstantMoveToLeft();
     }
@@ -47,8 +47,8 @@ public class BigObjectManager : MonoBehaviour
     {
         while (true)
         {
-            curentDistanceFromThePlayer = Vector3.Distance(transform.position, player.transform.position);
-            if (curentDistanceFromThePlayer > maxDistanceFromThePlayer)
+            curentDistanceFromSpawnPoint = Vector3.Distance(transform.position, asteroidsSpawnManager.transform.position);
+            if (curentDistanceFromSpawnPoint > maxDistanceFromSpawnPoint)
             {
                 onBigObjectDestroy?.Invoke();
                 //PlayerControl.playerVelocity -= BigObjectMoveWithPlayer;
@@ -61,7 +61,7 @@ public class BigObjectManager : MonoBehaviour
     void RandomizeSize()
     {
         randomSize = UnityEngine.Random.Range(minSize, maxSize);
-        constMoveSpeedLikeDistance = randomSize / distanceImitation;
+        constMoveSpeedBasedOnSize = randomSize / distanceImitation;
         transform.localScale = new Vector3(randomSize, 1, randomSize);
     }
 
@@ -72,6 +72,6 @@ public class BigObjectManager : MonoBehaviour
 
     void ConstantMoveToLeft()
     {        
-        transform.position = new Vector3(transform.position.x - constMoveSpeedLikeDistance, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x - constMoveSpeedBasedOnSize * Time.deltaTime, transform.position.y, transform.position.z);
     }
 }
