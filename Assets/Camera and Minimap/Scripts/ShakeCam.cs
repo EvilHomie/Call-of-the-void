@@ -20,12 +20,12 @@ public class ShakeCam : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerShipParameters.onTakeDamageEvents += ShakeCameraTurnOn;
+        PlayerShipParameters.PlayerTakeDamageEvents += ShakeCameraTurnOn;
     }
 
     private void OnDisable()
     {
-        PlayerShipParameters.onTakeDamageEvents -= ShakeCameraTurnOn;
+        PlayerShipParameters.PlayerTakeDamageEvents -= ShakeCameraTurnOn;
     }
 
     void ShakeCameraTurnOn()

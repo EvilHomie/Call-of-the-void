@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AsteroidSpawning1 : MonoBehaviour
+public class AsteroidSpawning : MonoBehaviour
 {
     [SerializeField] GameObject[] asteroid;
 
@@ -15,12 +15,12 @@ public class AsteroidSpawning1 : MonoBehaviour
     private void OnEnable()
     {
         Invoke(nameof(SpawnAsteroidsMethodName), spawnDelay);
-        PlayerControl.playerVelocity += PlayerTrañking;
+        PlayerControl.broadcastPlayerVelocity += PlayerTrañking;
     }
 
     private void OnDisable()
     {
-        PlayerControl.playerVelocity -= PlayerTrañking;
+        PlayerControl.broadcastPlayerVelocity -= PlayerTrañking;
     }        
 
     void SpawnAsteroidsMethodName()

@@ -1,15 +1,15 @@
 using System;
 using UnityEngine;
 
-public class PlayerShipParameters : MonoBehaviour
+public class PlayerShipParameters : MonoBehaviour, IDadamageable
 {
-    public static Action onTakeDamageEvents;
+    public static Action PlayerTakeDamageEvents;
 
-    public static Action<float, float, float> curentParameters;
+    public static Action<float, float, float> broadcastPlayerParameters;
 
     float hullHP = 100f;
     float armorHP = 100f;
-    float shieldHP = 100f;
+    [SerializeField] float shieldHP = 100f;
 
     float fullHp = 100f;
 
@@ -25,13 +25,8 @@ public class PlayerShipParameters : MonoBehaviour
 
     void ParametersUpdate()
     {
-        curentParameters?.Invoke(hullHP, armorHP, shieldHP);
-    }
-    public void TakeDamage(float damage)
-    {
-        shieldHP -= damage;
-        onTakeDamageEvents?.Invoke();
-    }
+        broadcastPlayerParameters?.Invoke(hullHP, armorHP, shieldHP);
+    }    
 
     void RegShield()
     {
@@ -39,5 +34,11 @@ public class PlayerShipParameters : MonoBehaviour
         {
             shieldHP += shieldRegRate * Time.deltaTime;
         }        
+    }
+
+    public void Damage(float damageValue)
+    {
+        shieldHP -= damageValue;
+        PlayerTakeDamageEvents?.Invoke();
     }
 }

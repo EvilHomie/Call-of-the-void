@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -8,9 +9,10 @@ public class PlayerControl : MonoBehaviour
     //WeaponManager weaponManager;    
     [SerializeField] BeamLaser beamLaser;
     [SerializeField] Camera mainCamera;
-    [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask layerMask;    
 
-    public static Action<Vector3> playerVelocity;
+    public static Action<Vector3> broadcastPlayerVelocity;
+    public static Action<Vector3> broadcastMousePosition;
 
     Vector3 mouseDirection;
     Vector3 mousePosition;
@@ -30,7 +32,8 @@ public class PlayerControl : MonoBehaviour
         MousePosTrack();
         MoveToMouse();
 
-        playerVelocity?.Invoke(playerRb.velocity);
+        broadcastMousePosition?.Invoke(mousePosition);
+        broadcastPlayerVelocity?.Invoke(playerRb.velocity);
     }
     private void Update()
     {
@@ -47,7 +50,7 @@ public class PlayerControl : MonoBehaviour
             mouseDirection = (mousePosition - new Vector3(transform.position.x, raycastHit.point.y, transform.position.z)).normalized;
             Quaternion toMouse = Quaternion.LookRotation(mouseDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toMouse, playerRotateSpeed * Time.deltaTime);
-        }        
+        }
     }
 
     void MoveToMouse()
@@ -62,17 +65,17 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            beamLaser.EnableLaser(mousePosition);
+            beamLaser.EnableLaser();
         }
 
         if (Input.GetButton("Fire1"))
         {
-            beamLaser.UpdateLaser(mousePosition);
+            beamLaser.UpdateLaser();
         }
 
         if (Input.GetButtonUp("Fire1"))
         {
-            beamLaser.DisableLaser(mousePosition);
+            beamLaser.DisableLaser();
         }
     }
 }

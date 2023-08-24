@@ -10,35 +10,30 @@ public class AsteroidManager : MonoBehaviour
     readonly float minSpeed = 0.05f;
     readonly float maxSpeed = 0.15f;
 
+    float tumbleSpeed;
+    readonly float minTumbleSpeed = 0.25f;
+    readonly float maxTumbleSpeed = 1.0f;
+
     readonly float radiusGameZone = 150f;
     Vector3 direction;
-    //float asteroidsSpawnPointPosY;
 
     float curentDistanceFromSpawnPoint;
     readonly float maxDistanceFromSpawnPoint = 400f;
 
     void Awake()
     {
-        asteroidsSpawnManager = GameObject.Find("Asteroids Spawn Manager");
+        asteroidsSpawnManager = FindObjectOfType<AsteroidSpawning>().gameObject;
         asteroidRB = GetComponent<Rigidbody>();
 
-        //asteroidsSpawnPointPosY = asteroidsSpawnManager.transform.position.y;
         MoveToGameZone();
-        StartCoroutine(nameof(DestroyAsteroid));
-        //StartCoroutine(nameof(SaveYPos));
+        StartCoroutine(nameof(CheckDistance));
     }
 
-    //IEnumerator SaveYPos()
-    //{
-    //    while (true)
-    //    {
-    //        if (transform.position.y != asteroidsSpawnPointPosY)
-    //        {
-    //            transform.position = new Vector3(transform.position.x, asteroidsSpawnPointPosY, transform.position.z);
-    //        }
-    //        yield return new WaitForSeconds(0.1f);
-    //    }
-    //}
+    void RandomRotator()
+    {
+        tumbleSpeed = Random.Range(minTumbleSpeed, maxTumbleSpeed);
+        asteroidRB.angularVelocity = Random.insideUnitSphere * tumbleSpeed;
+    }
 
     void MoveToGameZone()
     {
@@ -52,15 +47,13 @@ public class AsteroidManager : MonoBehaviour
         return direction;
     }
 
-
     float SpeedCalc()
     {
         speed = Random.Range(minSpeed,maxSpeed);
         return speed;
     }
 
-
-    IEnumerator DestroyAsteroid()
+    IEnumerator CheckDistance()
     {
         while (true)
         {

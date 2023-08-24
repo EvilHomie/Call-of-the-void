@@ -14,12 +14,12 @@ public class DisplayShipeParameters : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerShipParameters.curentParameters += DisplayParameters;
+        PlayerShipParameters.broadcastPlayerParameters += DisplayParameters;
     }
 
     private void OnDisable()
     {
-        PlayerShipParameters.curentParameters -= DisplayParameters;
+        PlayerShipParameters.broadcastPlayerParameters -= DisplayParameters;
     }
 
     void DisplayParameters(float hullHP, float armorHP, float shieldHP)
