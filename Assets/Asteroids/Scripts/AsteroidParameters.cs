@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class AsteroidParameters : MonoBehaviour, IDadamageable
 {
-    [SerializeField] float asteroidHP;
-    [SerializeField] GameObject blowDownParticle;
+    [SerializeField] GameObject explosionParticle;
+    [SerializeField] float asteroidHP;    
 
     private void Awake()
     {
@@ -16,7 +16,7 @@ public class AsteroidParameters : MonoBehaviour, IDadamageable
 
         if (asteroidHP < 0)
         {
-            Instantiate(blowDownParticle, transform.position, blowDownParticle.transform.rotation);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             Destroy(gameObject);            
         }
     }

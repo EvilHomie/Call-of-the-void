@@ -6,6 +6,7 @@ public class AsteroidManager : MonoBehaviour
     GameObject asteroidsSpawnManager;
     Rigidbody asteroidRB;
     
+
     float speed;
     readonly float minSpeed = 0.05f;
     readonly float maxSpeed = 0.15f;
@@ -25,10 +26,11 @@ public class AsteroidManager : MonoBehaviour
         asteroidsSpawnManager = FindObjectOfType<AsteroidSpawning>().gameObject;
         asteroidRB = GetComponent<Rigidbody>();
 
+        RandomRotator();
         MoveToGameZone();
         StartCoroutine(nameof(CheckDistance));
     }
-
+        
     void RandomRotator()
     {
         tumbleSpeed = Random.Range(minTumbleSpeed, maxTumbleSpeed);
@@ -37,7 +39,8 @@ public class AsteroidManager : MonoBehaviour
 
     void MoveToGameZone()
     {
-        asteroidRB.AddForce(DirectionCoordonates() * SpeedCalc(), ForceMode.VelocityChange);
+        speed = Random.Range(minSpeed, maxSpeed);
+        asteroidRB.AddForce(DirectionCoordonates() * speed, ForceMode.VelocityChange);
     }
 
     Vector3 DirectionCoordonates()
@@ -45,12 +48,6 @@ public class AsteroidManager : MonoBehaviour
         Vector3 randomDirectionPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusGameZone + asteroidsSpawnManager.transform.position;
         direction = randomDirectionPos - transform.position;
         return direction;
-    }
-
-    float SpeedCalc()
-    {
-        speed = Random.Range(minSpeed,maxSpeed);
-        return speed;
     }
 
     IEnumerator CheckDistance()

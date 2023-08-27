@@ -1,87 +1,46 @@
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.EventSystems;
 
 public class BeamLaser : MonoBehaviour
 {
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] Transform firePoint;
-    [SerializeField] GameObject startVFX;
-    [SerializeField] GameObject endVFX;
+    [SerializeField] GameObject permanentStartPointParticlesContainer;
+    [SerializeField] GameObject permanentEndPointParticlesContainer;
+
+    [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip startShoot;
     [SerializeField] AudioClip endShoot;
-    [SerializeField] AudioClip continueShoot;
-    AudioSource audioSource;
+    [SerializeField] AudioClip continueShoot;    
 
-    private List<ParticleSystem> particles = new List<ParticleSystem>();
+    [SerializeField] ParticleSystem shootStartingParticle;
+    [SerializeField] ParticleSystem shootStartingLight;
 
+    readonly List<ParticleSystem> permanentParticles = new();
+
+    readonly string[] fireButtonConditions = { "Pressed", "Ñlamped", "Released" };
+
+    IEnumerator startShooting;
     readonly float beamLength = 200f;
-    float firePointRotateSpeed = 360f;
-    float weaponMaxAngle = 30f;
-
-    public Vector3 mousePosition;
-    Vector3 mouseDirection2D;
-    float damage =50;
+    readonly float firePointRotateSpeed = 360f;
+    readonly float weaponMaxAngle = 20f;
+    readonly float damage = 100f;
+    Vector3 mousePosition;
+    bool onCooldown = false;
+    
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-
-        Debug.Log(audioSource.gameObject.name);
-        lineRenderer.enabled = false;
         PlayerControl.broadcastMousePosition += TakeMousePosition;
+        PlayerControl.broadcastStatusFiringButton += ShootingEvents;
         FillListst();
-        DisableLaser();
     }
 
     private void OnDisable()
     {
         PlayerControl.broadcastMousePosition -= TakeMousePosition;
-    }
-    public void EnableLaser()
-    {
-        lineRenderer.enabled = true;
-
-        for (int i = 0; i < particles.Count; i++)
-        {
-            particles[i].Play();
-        }
-
-        audioSource.PlayOneShot(startShoot);
-
-    }
-
-    public void UpdateLaser()
-    {
-        lineRenderer.SetPosition(0, firePoint.position);
-        lineRenderer. SetPosition(1, firePoint.position + firePoint.forward * beamLength);
-
-        if (Physics.Raycast(transform.position, firePoint.forward, out RaycastHit raycastHit, float.MaxValue))
-        {
-            lineRenderer.SetPosition(1, raycastHit.point);
-            IDadamageable hit = raycastHit.collider.GetComponent<IDadamageable>();
-            if (hit != null )
-            {
-                hit.Damage(damage * Time.deltaTime);
-            }
-        }
-
-        endVFX.transform.position = lineRenderer.GetPosition(1);
-
-    }
-
-    public void DisableLaser()
-    {
-        lineRenderer.enabled = false;
-
-        for (int i = 0; i < particles.Count; i++)
-        {
-            particles[i].Stop();
-        }
-        audioSource.Stop();
-        audioSource.PlayOneShot(endShoot, 0.4f);
+        PlayerControl.broadcastStatusFiringButton -= ShootingEvents;
     }
 
     private void FixedUpdate()
@@ -89,10 +48,90 @@ public class BeamLaser : MonoBehaviour
         RotateToMouse();
     }
 
-    public void RotateToMouse()
-    {       
+    void ShootingEvents(string condition)
+    {
+        if (condition == fireButtonConditions[0])
+        {
+            startShooting = StartShooting();
+            StartCoroutine(startShooting);
+        }
+
+        if (condition == fireButtonConditions[1]) ContinuedShooting();
+
+        if (condition == fireButtonConditions[2])
+        {
+            StartCoroutine(StopShooting());
+        }
+    }
+
+    IEnumerator StartShooting()
+    {
+        while (onCooldown) { yield return null; }
+        onCooldown = true;
+
+        shootStartingParticle.Play();
+        shootStartingLight.Play();  
+        PlayAudioEffect(false, startShoot);
+
+        yield return new WaitForSeconds(startShoot.length);
+
+        shootStartingParticle.Stop();
+        PlayPermamentParticles(true);
+        PlayAudioEffect(true, continueShoot);
+
+        lineRenderer.enabled = true;
+    }
+
+    void PlayAudioEffect(bool looping, AudioClip audioClipName)
+    {
+        audioSource.Stop();
+        audioSource.loop = looping;
+        audioSource.clip = audioClipName;
+        audioSource.Play();
+    }
+
+    void PlayPermamentParticles(bool enable)
+    {
+        for (int i = 0; i < permanentParticles.Count; i++)
+        {
+            if (enable) permanentParticles[i].Play();
+            if (!enable) permanentParticles[i].Stop();
+        }
+    }
+
+    void ContinuedShooting()
+    {
+        lineRenderer.SetPosition(0, firePoint.position);
+        lineRenderer.SetPosition(1, firePoint.position + firePoint.forward * beamLength);
+
+        if (Physics.Raycast(transform.position, firePoint.forward, out RaycastHit raycastHit, float.MaxValue) & lineRenderer.enabled == true)
+        {
+            lineRenderer.SetPosition(1, raycastHit.point);
+            IDadamageable hit = raycastHit.collider.GetComponent<IDadamageable>();
+            hit?.Damage(damage * Time.deltaTime);
+        }
+
+        permanentEndPointParticlesContainer.transform.position = lineRenderer.GetPosition(1);
+    }
+
+    IEnumerator StopShooting()
+    {
+        lineRenderer.enabled = false;
+        StopCoroutine(startShooting);
+
+        shootStartingParticle.Stop();
+        shootStartingLight.Stop();
+        PlayPermamentParticles(false);
+        PlayAudioEffect(false, endShoot);        
+
+        yield return new WaitForSeconds(endShoot.length);
+        onCooldown = false;
+    }
+
+    void RotateToMouse()
+    {
         Vector3 mouseDirection = mousePosition - firePoint.position;
-        mouseDirection2D = new Vector3(mouseDirection.x, 0, mouseDirection.z).normalized;
+        Vector3 mouseDirection2D = new Vector3(mouseDirection.x, 0, mouseDirection.z).normalized;
         Quaternion toMouse = Quaternion.LookRotation(mouseDirection2D, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, toMouse, firePointRotateSpeed * Time.deltaTime);
 
@@ -118,24 +157,22 @@ public class BeamLaser : MonoBehaviour
 
     void FillListst()
     {
-        for (int i = 0; i<startVFX.transform.childCount; i++)
+        for (int i = 0; i < permanentStartPointParticlesContainer.transform.childCount; i++)
         {
-            var ps = startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if (ps != null)
+            if (permanentStartPointParticlesContainer.transform.GetChild(i).TryGetComponent<ParticleSystem>(out var ps))
             {
-                particles.Add(ps);
+                permanentParticles.Add(ps);                
             }
         }
 
-        for (int i = 0; i < endVFX.transform.childCount; i++)
+        for (int i = 0; i < permanentEndPointParticlesContainer.transform.childCount; i++)
         {
-            var ps = endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if (ps != null)
+            if (permanentEndPointParticlesContainer.transform.GetChild(i).TryGetComponent<ParticleSystem>(out var ps))
             {
-                particles.Add(ps);
+                permanentParticles.Add(ps);
             }
         }
     }
-
 }
+
 

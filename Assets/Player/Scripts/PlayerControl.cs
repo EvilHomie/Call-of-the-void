@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
 
     public static Action<Vector3> broadcastPlayerVelocity;
     public static Action<Vector3> broadcastMousePosition;
+    public static Action<string> broadcastStatusFiringButton;
 
     Vector3 mouseDirection;
     Vector3 mousePosition;
@@ -40,6 +41,14 @@ public class PlayerControl : MonoBehaviour
         Shoot();
     }
 
+    private void OnDisable()
+    {
+        if (Input.GetButton("Fire1")) broadcastStatusFiringButton?.Invoke("Released");
+    }
+    private void OnEnable()
+    {
+        if (Input.GetButton("Fire1")) broadcastStatusFiringButton?.Invoke("Pressed");
+    }
 
     void MousePosTrack()
     {
@@ -65,17 +74,17 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            beamLaser.EnableLaser();
+            broadcastStatusFiringButton?.Invoke("Pressed");
         }
 
         if (Input.GetButton("Fire1"))
         {
-            beamLaser.UpdateLaser();
+            broadcastStatusFiringButton?.Invoke("Ñlamped");
         }
 
         if (Input.GetButtonUp("Fire1"))
         {
-            beamLaser.DisableLaser();
+            broadcastStatusFiringButton?.Invoke("Released");
         }
     }
 }
