@@ -8,8 +8,8 @@ public class AsteroidManager : MonoBehaviour
     
 
     float speed;
-    readonly float minSpeed = 0.05f;
-    readonly float maxSpeed = 0.15f;
+    readonly float minSpeed = 0.03f;
+    readonly float maxSpeed = 0.05f;
 
     float tumbleSpeed;
     readonly float minTumbleSpeed = 0.25f;
@@ -19,7 +19,7 @@ public class AsteroidManager : MonoBehaviour
     Vector3 direction;
 
     float curentDistanceFromSpawnPoint;
-    readonly float maxDistanceFromSpawnPoint = 400f;
+    readonly float maxDistanceFromSpawnPoint = 800f;
 
     void Awake()
     {

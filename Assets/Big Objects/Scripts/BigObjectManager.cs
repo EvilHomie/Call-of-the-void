@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BigObjectManager : MonoBehaviour
 {
     // закоментировал возможность планеты двигаться вместе с игроком (для имитации влияния отдалености планеты на скорость корабля)
     GameObject asteroidsSpawnManager;
-    Rigidbody rb;
+    //Rigidbody rb;
 
     public static Action onBigObjectDestroy;
 
@@ -28,7 +27,7 @@ public class BigObjectManager : MonoBehaviour
     void Awake()
     {
         asteroidsSpawnManager = GameObject.Find("Asteroids Spawn Manager");
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
 
         RandomizeSize();
 

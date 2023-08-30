@@ -9,6 +9,5 @@ public class BackGroundFollowPlayer : MonoBehaviour
     void Update()
     {
         transform.position = player.transform.position - offset;
-        ;
     }
 }

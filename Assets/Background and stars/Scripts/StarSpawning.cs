@@ -12,8 +12,8 @@ public class StarSpawning : MonoBehaviour
     readonly float minRepitSpawnDelay = 3f;
     readonly float maxRepitSpawnDelay = 5f;
 
-    readonly float spawnPosXValue = 4.4f;
-    readonly float spawnPosZValue = 2.1f;
+    readonly float spawnPosXValue = 3.5f;
+    readonly float spawnPosZValue = 2f;
     float bGScale;
 
     Vector3 spawnPos;
@@ -28,9 +28,9 @@ public class StarSpawning : MonoBehaviour
 
     void StarSpawn()
     {
-        float spawnPosX = Random.Range(-spawnPosXValue, spawnPosXValue) * bGScale;
-        float spawnPosZ = Random.Range(-spawnPosZValue, spawnPosZValue) * bGScale;
-        spawnPos = new Vector3(spawnPosX, transform.position.y , spawnPosZ);
+        float randomPosX = Random.Range(-spawnPosXValue, spawnPosXValue) * bGScale;
+        float randomPosZ = Random.Range(-spawnPosZValue, spawnPosZValue) * bGScale;
+        spawnPos = new Vector3(randomPosX, 0 , randomPosZ) + transform.position;
 
         Instantiate(twinklingStar, spawnPos, twinklingStar.transform.rotation, transform);
 

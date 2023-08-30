@@ -41,6 +41,4 @@ public class ShakeCam : MonoBehaviour
             perlinNoise.m_FrequencyGain = 0;
         }
     }  
-
-    
 }

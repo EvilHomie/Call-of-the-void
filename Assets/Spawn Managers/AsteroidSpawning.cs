@@ -5,9 +5,9 @@ public class AsteroidSpawning : MonoBehaviour
     [SerializeField] GameObject[] asteroid;
 
     readonly float spawnRadiusAroundPlayer = 200f;
-    readonly float spawnDelay = 2f;
+    readonly float spawnDelay = 1.5f;
     readonly float lowerLimitPlayerSpeed = 20f;
-    readonly float posMultipler = 10f;
+    readonly float spawnDistanceAheadPlayerMod = 5f;
     readonly float spawnRadiusAheadPlayer = 100f;
     float playerSpeed = 0;
     Vector3 spawnPosAheadPlayer;
@@ -63,7 +63,7 @@ public class AsteroidSpawning : MonoBehaviour
 
     void AsteroidSpawnWhenPlayerMove()
     {
-        Vector3 Pos = new Vector3 (Random.insideUnitCircle.x, 0 , Random.insideUnitCircle.y) * spawnRadiusAheadPlayer + transform.position + spawnPosAheadPlayer * posMultipler;
+        Vector3 Pos = new Vector3 (Random.insideUnitCircle.x, 0 , Random.insideUnitCircle.y) * spawnRadiusAheadPlayer + transform.position + spawnPosAheadPlayer * spawnDistanceAheadPlayerMod;
         Instantiate(asteroid[RandomAsteroidIndex()], Pos, Quaternion.identity);
         Invoke(nameof(SpawnAsteroidsMethodName), spawnDelay);
     }
