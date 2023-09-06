@@ -14,6 +14,8 @@ public class PlayerControl : MonoBehaviour
 
     public static Action<Vector3> broadcastPlayerVelocity;
     public static Action<Vector3> broadcastMousePosition;
+
+    public static Action<Vector3> broadcastPlayerPosition;
     public static Action<string> broadcastStatusFiringButton;
 
     public GameObject virCam;
@@ -39,6 +41,8 @@ public class PlayerControl : MonoBehaviour
 
         broadcastMousePosition?.Invoke(mousePosition2D);
         broadcastPlayerVelocity?.Invoke(playerRb.velocity);
+        broadcastPlayerPosition?.Invoke(transform.position);
+        
 
     }
 

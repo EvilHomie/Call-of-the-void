@@ -6,6 +6,7 @@ public class ImpulseLaser : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] ParticleSystem shootParticle;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip shootSound;
 
     float nextTimeToFire = 0;
     float fireRate = 5;
@@ -15,24 +16,25 @@ public class ImpulseLaser : MonoBehaviour
     readonly float firePointRotateSpeed = 360f;
     readonly float weaponMaxAngle = 30f;
     readonly float damage = 100f;
-    Vector3 mousePosition;
+    Vector3 targetPosition;
 
 
     void OnEnable()
     {
-        PlayerControl.broadcastMousePosition += TakeMousePosition;
+        PlayerControl.broadcastMousePosition += TakeTargetPosition;
         PlayerControl.broadcastStatusFiringButton += ShootingEvents;
     }
 
     void OnDisable()
     {
-        PlayerControl.broadcastMousePosition -= TakeMousePosition;
+        PlayerControl.broadcastMousePosition -= TakeTargetPosition;
         PlayerControl.broadcastStatusFiringButton -= ShootingEvents;
     }
 
     void FixedUpdate()
     {
-        RotateToMouse();
+        RotateToTarget();
+        
     }
 
     void ShootingEvents(string condition)
@@ -55,7 +57,7 @@ public class ImpulseLaser : MonoBehaviour
 
             Instantiate(projectilePrefab, pos, firePoint.rotation);
             shootParticle.Play();
-            audioSource.Play();
+            audioSource.PlayOneShot(shootSound);
         }      
     }
 
@@ -69,16 +71,16 @@ public class ImpulseLaser : MonoBehaviour
 
             Instantiate(projectilePrefab, pos, firePoint.rotation);
             shootParticle.Play();
-            audioSource.Play();
+            audioSource.PlayOneShot(shootSound);
         }
     }
 
-    void RotateToMouse()
+    void RotateToTarget()
     {
-        Vector3 mouseDirection = mousePosition - firePoint.position;
-        Vector3 mouseDirection2D = new Vector3(mouseDirection.x, 0, mouseDirection.z).normalized;
-        Quaternion toMouse = Quaternion.LookRotation(mouseDirection2D, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, toMouse, firePointRotateSpeed * Time.deltaTime);
+        Vector3 targetDirection = targetPosition - firePoint.position;
+        Vector3 targetDirection2D = new Vector3(targetDirection.x, 0, targetDirection.z).normalized;
+        Quaternion toTarget = Quaternion.LookRotation(targetDirection2D, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toTarget, firePointRotateSpeed * Time.deltaTime);
 
         ConstraintRotation();
     }
@@ -95,9 +97,9 @@ public class ImpulseLaser : MonoBehaviour
         }
     }
 
-    void TakeMousePosition(Vector3 mousePos)
+    void TakeTargetPosition(Vector3 targetPos)
     {
-        mousePosition = mousePos;
+        targetPosition = targetPos;
     }
 }
 

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class ProjectileManager : MonoBehaviour
+public class TurretProjectileManager : MonoBehaviour
 {
     Rigidbody rb;
-    float speed = 100;
-    float lifeTime = 2;
-    float damage = 25;
+    [SerializeField] float speed = 100;
+    [SerializeField] float lifeTime = 2;
+    public float turretDamage;
     [SerializeField] ParticleSystem hitEfect;
 
     private void Awake()
@@ -20,7 +20,7 @@ public class ProjectileManager : MonoBehaviour
     {
         IDadamageable target = collision.gameObject.GetComponent<IDadamageable>();
 
-        target?.Damage(damage);
+        target?.Damage(turretDamage);
         Instantiate(hitEfect, collision.contacts[0].point, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
 
         Destroy(gameObject);
