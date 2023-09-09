@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 3560795720611117783}
   - component: {fileID: 9798896485171383}
   - component: {fileID: 8996320452259741372}
+  - component: {fileID: 5662620878278445679}
   m_Layer: 0
   m_Name: Small Asteroid
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,6 +178,19 @@ MonoBehaviour:
   explosionParticle: {fileID: 4767705418860891765, guid: add79a24a4375c64f9ea0a042bb57a3e,
     type: 3}
   asteroidHP: 0
+  asteroidMaxHP: 0
+--- !u!114 &5662620878278445679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5563323982375897026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aae2f2ea429b10409a13b62817c2dc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7538042900046577967
 GameObject:
   m_ObjectHideFlags: 0

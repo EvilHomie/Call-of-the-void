@@ -4878,7 +4878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3374940253015825689
 Transform:
   m_ObjectHideFlags: 0
@@ -4894,7 +4894,7 @@ Transform:
   - {fileID: 4993432325212053423}
   - {fileID: 4388295704765274901}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7914722068969444059
 MonoBehaviour:
@@ -4919,6 +4919,10 @@ MonoBehaviour:
   continueShoot: {fileID: 8300000, guid: 5b1c92c62bf443841980a3a2cd6ed389, type: 3}
   shootStartingParticle: {fileID: 8471823944381818806}
   shootStartingLight: {fileID: 1864477932508933233}
+  firePointRotateSpeed: 180
+  weaponMaxAngle: 45
+  energyDamage: 10
+  kineticDamage: 5
 --- !u!82 &8337054165707011193
 AudioSource:
   m_ObjectHideFlags: 0

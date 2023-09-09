@@ -10,32 +10,46 @@ public class DisplayTargetParameters : MonoBehaviour
     [SerializeField] Slider shieldSlider;
 
     [SerializeField] TextMeshProUGUI hullHPText;
+    [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI armorHPText;
     [SerializeField] TextMeshProUGUI shieldHPText;
 
+
+
+    string gameObjectTag;
+    float hullHp;
+    float armorHp;
+    float shieldHp;
+
+
     private void OnEnable()
     {
-        PlayerShipParameters.broadcastPlayerParameters += DisplayParameters;
+        BroadcastTargetParameters.maxParameters += SetMaxParameters;
+        BroadcastTargetParameters.broadcastParameters += DisplayParameters;
     }
 
     private void OnDisable()
     {
-        PlayerShipParameters.broadcastPlayerParameters -= DisplayParameters;
-    }
+        BroadcastTargetParameters.maxParameters += SetMaxParameters;
+        BroadcastTargetParameters.broadcastParameters -= DisplayParameters;
 
-    void DisplayParameters(float hullHP, float armorHP, float shieldHP)
+    }
+    void DisplayParameters(string name, float hullHP, float armorHP, float shieldHP)
     {
         hullSlider.value = hullHP;
         armorSlider.value = armorHP;
         shieldSlider.value = shieldHP;
 
-        hullHPText.text = $"{Mathf.Round(hullHP)} %";
-        armorHPText.text = $"{Mathf.Round(armorHP)} %";
-        shieldHPText.text = $"{Mathf.Round(shieldHP)} %";
+        nameText.text = name;
+        hullHPText.text = Mathf.Round(hullHP).ToString();
+        armorHPText.text = Mathf.Round(armorHP).ToString();
+        shieldHPText.text = Mathf.Round(shieldHP).ToString();
     }
-
-    public void GetLastHitObject(string gameObjectTag, float hullHp, float armorHp, float shieldHp )
+    void SetMaxParameters(float maxHullHP, float maxArmorHP, float maxShieldHP)
     {
-
+        hullSlider.maxValue = maxHullHP;
+        armorSlider.maxValue = maxArmorHP;
+        shieldSlider.maxValue = maxShieldHP;
+        Debug.Log("wad");
     }
 }

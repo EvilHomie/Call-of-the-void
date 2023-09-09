@@ -36,9 +36,9 @@ public class PlayerShipParameters : MonoBehaviour, IDadamageable
         }        
     }
 
-    public void Damage(float damageValue)
+    public void Damage(float energyDMG, float kineticDMG)
     {
-        shieldHP -= damageValue;
+        shieldHP -= energyDMG;
         PlayerTakeDamageEvents?.Invoke();
     }
 }

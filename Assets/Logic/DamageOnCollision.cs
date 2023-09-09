@@ -20,6 +20,6 @@ public class DamageOnCollision : MonoBehaviour
     void DamageCalculating(float colForce)
     {
         float damageValue = colForce / damageMultipler;
-        IDadamageable.Damage(damageValue);
+        IDadamageable.Damage(damageValue, damageValue);
     }
 }

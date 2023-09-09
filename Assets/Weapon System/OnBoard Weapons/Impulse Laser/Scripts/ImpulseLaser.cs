@@ -9,13 +9,14 @@ public class ImpulseLaser : MonoBehaviour
     [SerializeField] AudioClip shootSound;
 
     float nextTimeToFire = 0;
-    float fireRate = 5;
+    [SerializeField] float fireRate = 5;
 
     readonly string[] fireButtonConditions = {"Pressed", "Ñlamped"};
 
-    readonly float firePointRotateSpeed = 360f;
-    readonly float weaponMaxAngle = 30f;
-    readonly float damage = 100f;
+    [SerializeField] float firePointRotateSpeed;
+    [SerializeField] float weaponMaxAngle;
+    [SerializeField] float energyDamage;
+    [SerializeField] float kineticDamage;
     Vector3 targetPosition;
 
 
@@ -23,6 +24,7 @@ public class ImpulseLaser : MonoBehaviour
     {
         PlayerControl.broadcastMousePosition += TakeTargetPosition;
         PlayerControl.broadcastStatusFiringButton += ShootingEvents;
+        SetDMG();
     }
 
     void OnDisable()
@@ -33,21 +35,26 @@ public class ImpulseLaser : MonoBehaviour
 
     void FixedUpdate()
     {
-        RotateToTarget();
-        
+        RotateToTarget();        
+    }
+
+    void SetDMG()
+    {
+        projectilePrefab.GetComponent<ProjectileManager>().energyDamage = energyDamage;
+        projectilePrefab.GetComponent<ProjectileManager>().kineticDamage = kineticDamage;
     }
 
     void ShootingEvents(string condition)
     {
         if (condition == fireButtonConditions[0])
         {
-            StartShooting();
+            Shoot();
         }
 
-        if (condition == fireButtonConditions[1]) ContinuedShooting();       
+        if (condition == fireButtonConditions[1]) Shoot();       
     }
 
-    void StartShooting()
+    void Shoot()
     {
         if (Time.time >= nextTimeToFire)
         {
@@ -55,24 +62,11 @@ public class ImpulseLaser : MonoBehaviour
             Vector3 offSet = firePoint.forward * 1.5f;
             Vector3 pos = firePoint.position + offSet;
 
-            Instantiate(projectilePrefab, pos, firePoint.rotation);
+            GameObject projectile = Instantiate(projectilePrefab, pos, firePoint.rotation);
+            projectile.SetActive(true);
             shootParticle.Play();
             audioSource.PlayOneShot(shootSound);
         }      
-    }
-
-    void ContinuedShooting()
-    {
-        if (Time.time >= nextTimeToFire)
-        {
-            nextTimeToFire = Time.time + 1 / fireRate;
-            Vector3 offSet = firePoint.forward * 1.5f;
-            Vector3 pos = firePoint.position + offSet;
-
-            Instantiate(projectilePrefab, pos, firePoint.rotation);
-            shootParticle.Play();
-            audioSource.PlayOneShot(shootSound);
-        }
     }
 
     void RotateToTarget()

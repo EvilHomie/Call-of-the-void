@@ -25,9 +25,12 @@ public class BeamLaser : MonoBehaviour
 
     IEnumerator startShooting;
     readonly float beamLength = 200f;
-    readonly float firePointRotateSpeed = 360f;
-    readonly float weaponMaxAngle = 20f;
-    readonly float damage = 100f;
+    [SerializeField] float firePointRotateSpeed;
+    [SerializeField] float weaponMaxAngle;
+
+    [SerializeField] float energyDamage;
+    [SerializeField] float kineticDamage;
+
     Vector3 mousePosition;
     bool onCooldown = false;
     
@@ -96,7 +99,7 @@ public class BeamLaser : MonoBehaviour
             IDadamageable hit = raycastHit.collider.GetComponent<IDadamageable>();
 
 
-            hit?.Damage(damage * Time.deltaTime);
+            hit?.Damage(energyDamage * Time.deltaTime, kineticDamage * Time.deltaTime);
             hitAudio.Play();
         }
         else { hitAudio.Stop(); }

@@ -28,6 +28,11 @@ public class TurretImpulseLaser : MonoBehaviour
                 targetInFocus = true;
             }
             else { targetInFocus = false; }
+
+            if (raycastHit.collider.gameObject.CompareTag("Asteroid"))
+            {
+                Shooting();
+            }
         }
         else { targetInFocus = false; }
     }

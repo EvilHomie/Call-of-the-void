@@ -28,8 +28,8 @@ public class DisplayShipeParameters : MonoBehaviour
         armorSlider.value = armorHP;
         shieldSlider.value = shieldHP;
 
-        hullHPText.text = $"{Mathf.Round(hullHP)} %";
-        armorHPText.text = $"{Mathf.Round(armorHP)} %";
-        shieldHPText.text = $"{Mathf.Round(shieldHP)} %";
+        hullHPText.text = Mathf.Round(hullHP).ToString();
+        armorHPText.text = Mathf.Round(armorHP).ToString();
+        shieldHPText.text = Mathf.Round(shieldHP).ToString();
     }
 }

@@ -1,5 +1,5 @@
 public interface IDadamageable
 {
-    void Damage( float damageValue);
+    void Damage(float energyDMG, float kineticDMG);
 
 }
