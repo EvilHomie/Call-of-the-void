@@ -15,7 +15,7 @@ public class AsteroidManager : MonoBehaviour
     readonly float minTumbleSpeed = 0.25f;
     readonly float maxTumbleSpeed = 1.0f;
 
-    readonly float radiusGameZone = 150f;
+    readonly float radiusGameZone = 100f;
     Vector3 direction;
 
     float curentDistanceFromSpawnPoint;
