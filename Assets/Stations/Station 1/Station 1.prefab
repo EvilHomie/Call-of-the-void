@@ -41,7 +41,7 @@ Transform:
   - {fileID: 7306528093312383265}
   - {fileID: 5926284964496534967}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7192497730845891925
 MeshFilter:
@@ -321,8 +321,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret Impulse Laser Prefab (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -3426292497290507331, guid: 004b92eb88a52f646b9a4e6c9a922511, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -401,8 +400,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret Impulse Laser Prefab (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -3426292497290507331, guid: 004b92eb88a52f646b9a4e6c9a922511, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -481,8 +479,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret Impulse Laser Prefab (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -3426292497290507331, guid: 004b92eb88a52f646b9a4e6c9a922511, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -561,8 +558,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret Impulse Laser Prefab
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -3426292497290507331, guid: 004b92eb88a52f646b9a4e6c9a922511, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

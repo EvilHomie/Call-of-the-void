@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class StationParameters : MonoBehaviour, IDadamageable, ITargetParameters
 {
+    public static Action<Vector3> broadcastStationPosition;    
+
     [SerializeField] float hullHP;
     [SerializeField] float armorHP;
     [SerializeField] float shieldHP;
@@ -24,12 +27,16 @@ public class StationParameters : MonoBehaviour, IDadamageable, ITargetParameters
         fullHull = hullHP;
         fullArmor = armorHP;
         fullShield = shieldHP;
-        
+        broadcastStationPosition?.Invoke(transform.position);
     }
     private void FixedUpdate()
     {
         RegShield();
-    }    
+    }
+    private void OnDestroy()
+    {
+        broadcastStationPosition?.Invoke(Vector3.zero);
+    }
 
     void RegShield()
     {

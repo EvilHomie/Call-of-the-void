@@ -34,7 +34,7 @@ public class TwinklingStarManager : MonoBehaviour
         StartCoroutine(nameof(DestroyStar));
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Pulsing();
     }

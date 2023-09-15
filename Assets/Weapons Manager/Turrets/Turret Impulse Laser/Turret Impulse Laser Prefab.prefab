@@ -5221,7 +5221,7 @@ Transform:
   m_Children:
   - {fileID: 8532703685448529834}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &6147706411506039608
 MonoBehaviour:
@@ -5243,7 +5243,7 @@ MonoBehaviour:
   fireRate: 0.5
   energyDamage: 10
   kineticDamage: 10
-  offSetSpawnProjectile: 5
+  offSetSpawnProjectile: 6
 --- !u!114 &1696076318635591160
 MonoBehaviour:
   m_ObjectHideFlags: 0
