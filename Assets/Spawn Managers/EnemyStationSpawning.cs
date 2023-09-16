@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemyStationSpawning : MonoBehaviour
@@ -23,12 +22,12 @@ public class EnemyStationSpawning : MonoBehaviour
 
     private void OnEnable()
     {
-        StationParameters.broadcastStationPosition += Invoke;
+        BroadcastStationPosition.broadcastStationPosition += Invoke;
     }
 
     private void OnDisable()
     {
-        StationParameters.broadcastStationPosition -= Invoke;
+        BroadcastStationPosition.broadcastStationPosition -= Invoke;
     }
    
     void SpawnEnemyStation()
@@ -36,7 +35,7 @@ public class EnemyStationSpawning : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, stationPrefabs.Length);
         float randomAngle = UnityEngine.Random.Range(-spawnAngle, spawnAngle);
 
-        Vector3 Pos = Quaternion.Euler(0, player.transform.eulerAngles.y + randomAngle, 0) * transform.forward * spawnDistance + player.transform.position;
+        Vector3 Pos = Quaternion.Euler(0, player.transform.eulerAngles.y + randomAngle, 0) * transform.forward * spawnDistance + transform.position;
         Instantiate(stationPrefabs[randomIndex], Pos, Quaternion.identity);             
     }
 

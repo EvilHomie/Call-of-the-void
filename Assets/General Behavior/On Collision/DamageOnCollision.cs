@@ -4,7 +4,7 @@ public class DamageOnCollision : MonoBehaviour
 {
     IDadamageable IDadamageable;
 
-    readonly float damageMultipler = 20;
+    readonly float damageMod = 20;
 
     private void Awake()
     {
@@ -13,13 +13,16 @@ public class DamageOnCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Vector3 collisionImpulse = collision.impulse;
-        DamageCalculating(collisionImpulse.magnitude);
+        if (!collision.collider.GetComponent<ProjectileManager>())
+        {
+            Vector3 collisionImpulse = collision.impulse;
+            DamageCalculating(collisionImpulse.magnitude);
+        }        
     }
 
     void DamageCalculating(float colForce)
     {
-        float damageValue = colForce / damageMultipler;
+        float damageValue = colForce / damageMod;
         IDadamageable.Damage(damageValue, damageValue);
     }
 }

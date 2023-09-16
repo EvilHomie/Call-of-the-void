@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class StationDirectionManager : MonoBehaviour
+public class StationPointerManager : MonoBehaviour
 {
     [SerializeField] GameObject pointer;
     [SerializeField] TextMeshProUGUI text;
@@ -23,13 +23,13 @@ public class StationDirectionManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerControl.broadcastPlayerPosition += GetPlayerPos;
-        StationParameters.broadcastStationPosition += GetStationPos;               
+        BroadcastStationPosition.broadcastStationPosition += GetStationPos;               
     }
 
     private void OnDisable()
     {
         PlayerControl.broadcastPlayerPosition -= GetPlayerPos;
-        StationParameters.broadcastStationPosition -= GetStationPos;
+        BroadcastStationPosition.broadcastStationPosition -= GetStationPos;
     }
 
     private void FixedUpdate()

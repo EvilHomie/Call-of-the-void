@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RotateToTargetLogic : MonoBehaviour
+public class WeaponRotateToTargetLogic : MonoBehaviour
 {
     [SerializeField] Transform pivotPoint;
 

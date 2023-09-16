@@ -39,14 +39,18 @@ public class PlayerControl : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, layerMask))
         {
-            Vector3 mousePosition = raycastHit.point;
-            mousePosition2D = new Vector3(mousePosition.x, 0 , mousePosition.z);
-            Vector3 mouseDirection = mousePosition2D - transform.position ;
-            Quaternion toMouse = Quaternion.LookRotation(mouseDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toMouse, playerRotateSpeed * Time.deltaTime);
+            RotateToMouse(raycastHit);
         }
     }
 
+    void RotateToMouse(RaycastHit raycastHit)
+    {
+        Vector3 mousePosition = raycastHit.point;
+        mousePosition2D = new Vector3(mousePosition.x, 0, mousePosition.z);
+        Vector3 mouseDirection = mousePosition2D - transform.position;
+        Quaternion toMouse = Quaternion.LookRotation(mouseDirection, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toMouse, playerRotateSpeed * Time.deltaTime);
+    }
     void MoveForward()
     {
         if (Input.GetButton("Fire2"))

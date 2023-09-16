@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BigObjectSpawning : MonoBehaviour
 {
-    [SerializeField] GameObject bigObject;
+    [SerializeField] GameObject bigObjectPrefab;
 
     float spawnDelay = 1;
     readonly float minDelay = 1;
@@ -44,6 +44,6 @@ public class BigObjectSpawning : MonoBehaviour
         randomPos.z = Mathf.Sin(dotProductAngle * (Random.value > 0.5f ? 1f : -1f)) * spawnRadiusAroundPlayer + transform.position.z;
         randomPos.y = transform.position.y;
 
-        Instantiate(bigObject, randomPos, bigObject.transform.rotation);
+        Instantiate(bigObjectPrefab, randomPos, bigObjectPrefab.transform.rotation);
     }    
 }

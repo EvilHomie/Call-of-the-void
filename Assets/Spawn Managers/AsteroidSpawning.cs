@@ -5,11 +5,11 @@ public class AsteroidSpawning : MonoBehaviour
     [SerializeField] GameObject[] asteroid;
 
     readonly float radiusAroundPlayer = 200f;
-    readonly float spawnDelay = 5f;
-    readonly float lowerValuePlyerSpeed = 10f;
+    readonly float spawnDelay = 4f;
+    readonly float lowerValuePlayerVelocity = 10f;
     readonly float distanceMod = 15f;
     readonly float radiusAheadPlayer = 100f;
-    float playerSpeed = 0;
+    float playerVelocity = 0;
     Vector3 playerMoveDirection;
 
     void OnEnable()
@@ -25,7 +25,7 @@ public class AsteroidSpawning : MonoBehaviour
 
     void SpawnAsteroidsMethodName()
     {
-        if (playerSpeed > lowerValuePlyerSpeed)
+        if (playerVelocity > lowerValuePlayerVelocity)
         {
             AsteroidSpawnWhenPlayerMove();   
         }
@@ -37,7 +37,7 @@ public class AsteroidSpawning : MonoBehaviour
 
     void PlayerTrañking(Vector3 playerVelocity)
     {
-        playerSpeed = playerVelocity.magnitude;
+        this.playerVelocity = playerVelocity.magnitude;
         playerMoveDirection = playerVelocity;
     }
 
