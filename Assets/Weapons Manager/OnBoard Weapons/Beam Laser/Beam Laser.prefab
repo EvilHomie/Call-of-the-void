@@ -4875,7 +4875,7 @@ GameObject:
   - component: {fileID: 8995589771242495562}
   m_Layer: 0
   m_Name: Beam Laser
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4908,7 +4908,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4917,9 +4917,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -4935,6 +4935,15 @@ AudioSource:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.121450245
+      value: 0.45246416
+      inSlope: -1.712143
+      outSlope: -1.712143
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1960087
+      outWeight: 0.054065812
     - serializedVersion: 3
       time: 1
       value: 0
@@ -4952,7 +4961,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5006,7 +5015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivotPoint: {fileID: 3746536285159898635}
   weaponRotateSpeed: 360
-  weaponMaxAngle: 45
+  weaponMaxAngle: 15
 --- !u!114 &8995589771242495562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5042,7 +5051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3746536285159898635}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: Pivot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9935,7 +9944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4388295704765274901}
   m_Layer: 0
-  m_Name: FirePoint
+  m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10037,7 +10046,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9f0d925b01fbba546a0439a77a2e5bb2, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 3
   Loop: 1
   Mute: 0
@@ -10048,7 +10057,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 300
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

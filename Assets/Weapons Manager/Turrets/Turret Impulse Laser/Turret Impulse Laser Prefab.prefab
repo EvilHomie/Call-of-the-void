@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 588611922723056214}
   m_Layer: 0
-  m_Name: 'FirePoint '
+  m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5096,7 +5096,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4829651557437522783}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 3
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -5164,7 +5164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8532703685448529834}
   m_Layer: 0
-  m_Name: PivotPoint
+  m_Name: Pivot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5215,13 +5215,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9146738899640371260}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.846, y: 0, z: -0.02}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8532703685448529834}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &6147706411506039608
 MonoBehaviour:
@@ -5241,8 +5241,8 @@ MonoBehaviour:
   audioSource: {fileID: 3107042870031677746}
   shootSound: {fileID: 8300000, guid: e185652f6e369254f89cff7a4802e8cf, type: 3}
   fireRate: 0.5
-  energyDamage: 10
-  kineticDamage: 10
+  energyDamage: 50
+  kineticDamage: 50
   offSetSpawnProjectile: 6
 --- !u!114 &1696076318635591160
 MonoBehaviour:
@@ -5271,9 +5271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c229400b5c3c53e4ab0371168889b2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretShootDistance: 200
-  firePoint: {fileID: 588611922723056214}
   targetInFocus: 0
+  shootIsStop: 0
 --- !u!82 &3107042870031677746
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5286,7 +5285,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e185652f6e369254f89cff7a4802e8cf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.507
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5295,9 +5294,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 300
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -5314,14 +5313,14 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.21581823
-      value: 0.32053667
-      inSlope: -1.4212701
-      outSlope: -1.4212701
+      time: 0.121450245
+      value: 0.45246416
+      inSlope: -1.712143
+      outSlope: -1.712143
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.1960087
+      outWeight: 0.054065812
     - serializedVersion: 3
       time: 1
       value: 0

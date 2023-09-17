@@ -4965,7 +4965,7 @@ GameObject:
   - component: {fileID: 4932863120637733030}
   m_Layer: 0
   m_Name: Impulse Laser
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4978,13 +4978,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6307115990872510012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3100452446143939055}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &3452290812597313082
 AudioSource:
@@ -4998,7 +4998,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5007,9 +5007,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -5025,6 +5025,15 @@ AudioSource:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.121450245
+      value: 0.45246416
+      inSlope: -1.712143
+      outSlope: -1.712143
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1960087
+      outWeight: 0.054065812
     - serializedVersion: 3
       time: 1
       value: 0
@@ -5042,7 +5051,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5100,8 +5109,8 @@ MonoBehaviour:
   audioSource: {fileID: 3452290812597313082}
   shootSound: {fileID: 8300000, guid: 3eaccb11874c4b447bfca8bd24f6ad83, type: 3}
   fireRate: 3
-  energyDamage: 10
-  kineticDamage: 10
+  energyDamage: 20
+  kineticDamage: 20
   offSetSpawnProjectile: 1.5
 --- !u!114 &4932863120637733030
 MonoBehaviour:
@@ -5117,7 +5126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivotPoint: {fileID: 3100452446143939055}
   weaponRotateSpeed: 360
-  weaponMaxAngle: 45
+  weaponMaxAngle: 15
 --- !u!1 &8264181286824441253
 GameObject:
   m_ObjectHideFlags: 0
