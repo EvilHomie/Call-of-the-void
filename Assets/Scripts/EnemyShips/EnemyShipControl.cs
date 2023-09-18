@@ -7,6 +7,7 @@ public class EnemyShipControl : MonoBehaviour
     Vector3 playerPos;
     float currentDistanceFromPlayer;
     float changeDirectionDelay;
+    
     int[] sideMod = {-1, 1 };
     int sideModRandomIndex;
 
@@ -83,17 +84,17 @@ public class EnemyShipControl : MonoBehaviour
 
         if (currentDistanceFromPlayer < minDistaceFromPlayer)
         {
-            enemyRb.AddForce(sideMod[sideModRandomIndex] * transform.forward * enemyRCSSpeed, ForceMode.Acceleration);
+            enemyRb.AddForce(enemyRCSSpeed * -transform.forward, ForceMode.Acceleration);
         }
 
         if (currentDistanceFromPlayer < (maxDistaceFromPlayer + minDistaceFromPlayer) / 2)
         {
-            enemyRb.AddForce(sideMod[sideModRandomIndex] * transform.right * enemyRCSSpeed, ForceMode.Acceleration);
+            enemyRb.AddForce(enemyRCSSpeed * sideMod[sideModRandomIndex] * transform.right, ForceMode.Acceleration);
         }        
     }
     IEnumerator ChangeSideDirection()
     {
-        changeDirectionDelay = Random.Range(3f, 10f);
+        changeDirectionDelay = Random.Range(1f, 5f);
         yield return new WaitForSeconds(changeDirectionDelay);
         sideModRandomIndex = Random.Range(0, sideMod.Length);
         StartCoroutine(ChangeSideDirection());

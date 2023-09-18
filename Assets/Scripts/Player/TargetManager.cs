@@ -69,8 +69,12 @@ public class TargetManager : MonoBehaviour
         {
             targetParameters.GetCurrentParameters(out float hullHP, out float armorHP, out float shieldHP);
             targetCurrentParameters?.Invoke(hullHP, armorHP, shieldHP);
+            if (hullHP <= 0)
+            {
+                currentTarget = null;
+            }
         }
-        else
+        else if (targetHud.activeSelf)
         {
             DisableTargetHud();
         }        

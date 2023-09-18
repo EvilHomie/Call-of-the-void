@@ -10226,6 +10226,7 @@ GameObject:
   - component: {fileID: 6878142456737854796}
   - component: {fileID: 1007214551831054729}
   - component: {fileID: 332294346262349262}
+  - component: {fileID: 8027422085531654556}
   m_Layer: 0
   m_Name: EnemyShip1
   m_TagString: Enemy
@@ -10364,12 +10365,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explodeParticle:
   - {fileID: 7503963317747484712}
-  hullHP: 500
-  armorHP: 500
-  shieldHP: 500
+  hullHP: 250
+  armorHP: 250
+  shieldHP: 250
   hullRegRate: 0
   armorRegRate: 0
-  shieldRegRate: 20
+  shieldRegRate: 5
   shieldStartRegDelay: 5
   shieldIsActive: 1
 --- !u!114 &1007214551831054729
@@ -10411,6 +10412,19 @@ MonoBehaviour:
   minDistaceFromPlayer: 0
   minDistaceFromPlayerMinValue: 30
   minDistaceFromPlayerMaxValue: 50
+--- !u!114 &8027422085531654556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919046468026766890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b30b0e65cb9ce944bed7f9dc1f52755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistanceFromPlayer: 750
 --- !u!1 &2260283330944298871
 GameObject:
   m_ObjectHideFlags: 0

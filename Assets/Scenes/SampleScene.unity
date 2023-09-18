@@ -218,7 +218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &96493878
 Transform:
   m_ObjectHideFlags: 0
@@ -251,8 +251,8 @@ MonoBehaviour:
   spawnRadius: 800
   lowerValuePlayerVelocity: 10
   spawnAngleWhenPlayerIsMoving: 90
-  minSpawnDelay: 1
-  maxSpawnDelay: 1
+  minSpawnDelay: 30
+  maxSpawnDelay: 60
   spawnDelay: 0
 --- !u!1 &105778060
 GameObject:
@@ -1788,7 +1788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &955105901
 Transform:
   m_ObjectHideFlags: 0
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   lowerValuePlayerVelocity: 10
   spawnAngleWhenPlayerIsMoving: 45
   minSpawnDelay: 1
-  maxSpawnDelay: 5
+  maxSpawnDelay: 1
   spawnDelay: 0
 --- !u!1 &1032413785
 GameObject:
@@ -6888,7 +6888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1544406368
 Transform:
   m_ObjectHideFlags: 0
@@ -6920,9 +6920,9 @@ MonoBehaviour:
   - {fileID: 1919046468026766890, guid: e8b97cf14332c884795db58d61e06259, type: 3}
   spawnRadius: 300
   lowerValuePlayerVelocity: 10
-  spawnAngleWhenPlayerIsMoving: 90
-  minSpawnDelay: 1
-  maxSpawnDelay: 1
+  spawnAngleWhenPlayerIsMoving: 45
+  minSpawnDelay: 10
+  maxSpawnDelay: 30
   spawnDelay: 0
 --- !u!1 &1597185013
 GameObject:
@@ -7306,7 +7306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1839140456
 Transform:
   m_ObjectHideFlags: 0
@@ -7339,8 +7339,8 @@ MonoBehaviour:
   spawnRadius: 1000
   lowerValuePlayerVelocity: 10
   spawnAngleWhenPlayerIsMoving: 45
-  minSpawnDelay: 1
-  maxSpawnDelay: 1
+  minSpawnDelay: 30
+  maxSpawnDelay: 120
   spawnDelay: 0
 --- !u!1 &1860989490
 GameObject:
@@ -7668,7 +7668,7 @@ MonoBehaviour:
     m_Bits: 64
   mainEngineSpeed: 20
   playerRotateSpeed: 90
-  rCSSpeed: 5
+  rCSSpeed: 10
 --- !u!65 &1954114715
 BoxCollider:
   m_ObjectHideFlags: 0

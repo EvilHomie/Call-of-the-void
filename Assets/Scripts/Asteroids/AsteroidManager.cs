@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
@@ -14,19 +13,16 @@ public class AsteroidManager : MonoBehaviour
     readonly float maxTumbleSpeed = 1.0f;
 
     readonly float radiusAroundPlayer = 100f;
+    
+    Vector3 playerPos;    
 
-    float curentDistanceFromPlayer;
-    readonly float maxDistanceFromPlayer = 800f;
-    Vector3 playerPos;
-
-    void Awake()
+    void OnEnable()
     {
         PlayerControl.broadcastPlayerTransform += GetPlayerPos;
-        asteroidRB = GetComponent<Rigidbody>();
+        asteroidRB = GetComponent<Rigidbody>();        
 
         RandomRotator();
-        MoveToGameZone();
-        StartCoroutine(nameof(CheckDistance));
+        MoveToGameZone();        
     }
 
     private void OnDestroy()
@@ -55,18 +51,5 @@ public class AsteroidManager : MonoBehaviour
         Vector3 randomPointPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusAroundPlayer + playerPos;
         Vector3 direction = randomPointPos - transform.position;
         return direction.normalized;
-    }
-
-    IEnumerator CheckDistance()
-    {
-        while (true)
-        {
-            curentDistanceFromPlayer = Vector3.Distance(transform.position, playerPos);
-            if (curentDistanceFromPlayer > maxDistanceFromPlayer)
-            {
-                Destroy(gameObject);
-            }
-            yield return new WaitForSeconds(2f);
-        }  
-    }
+    }  
 }

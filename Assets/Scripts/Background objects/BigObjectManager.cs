@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class BigObjectManager : MonoBehaviour
@@ -8,9 +7,7 @@ public class BigObjectManager : MonoBehaviour
     Renderer bigObjectRenderer;
     Rigidbody bigObjectRb;
 
-    public static Action onBigObjectDestroy;
-    
-    readonly float maxDistanceFromPlayer = 1500f;
+    public static Action onBigObjectDestroy;    
 
     readonly float minSize = 5f;
     readonly float maxSize = 100f;
@@ -18,26 +15,16 @@ public class BigObjectManager : MonoBehaviour
     float moveSpeedBasedOnSize;
     readonly float distanceImitation = 10f;
 
-    Vector3 playerPos;
     void OnEnable()
     {
-        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
         ChoiseTexture();
         RandomizeSize();
         GiveForceToMoveLeft();
-        StartCoroutine(CheckDistance());
     }
 
     private void OnDisable()
     {
-        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
         onBigObjectDestroy?.Invoke();
-    }
-
-
-    void GetPlayerPos(Transform playerTransform)
-    {
-        playerPos = playerTransform.position;
     }
 
     void ChoiseTexture()
@@ -61,18 +48,5 @@ public class BigObjectManager : MonoBehaviour
     {
         bigObjectRb = GetComponent<Rigidbody>();
         bigObjectRb.AddForce(Vector3.left * moveSpeedBasedOnSize, ForceMode.VelocityChange);
-    }
-
-    IEnumerator CheckDistance()
-    {
-        while (true)
-        {
-            float curentDistanceFromPlayer = Vector3.Distance(transform.position, playerPos);
-            if (curentDistanceFromPlayer > maxDistanceFromPlayer)
-            {                
-                Destroy(gameObject);
-            }
-            yield return new WaitForSeconds(2f);
-        }
     }
 }

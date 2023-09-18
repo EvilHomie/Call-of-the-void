@@ -95,10 +95,11 @@ GameObject:
   - component: {fileID: 5278162415029597022}
   - component: {fileID: 2720275221403046555}
   - component: {fileID: 1411450288390879031}
+  - component: {fileID: 5831383565860360526}
   - component: {fileID: 6236677765690107683}
   - component: {fileID: 5530057491152214349}
   - component: {fileID: 5062183893928996572}
-  - component: {fileID: 5831383565860360526}
+  - component: {fileID: -8724912261759761101}
   m_Layer: 0
   m_Name: Big Asteroid
   m_TagString: Asteroid
@@ -194,6 +195,33 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c8e5dbd0279404f47898113147f8f42f, type: 3}
+--- !u!54 &5831383565860360526
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5736858169570194651}
+  serializedVersion: 4
+  m_Mass: 150
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
 --- !u!114 &6236677765690107683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,30 +262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041bb837f16b3784ea53dcfa910d37bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &5831383565860360526
-Rigidbody:
+--- !u!114 &-8724912261759761101
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5736858169570194651}
-  serializedVersion: 4
-  m_Mass: 150
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 4
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b30b0e65cb9ce944bed7f9dc1f52755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistanceFromPlayer: 750

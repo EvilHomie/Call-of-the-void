@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 2303220416570033297}
   - component: {fileID: 4068731891955029421}
   - component: {fileID: 2240714413117688539}
+  - component: {fileID: 786698320303216224}
   m_Layer: 0
   m_Name: BigObjects
   m_TagString: Untagged
@@ -220,3 +221,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
+--- !u!114 &786698320303216224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577149355297200433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b30b0e65cb9ce944bed7f9dc1f52755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistanceFromPlayer: 1500
