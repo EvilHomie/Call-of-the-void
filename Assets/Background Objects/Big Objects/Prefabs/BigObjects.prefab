@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 9210472144127061654}
   - component: {fileID: 2391567309315940430}
   - component: {fileID: 2303220416570033297}
-  - component: {fileID: 5883291021791252947}
-  - component: {fileID: -7654178357548128490}
+  - component: {fileID: 4068731891955029421}
+  - component: {fileID: 2240714413117688539}
   m_Layer: 0
   m_Name: BigObjects
   m_TagString: Untagged
@@ -110,15 +110,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3577149355297200433}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7243483253472987349}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &2391567309315940430
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -169,7 +169,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5883291021791252947
+--- !u!114 &4068731891955029421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,19 +178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3577149355297200433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139e4e29e31374648a95aa22e8281580, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-7654178357548128490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3577149355297200433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14ea38cbe6d5edf4a98b40bc2d5d6122, type: 3}
+  m_Script: {fileID: 11500000, guid: 746693d5d8c39b54ca3d835958354a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bigObjectTextures:
@@ -205,3 +193,30 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ece22a7f4461a8741bd4cd384060f363, type: 3}
   - {fileID: 2800000, guid: 778f4a7ea4dd90443918d2e6af228256, type: 3}
   - {fileID: 2800000, guid: e3118a02422827b45b35a393f58ff7d0, type: 3}
+--- !u!54 &2240714413117688539
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577149355297200433}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 124
+  m_CollisionDetection: 0

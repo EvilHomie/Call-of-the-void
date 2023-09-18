@@ -3,34 +3,41 @@ using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
-    GameObject asteroidsSpawnManager;
-    Rigidbody asteroidRB;
-    
+    Rigidbody asteroidRB;   
 
-    float speed;
-    readonly float minSpeed = 0.03f;
-    readonly float maxSpeed = 0.05f;
+    float moveSpeed;
+    readonly float minMoveSpeed = 3;
+    readonly float maxMoveSpeed = 10;
 
     float tumbleSpeed;
-    readonly float minTumbleSpeed = 0.25f;
+    readonly float minTumbleSpeed = 0.3f;
     readonly float maxTumbleSpeed = 1.0f;
 
-    readonly float radiusGameZone = 100f;
-    Vector3 direction;
+    readonly float radiusAroundPlayer = 100f;
 
-    float curentDistanceFromSpawnPoint;
-    readonly float maxDistanceFromSpawnPoint = 800f;
+    float curentDistanceFromPlayer;
+    readonly float maxDistanceFromPlayer = 800f;
+    Vector3 playerPos;
 
     void Awake()
     {
-        asteroidsSpawnManager = FindObjectOfType<AsteroidSpawning>().gameObject;
+        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
         asteroidRB = GetComponent<Rigidbody>();
 
         RandomRotator();
         MoveToGameZone();
         StartCoroutine(nameof(CheckDistance));
     }
-        
+
+    private void OnDestroy()
+    {
+        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
+    }
+
+    void GetPlayerPos(Transform playerTransform)
+    {
+        playerPos = playerTransform.position;
+    }
     void RandomRotator()
     {
         tumbleSpeed = Random.Range(minTumbleSpeed, maxTumbleSpeed);
@@ -39,23 +46,23 @@ public class AsteroidManager : MonoBehaviour
 
     void MoveToGameZone()
     {
-        speed = Random.Range(minSpeed, maxSpeed);
-        asteroidRB.AddForce(DirectionCoordonates() * speed, ForceMode.VelocityChange);
+        moveSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
+        asteroidRB.AddForce(DirectionCoordonates() * moveSpeed, ForceMode.VelocityChange);
     }
 
     Vector3 DirectionCoordonates()
     {
-        Vector3 randomDirectionPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusGameZone + asteroidsSpawnManager.transform.position;
-        direction = randomDirectionPos - transform.position;
-        return direction;
+        Vector3 randomPointPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusAroundPlayer + playerPos;
+        Vector3 direction = randomPointPos - transform.position;
+        return direction.normalized;
     }
 
     IEnumerator CheckDistance()
     {
         while (true)
         {
-            curentDistanceFromSpawnPoint = Vector3.Distance(transform.position, asteroidsSpawnManager.transform.position);
-            if (curentDistanceFromSpawnPoint > maxDistanceFromSpawnPoint)
+            curentDistanceFromPlayer = Vector3.Distance(transform.position, playerPos);
+            if (curentDistanceFromPlayer > maxDistanceFromPlayer)
             {
                 Destroy(gameObject);
             }

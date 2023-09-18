@@ -5,15 +5,15 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] Vector3 offset;
     private void OnEnable()
     {
-        PlayerControl.broadcastPlayerPosition += SetPosition;
+        PlayerControl.broadcastPlayerTransform += SetPosition;
     }
     private void OnDisable()
     {
-        PlayerControl.broadcastPlayerPosition -= SetPosition;
+        PlayerControl.broadcastPlayerTransform -= SetPosition;
     }
 
-    private void SetPosition(Vector3 playerPos)
+    private void SetPosition(Transform playerTransform)
     {
-        transform.position = playerPos + offset;
+        transform.position = playerTransform.position + offset;
     }
 }

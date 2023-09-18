@@ -218,7 +218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &96493878
 Transform:
   m_ObjectHideFlags: 0
@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96493877}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -145, z: 0}
+  m_LocalPosition: {x: 0, y: -100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -243,11 +243,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 96493877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebcad4512cdd10848b13c1adee423580, type: 3}
+  m_Script: {fileID: 11500000, guid: e75aaba680970df48b6df4c0f5c66881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bigObjectPrefab: {fileID: 3577149355297200433, guid: 201ccc2fee6363043b681212a3a98d6c,
-    type: 3}
+  objectsPrefabs:
+  - {fileID: 3577149355297200433, guid: 201ccc2fee6363043b681212a3a98d6c, type: 3}
+  spawnRadius: 800
+  lowerValuePlayerVelocity: 10
+  spawnAngleWhenPlayerIsMoving: 90
+  minSpawnDelay: 1
+  maxSpawnDelay: 1
+  spawnDelay: 0
 --- !u!1 &105778060
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +402,6 @@ GameObject:
   - component: {fileID: 204318713}
   - component: {fileID: 204318712}
   - component: {fileID: 204318711}
-  - component: {fileID: 204318715}
   - component: {fileID: 204318716}
   m_Layer: 0
   m_Name: Background
@@ -467,32 +472,11 @@ Transform:
   m_LocalScale: {x: 80, y: 1, z: 80}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1293287243}
   - {fileID: 509617327}
+  - {fileID: 1293287243}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &204318715
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204318709}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 10.000001, y: 2.220446e-16, z: 10.000001}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &204318716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,7 +1201,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509617325}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1237,8 +1221,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d7e2609b84dfd498f2a5b026b0b53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  twinklingStar: {fileID: 147543101483087635, guid: c960d65bf93fd5b4f91dbf0b632a00f2,
+  starPrefab: {fileID: 147543101483087635, guid: c960d65bf93fd5b4f91dbf0b632a00f2,
     type: 3}
+  minSpawnDelay: 5
+  maxSpawnDelay: 10
 --- !u!1 &587583677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,14 +1781,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 955105901}
-  - component: {fileID: 955105903}
+  - component: {fileID: 955105902}
   m_Layer: 0
   m_Name: Asteroids Spawn Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &955105901
 Transform:
   m_ObjectHideFlags: 0
@@ -1818,7 +1804,7 @@ Transform:
   m_Father: {fileID: 1860989493}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &955105903
+--- !u!114 &955105902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1827,13 +1813,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 955105900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a506c12e7c1c834697d75c5af39d4c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 04a4d81a6c1d76c4f97f7ab2da0141c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroid:
-  - {fileID: 5563323982375897026, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
-  - {fileID: 4090271716778492410, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}
+  objectsPrefabs:
   - {fileID: 5736858169570194651, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+  - {fileID: 4090271716778492410, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}
+  - {fileID: 5563323982375897026, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
+  spawnRadius: 250
+  lowerValuePlayerVelocity: 10
+  spawnAngleWhenPlayerIsMoving: 45
+  minSpawnDelay: 1
+  maxSpawnDelay: 5
+  spawnDelay: 0
 --- !u!1 &1032413785
 GameObject:
   m_ObjectHideFlags: 0
@@ -6896,7 +6888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1544406368
 Transform:
   m_ObjectHideFlags: 0
@@ -6921,13 +6913,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1544406367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 094d07caab99ce34496bfb747552455a, type: 3}
+  m_Script: {fileID: 11500000, guid: 04a4d81a6c1d76c4f97f7ab2da0141c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyShips:
+  objectsPrefabs:
   - {fileID: 1919046468026766890, guid: e8b97cf14332c884795db58d61e06259, type: 3}
-  radiusAroundPlayer: 200
-  spawnDelay: 15
+  spawnRadius: 300
+  lowerValuePlayerVelocity: 10
+  spawnAngleWhenPlayerIsMoving: 90
+  minSpawnDelay: 1
+  maxSpawnDelay: 1
+  spawnDelay: 0
 --- !u!1 &1597185013
 GameObject:
   m_ObjectHideFlags: 0
@@ -7310,7 +7306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1839140456
 Transform:
   m_ObjectHideFlags: 0
@@ -7335,13 +7331,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1839140455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03e57b6083af96d48b9e356b4d9c65f7, type: 3}
+  m_Script: {fileID: 11500000, guid: efcfc1b33fa2f9a42814f79663743b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stationPrefabs:
+  objectsPrefabs:
   - {fileID: 1374193109338841291, guid: 16ef0d9b61ae5084d8be4232627293dc, type: 3}
-  minDelay: 10
-  maxDelay: 60
+  spawnRadius: 1000
+  lowerValuePlayerVelocity: 10
+  spawnAngleWhenPlayerIsMoving: 45
+  minSpawnDelay: 1
+  maxSpawnDelay: 1
+  spawnDelay: 0
 --- !u!1 &1860989490
 GameObject:
   m_ObjectHideFlags: 0
@@ -7667,7 +7667,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   mainEngineSpeed: 20
-  playerRotateSpeed: 180
+  playerRotateSpeed: 90
   rCSSpeed: 5
 --- !u!65 &1954114715
 BoxCollider:

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WeaponRotateToTargetLogic : MonoBehaviour
@@ -14,20 +15,28 @@ public class WeaponRotateToTargetLogic : MonoBehaviour
     {
         if (!transform.root.CompareTag("Player"))
         {
-            PlayerControl.broadcastPlayerPosition += TakeTargetPosition;
+            PlayerControl.broadcastPlayerTransform += TakePlayerPos;
         }
-        else { PlayerControl.broadcastMousePosition += TakeTargetPosition; }
+        else { PlayerControl.broadcastMousePosition += TakeMousePosition; }
     }
 
     void OnDisable()
     {
         if (!transform.root.CompareTag("Player"))
         {
-            PlayerControl.broadcastPlayerPosition -= TakeTargetPosition;
+            PlayerControl.broadcastPlayerTransform -= TakePlayerPos;
         }
-        else { PlayerControl.broadcastMousePosition -= TakeTargetPosition; }
+        else { PlayerControl.broadcastMousePosition -= TakeMousePosition; }
+    }
+    void TakePlayerPos(Transform targetTransform)
+    {
+        targetPosition = targetTransform.position;
     }
 
+    private void TakeMousePosition(Vector3 mousePos)
+    {
+        targetPosition = mousePos;
+    }
 
     private void FixedUpdate()
     {
@@ -55,8 +64,5 @@ public class WeaponRotateToTargetLogic : MonoBehaviour
         }
     }
 
-    void TakeTargetPosition(Vector3 targetPos)
-    {
-        targetPosition = targetPos;
-    }
+    
 }

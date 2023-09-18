@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -26,8 +25,8 @@ public class TwinklingStarManager : MonoBehaviour
         starRender = GetComponent<Renderer>();
         starColor = starRender.material.color;
 
-        randomSize = UnityEngine.Random.Range(minSize, maxSize);
-        transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+        randomSize = Random.Range(minSize, maxSize);
+        transform.localScale = new Vector3(randomSize, 1, randomSize);
 
         
 
@@ -41,14 +40,14 @@ public class TwinklingStarManager : MonoBehaviour
 
     void Pulsing()
     {
-        blinkSpeed = UnityEngine.Random.Range(minBlinkSpeed, maxBlinkSpeed);
-        starColor.a = ((float)Math.Sin(Time.time * blinkSpeed) + 1) / 2;
+        blinkSpeed = Random.Range(minBlinkSpeed, maxBlinkSpeed);
+        starColor.a = ((float)Mathf.Sin(Time.time * blinkSpeed) + 1) / 2;
         starRender.material.color = starColor;
     }
 
     IEnumerator DestroyStar()
     {
-        lifeTime = UnityEngine.Random.Range(minLifeTime, maxLifeTime);
+        lifeTime = Random.Range(minLifeTime, maxLifeTime);
 
         yield return new WaitForSeconds(lifeTime);
 

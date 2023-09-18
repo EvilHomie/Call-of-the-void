@@ -4,73 +4,75 @@ using UnityEngine;
 
 public class BigObjectManager : MonoBehaviour
 {
-    // закоментировал возможность планеты двигаться вместе с игроком (для имитации влияния отдалености планеты на скорость корабля)
-    GameObject asteroidsSpawnManager;
-    //Rigidbody rb;
+    [SerializeField] Texture[] bigObjectTextures;
+    Renderer bigObjectRenderer;
+    Rigidbody bigObjectRb;
 
     public static Action onBigObjectDestroy;
+    
+    readonly float maxDistanceFromPlayer = 1500f;
 
-    float curentDistanceFromSpawnPoint;
-    readonly float maxDistanceFromSpawnPoint = 2000f;
-
-    float randomSize;
     readonly float minSize = 5f;
     readonly float maxSize = 100f;
 
-    float constMoveSpeedBasedOnSize;
+    float moveSpeedBasedOnSize;
     readonly float distanceImitation = 10f;
 
-    //float differenceSpeedWithPlayer;
-    //readonly float minDifference = 1;
-    //readonly float maxDifference = 1;
-
-    void Awake()
+    Vector3 playerPos;
+    void OnEnable()
     {
-        asteroidsSpawnManager = GameObject.Find("Asteroids Spawn Manager");
-        //rb = GetComponent<Rigidbody>();
-
+        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
+        ChoiseTexture();
         RandomizeSize();
-
-        StartCoroutine(nameof(BigObjectDestroy));
-
-        //differenceSpeedWithPlayer = UnityEngine.Random.Range(minDifference, maxDifference);
-        //PlayerControl.playerVelocity += BigObjectMoveWithPlayer;
-
+        GiveForceToMoveLeft();
+        StartCoroutine(CheckDistance());
     }
 
-    void Update()
+    private void OnDisable()
     {
-        ConstantMoveToLeft();
+        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
+        onBigObjectDestroy?.Invoke();
     }
-    IEnumerator BigObjectDestroy()
+
+
+    void GetPlayerPos(Transform playerTransform)
     {
-        while (true)
-        {
-            curentDistanceFromSpawnPoint = Vector3.Distance(transform.position, asteroidsSpawnManager.transform.position);
-            if (curentDistanceFromSpawnPoint > maxDistanceFromSpawnPoint)
-            {
-                onBigObjectDestroy?.Invoke();
-                //PlayerControl.playerVelocity -= BigObjectMoveWithPlayer;
-                Destroy(gameObject);    
-            }
-            yield return new WaitForSeconds(2f);
-        }
+        playerPos = playerTransform.position;
+    }
+
+    void ChoiseTexture()
+    {
+        bigObjectRenderer = GetComponent<Renderer>();
+
+        int randomTextureIndex;
+        randomTextureIndex = UnityEngine.Random.Range(0, bigObjectTextures.Length);
+
+        bigObjectRenderer.material.mainTexture = bigObjectTextures[randomTextureIndex];
     }
 
     void RandomizeSize()
     {
-        randomSize = UnityEngine.Random.Range(minSize, maxSize);
-        constMoveSpeedBasedOnSize = randomSize / distanceImitation;
+        float randomSize = UnityEngine.Random.Range(minSize, maxSize);
+        moveSpeedBasedOnSize = randomSize / distanceImitation;
         transform.localScale = new Vector3(randomSize, 1, randomSize);
     }
 
-    //void BigObjectMoveWithPlayer(Vector3 playerVelocity)
-    //{
-    //    rb.velocity = playerVelocity * differenceSpeedWithPlayer;
-    //}
+    void GiveForceToMoveLeft()
+    {
+        bigObjectRb = GetComponent<Rigidbody>();
+        bigObjectRb.AddForce(Vector3.left * moveSpeedBasedOnSize, ForceMode.VelocityChange);
+    }
 
-    void ConstantMoveToLeft()
-    {        
-        transform.position = new Vector3(transform.position.x - constMoveSpeedBasedOnSize * Time.deltaTime, transform.position.y, transform.position.z);
+    IEnumerator CheckDistance()
+    {
+        while (true)
+        {
+            float curentDistanceFromPlayer = Vector3.Distance(transform.position, playerPos);
+            if (curentDistanceFromPlayer > maxDistanceFromPlayer)
+            {                
+                Destroy(gameObject);
+            }
+            yield return new WaitForSeconds(2f);
+        }
     }
 }

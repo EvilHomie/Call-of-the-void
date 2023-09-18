@@ -33,14 +33,15 @@ public class EnemyShipControl : MonoBehaviour
     {
         enemyRb = GetComponent<Rigidbody>();
         SetParameters();
-        PlayerControl.broadcastPlayerPosition += GetPlayerPos;
+        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
         StartCoroutine(ChangeSideDirection());
     }
 
     private void OnDestroy()
     {
-        PlayerControl.broadcastPlayerPosition -= GetPlayerPos;
+        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
     }
+
     private void FixedUpdate()
     {
         currentDistanceFromPlayer = Vector3.Distance(playerPos, transform.position);
@@ -49,9 +50,9 @@ public class EnemyShipControl : MonoBehaviour
         MoveToPlayer();
     }
 
-    private void GetPlayerPos(Vector3 playerPos)
+    private void GetPlayerPos(Transform playerTransform)
     {
-        this.playerPos = playerPos;
+        playerPos = playerTransform.position;
     }
 
     void SetParameters()

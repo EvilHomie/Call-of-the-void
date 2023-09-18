@@ -4,7 +4,7 @@ using UnityEngine;
 public class BroadcastStationPosition : MonoBehaviour
 {
     public static Action<Vector3> broadcastStationPosition;
-    private void Awake()
+    private void OnEnable()
     {
         broadcastStationPosition?.Invoke(transform.position);
     }

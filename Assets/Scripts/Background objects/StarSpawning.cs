@@ -2,18 +2,14 @@ using UnityEngine;
 
 public class StarSpawning : MonoBehaviour
 {
-    [SerializeField] GameObject twinklingStar;
+    [SerializeField] GameObject starPrefab;
 
-    float startSpawnDelay;
-    readonly float minStartSpawnDelay = 2f;
-    readonly float maxStartSpawnDelay = 5f;
+    float spawnDelay;
+    [SerializeField] float minSpawnDelay;
+    [SerializeField] float maxSpawnDelay;
 
-    float repitSpawnDelay;
-    readonly float minRepitSpawnDelay = 3f;
-    readonly float maxRepitSpawnDelay = 5f;
-
-    readonly float spawnPosXValue = 3.5f;
-    readonly float spawnPosZValue = 2f;
+    readonly float spawnPosXValue = 2.85f;
+    readonly float spawnPosZValue = 1.6f;
     float bGScale;
 
     Vector3 spawnPos;
@@ -21,9 +17,7 @@ public class StarSpawning : MonoBehaviour
     void Start()
     {
         bGScale = transform.parent.localScale.x;
-
-        startSpawnDelay = Random.Range(minStartSpawnDelay, maxStartSpawnDelay);
-        Invoke(nameof(StarSpawn), startSpawnDelay);
+        RepitSpawn();
     }
 
     void StarSpawn()
@@ -32,9 +26,13 @@ public class StarSpawning : MonoBehaviour
         float randomPosZ = Random.Range(-spawnPosZValue, spawnPosZValue) * bGScale;
         spawnPos = new Vector3(randomPosX, 0 , randomPosZ) + transform.position;
 
-        Instantiate(twinklingStar, spawnPos, twinklingStar.transform.rotation, transform);
+        Instantiate(starPrefab, spawnPos, starPrefab.transform.rotation, transform);
+    }
 
-        repitSpawnDelay = Random.Range(minRepitSpawnDelay, maxRepitSpawnDelay);
-        Invoke(nameof(StarSpawn), repitSpawnDelay);
+    void RepitSpawn()
+    {
+        StarSpawn();
+        spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+        Invoke(nameof(RepitSpawn), spawnDelay);
     }
 }

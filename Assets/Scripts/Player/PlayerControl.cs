@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
 
     public static Action<Vector3> broadcastPlayerVelocity;
     public static Action<Vector3> broadcastMousePosition;
-    public static Action<Vector3> broadcastPlayerPosition;
+    public static Action<Transform> broadcastPlayerTransform;
 
     Vector3 mousePosition2D;
 
@@ -31,7 +31,7 @@ public class PlayerControl : MonoBehaviour
 
         broadcastMousePosition?.Invoke(mousePosition2D);
         broadcastPlayerVelocity?.Invoke(playerRb.velocity);
-        broadcastPlayerPosition?.Invoke(transform.position);
+        broadcastPlayerTransform?.Invoke(transform);
     }
 
     void MousePosTrack()

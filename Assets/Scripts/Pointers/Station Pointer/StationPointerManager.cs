@@ -22,13 +22,13 @@ public class StationPointerManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        PlayerControl.broadcastPlayerPosition += GetPlayerPos;
+        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
         BroadcastStationPosition.broadcastStationPosition += GetStationPos;               
     }
 
     private void OnDisable()
     {
-        PlayerControl.broadcastPlayerPosition -= GetPlayerPos;
+        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
         BroadcastStationPosition.broadcastStationPosition -= GetStationPos;
     }
 
@@ -56,9 +56,9 @@ public class StationPointerManager : MonoBehaviour
         else { DisablePointer(); }
     }
 
-    void GetPlayerPos(Vector3 playerPos)
+    void GetPlayerPos(Transform playerTransform)
     {
-        this.playerPos = playerPos;
+        playerPos = playerTransform.position;
     }
     void RotateToAnomaly()
     {

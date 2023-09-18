@@ -16,12 +16,12 @@ public class StationRotateToTarget : MonoBehaviour
     }
     void OnEnable()
     {
-        PlayerControl.broadcastPlayerPosition += TakeTargetPosition;
+        PlayerControl.broadcastPlayerTransform += TakeTargetPosition;
     }
 
     void OnDisable()
     {
-        PlayerControl.broadcastPlayerPosition -= TakeTargetPosition;
+        PlayerControl.broadcastPlayerTransform -= TakeTargetPosition;
     }
 
 
@@ -41,9 +41,9 @@ public class StationRotateToTarget : MonoBehaviour
 
     }
 
-    void TakeTargetPosition(Vector3 targetPos)
+    void TakeTargetPosition(Transform playerTransform)
     {
-        targetPosition = targetPos;
+        targetPosition = playerTransform.position;
     }
 
     void FillList()

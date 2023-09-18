@@ -17,13 +17,11 @@ public class DisplayParameters : MonoBehaviour
     {
         GetReferences();
     }
-    public virtual void OnEnable()
-    {        
-    }
 
-    public virtual void OnDisable()
-    {
-    }
+    protected virtual void OnEnable() { }
+
+    protected virtual void OnDisable() { }
+
     protected void DisplayCurrentParameters(float hullHP, float armorHP, float shieldHP)
     {
         hullSlider.value = hullHP;
