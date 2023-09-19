@@ -94,7 +94,7 @@ public class EnemyShipControl : MonoBehaviour
     }
     IEnumerator ChangeSideDirection()
     {
-        changeDirectionDelay = Random.Range(1f, 5f);
+        changeDirectionDelay = Random.Range(1f, 3f);
         yield return new WaitForSeconds(changeDirectionDelay);
         sideModRandomIndex = Random.Range(0, sideMod.Length);
         StartCoroutine(ChangeSideDirection());

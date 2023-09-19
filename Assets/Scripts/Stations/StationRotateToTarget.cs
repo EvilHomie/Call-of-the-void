@@ -6,12 +6,12 @@ public class StationRotateToTarget : MonoBehaviour
 
     readonly float stationRotateSpeed = 5f;
     Vector3 targetPosition;
-    ShootIfPlayerInFocus[] turretsList;
+    ShootIfPlayerInFocus[] turretsArray;
     List<bool> targetInFocus = new();
 
     private void Awake()
     {
-        turretsList = GetComponentsInChildren<ShootIfPlayerInFocus>();
+        turretsArray = GetComponentsInChildren<ShootIfPlayerInFocus>();
         FillList();
     }
     void OnEnable()
@@ -49,7 +49,7 @@ public class StationRotateToTarget : MonoBehaviour
     void FillList()
     {
         targetInFocus.Clear();
-        foreach (var t in turretsList) { targetInFocus.Add(t.targetInFocus); }
+        foreach (var t in turretsArray) { targetInFocus.Add(t.targetInFocus); }
     }
 
     bool CheckIfTargetInFocus()
