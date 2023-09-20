@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AnomalyZoneManager : MonoBehaviour
+public class AnomalyZoneOnDestroyComand : MonoBehaviour
 {
     public static Action onAnomalyZoneDestroy;
 

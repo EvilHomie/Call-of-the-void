@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class AsteroidAndEnemyShipsSpawnManager : SpawnManager
+public class EnemyShipsSpawnManager : SpawnManager
 {
     protected override void OnEnable()
     {        
         base.OnEnable();
-        RepitSpawn();
+        RepitSpawn();        
     }
 
     protected override void OnDisable()
     {
-        base.OnDisable();
+        base.OnDisable();        
     }
 
     void RepitSpawn()
@@ -18,5 +18,5 @@ public class AsteroidAndEnemyShipsSpawnManager : SpawnManager
         ChoiseSpawnMethod();
         spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
         Invoke(nameof(RepitSpawn), spawnDelay);
-    }
+    }   
 }

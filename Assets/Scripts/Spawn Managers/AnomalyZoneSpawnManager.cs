@@ -5,13 +5,13 @@ public class AnomalyZoneSpawnManager : SpawnManager
     protected override void OnEnable()
     {
         base.OnEnable();
-        AnomalyZoneManager.onAnomalyZoneDestroy += SetDelayAndSpawn;
+        AnomalyZoneOnDestroyComand.onAnomalyZoneDestroy += SetDelayAndSpawn;
         SetDelayAndSpawn();
     }
     protected override void OnDisable()
     {
         base.OnDisable();
-        AnomalyZoneManager.onAnomalyZoneDestroy -= SetDelayAndSpawn;
+        AnomalyZoneOnDestroyComand.onAnomalyZoneDestroy -= SetDelayAndSpawn;
     }
 
     void SetDelayAndSpawn()

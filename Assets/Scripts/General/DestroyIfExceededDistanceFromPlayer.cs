@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CheckDistanceToPlayer : MonoBehaviour
+public class DestroyIfExceededDistanceFromPlayer : MonoBehaviour
 {
     [SerializeField] float maxDistanceFromPlayer;
     readonly float delayCheckDistance = 2;

@@ -6,7 +6,8 @@ using UnityEngine;
 public class PointerManager : MonoBehaviour
 {
     [SerializeField] GameObject pointer;
-    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] TextMeshProUGUI detectionText;
+    [SerializeField] TextMeshProUGUI targetName;
 
     [SerializeField] List<Transform> listChildsObj = new();
 
@@ -16,7 +17,7 @@ public class PointerManager : MonoBehaviour
     Color defaultColor;
     private void Awake()
     {
-        defaultColor = text.faceColor;
+        defaultColor = detectionText.faceColor;
         Fillist();
         DisablePointer();
     }
@@ -43,11 +44,12 @@ public class PointerManager : MonoBehaviour
         }
     }
 
-    protected void GetTargetPos(Vector3 targetPos)
+    protected void GetTargetData(Vector3 targetPos, string targetName)
     {
         if (targetPos != Vector3.zero)
         {
             this.targetPos = targetPos;
+            this.targetName.text = $">>{targetName}<<";
             EnablePointer();
             StartCoroutine(PulsingText());
         }
@@ -83,7 +85,7 @@ public class PointerManager : MonoBehaviour
     {
         while (pointerEnabled)
         {
-            text.faceColor = new Color(defaultColor.r, defaultColor.g, defaultColor.b, (Mathf.Sin(Time.time) + 1) / 2);
+            detectionText.faceColor = new Color(defaultColor.r, defaultColor.g, defaultColor.b, (Mathf.Sin(Time.time) + 1) / 2);
             yield return null;
         }
     }
