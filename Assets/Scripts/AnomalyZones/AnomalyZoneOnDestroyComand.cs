@@ -5,7 +5,7 @@ public class AnomalyZoneOnDestroyComand : MonoBehaviour
 {
     public static Action onAnomalyZoneDestroy;
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         onAnomalyZoneDestroy?.Invoke();
     }

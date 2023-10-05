@@ -5,7 +5,7 @@ public class StationOnDestroyComand : MonoBehaviour
 {
     public static Action onStationDestroy;
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         onStationDestroy?.Invoke();
     }

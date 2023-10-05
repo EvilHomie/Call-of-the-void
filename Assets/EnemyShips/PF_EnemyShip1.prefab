@@ -10228,7 +10228,7 @@ GameObject:
   - component: {fileID: 332294346262349262}
   - component: {fileID: 8027422085531654556}
   m_Layer: 0
-  m_Name: EnemyShip1
+  m_Name: PF_EnemyShip1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
