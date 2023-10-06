@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class AsteroidSpawnManager : SpawnManager
+public class AsteroidSpawnManager : SpawnManagerLogic
 {
     protected override void OnEnable()
     {        
         base.OnEnable();
         RepitSpawn();
-        AsteriodFieldManager.comandToAsteroids += ChangeSpawnDelay;
+        PlayerInFiledManager.comandToAsteroids += ChangeSpawnDelay;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        AsteriodFieldManager.comandToAsteroids -= ChangeSpawnDelay;
+        PlayerInFiledManager.comandToAsteroids -= ChangeSpawnDelay;
     }
 
     void RepitSpawn()

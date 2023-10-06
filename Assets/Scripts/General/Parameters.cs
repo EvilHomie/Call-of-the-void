@@ -81,6 +81,7 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
     {
         if (shieldIsActive)
         {
+            shieldIsActive = false;
             disableShield = StartCoroutine(DisableShieldOnDelay());
         }
         else
@@ -91,31 +92,20 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
     }
     IEnumerator DisableShieldOnDelay()
     {
-        shieldIsActive = false;
         yield return new WaitForSeconds(shieldStartRegDelay);
         shieldIsActive = true;
     }
 
     IEnumerator Destroy()
     {
-        explodeParticle[0].gameObject.SetActive(true);
-        if (explodeParticle.Length > 1)
-        {
-            yield return new WaitForSeconds(1);
-            explodeParticle[1].gameObject.SetActive(true);
+        int explodeCount = explodeParticle.Length;
 
-            if (explodeParticle.Length > 2)
-            {
-                yield return new WaitForSeconds(1);
-                explodeParticle[2].gameObject.SetActive(true);
-                yield return new WaitForSeconds(explodeParticle[2].main.duration);
-                Destroy(gameObject);
-            }
-        }
-        else
+        for (int i = 0; i < explodeCount; ++i) 
         {
-            yield return new WaitForSeconds(explodeParticle[0].main.duration);
-            Destroy(gameObject);
-        }  
+            explodeParticle[i].gameObject.SetActive(true);
+            yield return new WaitForSeconds(1);
+        }
+        yield return new WaitForSeconds(explodeParticle[explodeCount - 1].main.duration);
+        Destroy(gameObject);        
     }
 }

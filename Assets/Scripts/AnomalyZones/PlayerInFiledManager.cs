@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AsteriodFieldManager : MonoBehaviour
+public class PlayerInFiledManager : MonoBehaviour
 {
     [SerializeField] float countMultipler;
     [SerializeField] float triggerDistanceFromPlayer;
@@ -13,7 +13,7 @@ public class AsteriodFieldManager : MonoBehaviour
     Vector3 playePos;
     private void OnEnable()
     {
-        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
+        EventBus.broadcastPlayerTransform += GetPlayerPos;
         InvokeRepeating(nameof(CheckDistance), 5, 2);
     }
     void GetPlayerPos(Transform playerTransform)

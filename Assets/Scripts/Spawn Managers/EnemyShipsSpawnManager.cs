@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyShipsSpawnManager : SpawnManager
+public class EnemyShipsSpawnManager : SpawnManagerLogic
 {
     protected override void OnEnable()
     {        

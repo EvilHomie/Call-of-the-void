@@ -13,12 +13,12 @@ public class MiniAsteroidsManager : MonoBehaviour
     private void OnEnable()
     {        
         GetDefValues();
-        AsteriodFieldManager.comandToAsteroids += ChangeEmissionRate;
+        PlayerInFiledManager.comandToAsteroids += ChangeEmissionRate;
     }
 
     private void OnDisable()
     {
-        AsteriodFieldManager.comandToAsteroids -= ChangeEmissionRate;
+        PlayerInFiledManager.comandToAsteroids -= ChangeEmissionRate;
     }
 
     void GetDefValues()

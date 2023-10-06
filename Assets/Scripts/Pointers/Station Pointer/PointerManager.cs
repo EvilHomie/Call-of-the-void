@@ -23,12 +23,12 @@ public class PointerManager : MonoBehaviour
     }
     protected virtual void OnEnable()
     {
-        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
+        EventBus.broadcastPlayerTransform += GetPlayerPos;
     }
 
     protected virtual void OnDisable()
     {
-        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
+        EventBus.broadcastPlayerTransform -= GetPlayerPos;
     }
 
     void FixedUpdate()

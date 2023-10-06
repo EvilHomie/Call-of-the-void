@@ -6,22 +6,22 @@ public class StationRotateToTarget : MonoBehaviour
 
     readonly float stationRotateSpeed = 5f;
     Vector3 targetPosition;
-    ShootIfPlayerInFocus[] turretsArray;
+    ShootInPlayer[] turretsArray;
     List<bool> targetInFocus = new();
 
     private void Awake()
     {
-        turretsArray = GetComponentsInChildren<ShootIfPlayerInFocus>();
+        turretsArray = GetComponentsInChildren<ShootInPlayer>();
         FillList();
     }
     void OnEnable()
     {
-        PlayerControl.broadcastPlayerTransform += TakeTargetPosition;
+        EventBus.broadcastPlayerTransform += TakeTargetPosition;
     }
 
     void OnDisable()
     {
-        PlayerControl.broadcastPlayerTransform -= TakeTargetPosition;
+        EventBus.broadcastPlayerTransform -= TakeTargetPosition;
     }
 
 

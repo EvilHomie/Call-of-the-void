@@ -15,7 +15,7 @@ public class EnemyWeaponManager : MonoBehaviour
     {
         GameObject weapon = Instantiate(weapons[Random.Range(0, weapons.Count)], transform);
 
-        weapon.AddComponent<ShootIfPlayerInFocus>();
+        weapon.AddComponent<ShootInPlayer>();
 
         float enDmg = Random.Range(minEnergyDmg, maxEnergyDmg);
         float kenDmg = Random.Range(minKeneticDmg, maxKeneticDmg);

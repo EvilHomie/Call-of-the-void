@@ -8,12 +8,12 @@ public class DestroyIfExceededDistanceFromPlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
+        EventBus.broadcastPlayerTransform += GetPlayerPos;
         InvokeRepeating(nameof(CheckDistance), delayCheckDistance, delayCheckDistance);
     }
     private void OnDisable()
     {
-        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
+        EventBus.broadcastPlayerTransform -= GetPlayerPos;
     }
 
     void GetPlayerPos(Transform playerTransform)

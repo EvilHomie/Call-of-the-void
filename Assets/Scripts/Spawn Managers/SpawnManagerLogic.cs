@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManagerLogic : MonoBehaviour
 {
     [SerializeField] GameObject[] objectsPrefabs;
 
@@ -16,14 +16,14 @@ public class SpawnManager : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        PlayerControl.broadcastPlayerVelocity += GetPlayerVelocity;
-        PlayerControl.broadcastPlayerTransform += GetPlayerTransform;
+        EventBus.broadcastPlayerVelocity += GetPlayerVelocity;
+        EventBus.broadcastPlayerTransform += GetPlayerTransform;
     }
 
     protected virtual void OnDisable()
     {
-        PlayerControl.broadcastPlayerVelocity -= GetPlayerVelocity;
-        PlayerControl.broadcastPlayerTransform -= GetPlayerTransform;
+        EventBus.broadcastPlayerVelocity -= GetPlayerVelocity;
+        EventBus.broadcastPlayerTransform -= GetPlayerTransform;
     }
 
     protected void ChoiseSpawnMethod()

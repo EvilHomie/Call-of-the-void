@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class ShootIfPlayerInFocus : MonoBehaviour
+public class ShootInPlayer : MonoBehaviour
 {
     Transform firePoint;
     IWeapon weapon;
-    float weaponCheckDistance = 100;
+    float weaponDistance = 100;
     public bool targetInFocus;
-    public bool shootIsStop;
 
     private void Start()
     {
@@ -15,18 +14,15 @@ public class ShootIfPlayerInFocus : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out RaycastHit raycastHit, weaponCheckDistance, 1))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out RaycastHit raycastHit, weaponDistance, 1))
         {
-            if (raycastHit.collider.gameObject.CompareTag("Player"))
+            GameObject target = raycastHit.collider.gameObject;
+            if (target.CompareTag("Player") || target.CompareTag("Asteroid") || target.CompareTag("Resource"))
             {
                 weapon.Shoot();
                 targetInFocus = true;
             }
-            else if (raycastHit.collider.gameObject.CompareTag("Asteroid"))
-            {
-                weapon.Shoot();
-                targetInFocus = true;
-            }
+            
             else
             {
                 if (targetInFocus)

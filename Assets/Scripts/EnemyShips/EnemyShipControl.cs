@@ -34,13 +34,13 @@ public class EnemyShipControl : MonoBehaviour
     {
         enemyRb = GetComponent<Rigidbody>();
         SetParameters();
-        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
+        EventBus.broadcastPlayerTransform += GetPlayerPos;
         StartCoroutine(ChangeSideDirection());
     }
 
     private void OnDestroy()
     {
-        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
+        EventBus.broadcastPlayerTransform -= GetPlayerPos;
     }
 
     private void FixedUpdate()

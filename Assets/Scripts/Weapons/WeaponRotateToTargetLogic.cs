@@ -15,18 +15,18 @@ public class WeaponRotateToTargetLogic : MonoBehaviour
     {
         if (!transform.root.CompareTag("Player"))
         {
-            PlayerControl.broadcastPlayerTransform += TakePlayerPos;
+            EventBus.broadcastPlayerTransform += TakePlayerPos;
         }
-        else { PlayerControl.broadcastMousePosition += TakeMousePosition; }
+        else { EventBus.broadcastMousePosition += TakeMousePosition; }
     }
 
     void OnDisable()
     {
         if (!transform.root.CompareTag("Player"))
         {
-            PlayerControl.broadcastPlayerTransform -= TakePlayerPos;
+            EventBus.broadcastPlayerTransform -= TakePlayerPos;
         }
-        else { PlayerControl.broadcastMousePosition -= TakeMousePosition; }
+        else { EventBus.broadcastMousePosition -= TakeMousePosition; }
     }
     void TakePlayerPos(Transform targetTransform)
     {

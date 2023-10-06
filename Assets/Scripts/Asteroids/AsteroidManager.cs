@@ -18,7 +18,7 @@ public class AsteroidManager : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerControl.broadcastPlayerTransform += GetPlayerPos;
+        EventBus.broadcastPlayerTransform += GetPlayerPos;
         asteroidRB = GetComponent<Rigidbody>();        
 
         RandomRotator();
@@ -27,7 +27,7 @@ public class AsteroidManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerControl.broadcastPlayerTransform -= GetPlayerPos;
+        EventBus.broadcastPlayerTransform -= GetPlayerPos;
     }
 
     void GetPlayerPos(Transform playerTransform)

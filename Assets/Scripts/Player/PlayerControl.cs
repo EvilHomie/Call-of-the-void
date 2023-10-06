@@ -5,11 +5,7 @@ public class PlayerControl : MonoBehaviour
 {
     Rigidbody playerRb;
     [SerializeField] Camera mainCamera;
-    [SerializeField] LayerMask layerMask;
-
-    public static Action<Vector3> broadcastPlayerVelocity;
-    public static Action<Vector3> broadcastMousePosition;
-    public static Action<Transform> broadcastPlayerTransform;
+    [SerializeField] LayerMask layerMask;   
 
     Vector3 mousePosition2D;
 
@@ -29,9 +25,9 @@ public class PlayerControl : MonoBehaviour
         MoveForward();
         AditionMove();
 
-        broadcastMousePosition?.Invoke(mousePosition2D);
-        broadcastPlayerVelocity?.Invoke(playerRb.velocity);
-        broadcastPlayerTransform?.Invoke(transform);
+        EventBus.broadcastMousePosition?.Invoke(mousePosition2D);
+        EventBus.broadcastPlayerVelocity?.Invoke(playerRb.velocity);
+        EventBus.broadcastPlayerTransform?.Invoke(transform);
     }
 
     void MousePosTrack()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyStationSpawnManager : SpawnManager
+public class EnemyStationSpawnManager : SpawnManagerLogic
 {
     protected override void OnEnable()
     {         

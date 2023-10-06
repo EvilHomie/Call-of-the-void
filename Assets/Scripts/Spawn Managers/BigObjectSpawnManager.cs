@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BigObjectSpawnManager : SpawnManager
+public class BigObjectSpawnManager : SpawnManagerLogic
 {
     protected override void OnEnable()
     {
