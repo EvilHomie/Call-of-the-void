@@ -10,6 +10,7 @@ public class ShakeCam : MonoBehaviour
     float amplitude = 1;
     float frequency = 1;
     float duration = 1;
+    bool cameraIsShaking = false;
 
 
     private void Start()
@@ -20,25 +21,30 @@ public class ShakeCam : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsPlayerOnCollisions.collisionEvent += ShakeCameraTurnOn;
+        EventBus.shakeCam += ShakeCamera;
     }
 
     private void OnDisable()
     {
-        EventsPlayerOnCollisions.collisionEvent -= ShakeCameraTurnOn;
+        EventBus.shakeCam -= ShakeCamera;
     }
 
-    void ShakeCameraTurnOn()
+    void ShakeCamera()
     {
-        perlinNoise.m_AmplitudeGain = amplitude;
-        perlinNoise.m_FrequencyGain = frequency;
-        StartCoroutine(ShakeCameraTurnOff(duration));
-
-        IEnumerator ShakeCameraTurnOff(float duration)
+        if (!cameraIsShaking)
         {
-            yield return new WaitForSeconds(duration);
-            perlinNoise.m_AmplitudeGain = 0;
-            perlinNoise.m_FrequencyGain = 0;
-        }
+            perlinNoise.m_AmplitudeGain = amplitude;
+            perlinNoise.m_FrequencyGain = frequency;
+            StartCoroutine(ShakeCameraTurnOff(duration));
+
+            IEnumerator ShakeCameraTurnOff(float duration)
+            {
+                cameraIsShaking = true;
+                yield return new WaitForSeconds(duration);
+                perlinNoise.m_AmplitudeGain = 0;
+                perlinNoise.m_FrequencyGain = 0;
+                cameraIsShaking = false;
+            }
+        }        
     }
 }

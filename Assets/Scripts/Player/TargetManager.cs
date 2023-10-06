@@ -4,12 +4,7 @@ using UnityEngine;
 public class TargetManager : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
-
-    public static Action<string, float, float, float> targetMaxParameters;
-    public static Action<float, float, float> targetCurrentParameters;
-
     ITarget targetParameters;
-
     GameObject targetHud;
     GameObject currentTarget;
 
@@ -60,7 +55,7 @@ public class TargetManager : MonoBehaviour
     {
         targetParameters = currentTarget.GetComponent<ITarget>();
         targetParameters.GetMaxParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP);
-        targetMaxParameters?.Invoke(currentTarget.tag, maxHullHP, maxArmorHP, maxShieldHP);        
+        EventBus.targetMaxParameters?.Invoke(currentTarget.tag, maxHullHP, maxArmorHP, maxShieldHP);        
     }
 
     void GetCurrentTagretParameters()
@@ -68,7 +63,7 @@ public class TargetManager : MonoBehaviour
         if (currentTarget != null)
         {
             targetParameters.GetCurrentParameters(out float hullHP, out float armorHP, out float shieldHP);
-            targetCurrentParameters?.Invoke(hullHP, armorHP, shieldHP);
+            EventBus.targetCurrentParameters?.Invoke(hullHP, armorHP, shieldHP);
             if (hullHP <= 0)
             {
                 currentTarget = null;

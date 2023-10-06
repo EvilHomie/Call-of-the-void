@@ -64,6 +64,12 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
         {
             StartCoroutine(Destroy());
         }
+
+
+        if (gameObject.CompareTag("Player"))
+        {
+            EventBus.shakeCam?.Invoke();
+        }
     }
     public void GetMaxParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP)
     {
