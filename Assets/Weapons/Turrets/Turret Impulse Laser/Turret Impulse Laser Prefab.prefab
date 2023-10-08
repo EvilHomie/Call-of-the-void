@@ -5198,7 +5198,6 @@ GameObject:
   - component: {fileID: 7924002769211664581}
   - component: {fileID: 6147706411506039608}
   - component: {fileID: 1696076318635591160}
-  - component: {fileID: -489451021162732435}
   - component: {fileID: 3107042870031677746}
   m_Layer: 0
   m_Name: Turret Impulse Laser Prefab
@@ -5259,20 +5258,6 @@ MonoBehaviour:
   pivotPoint: {fileID: 8532703685448529834}
   weaponRotateSpeed: 10
   weaponMaxAngle: 75
---- !u!114 &-489451021162732435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9146738899640371260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c229400b5c3c53e4ab0371168889b2e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetInFocus: 0
-  shootIsStop: 0
 --- !u!82 &3107042870031677746
 AudioSource:
   m_ObjectHideFlags: 0

@@ -10,38 +10,24 @@ public class WeaponRotateToTargetLogic : MonoBehaviour
     [SerializeField] float weaponMaxAngle;
     Vector3 targetPosition;
 
+    bool parentIsPlayer;
 
-    void OnEnable()
-    {
-        if (!transform.root.CompareTag("Player"))
-        {
-            EventBus.broadcastPlayerTransform += TakePlayerPos;
-        }
-        else { EventBus.broadcastMousePosition += TakeMousePosition; }
-    }
 
-    void OnDisable()
+    void Awake()
     {
-        if (!transform.root.CompareTag("Player"))
-        {
-            EventBus.broadcastPlayerTransform -= TakePlayerPos;
-        }
-        else { EventBus.broadcastMousePosition -= TakeMousePosition; }
-    }
-    void TakePlayerPos(Transform targetTransform)
-    {
-        targetPosition = targetTransform.position;
-    }
-
-    private void TakeMousePosition(Vector3 mousePos)
-    {
-        targetPosition = mousePos;
+        if (transform.root.CompareTag("Player"))
+            parentIsPlayer = true;
+        else parentIsPlayer = false;
     }
 
     private void FixedUpdate()
     {
+        if (parentIsPlayer) targetPosition = GlobalData.mousePos;
+        else targetPosition = GlobalData.playerTransform.position;
+        
         RotateToTarget();
     }
+
     void RotateToTarget()
     {
         Vector3 targetDirection = targetPosition - pivotPoint.position;
@@ -62,7 +48,5 @@ public class WeaponRotateToTargetLogic : MonoBehaviour
         {
             pivotPoint.localEulerAngles = new Vector3(0, -weaponMaxAngle, 0);
         }
-    }
-
-    
+    }    
 }

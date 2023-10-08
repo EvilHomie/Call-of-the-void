@@ -2,12 +2,13 @@ public class DisplayTargetParameters : DisplayParameters
 {
     protected override void OnEnable()
     {
-        EventBus.targetMaxParameters += SetMaxParameters;
-        EventBus.targetCurrentParameters += DisplayCurrentParameters;
+        EventBus.onSelectTarget += SetMaxParameters;
+        EventBus.onDeselectTarget += TurnOffDisplay;
+        SwitchBars(false);
     }
     protected override void OnDisable()
     {
-        EventBus.targetMaxParameters -= SetMaxParameters;
-        EventBus.targetCurrentParameters -= DisplayCurrentParameters;
+        EventBus.onSelectTarget -= SetMaxParameters;
+        EventBus.onDeselectTarget -= TurnOffDisplay;
     }
 }

@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class EventBus: MonoBehaviour
 {
-    public static Action<Vector3> broadcastPlayerVelocity;
-    public static Action<Vector3> broadcastMousePosition;
-    public static Action<Transform> broadcastPlayerTransform;
+    public static Action<Vector3, string> onStationSpawn;
+    public static Action onStationDestroy;
 
-    public static Action<Vector3, string> sendStationData;
-    public static Action onAnomalyZoneDestroy;
-    public static Action<Vector3, string> sendAnomalyData;
+    public static Action<Vector3, string> onAnomalySpawn;
+    public static Action onAnomalyDestroy;
+    public static Action<float> onPlayerInAsteroidField;
 
-    public static Action shakeCam;
+    
 
-    public static Action<string, float, float, float> playerMaxParameters;
-    public static Action<float, float, float> playerCurrentParameters;
-    public static Action<string, float, float, float> targetMaxParameters;
-    public static Action<float, float, float> targetCurrentParameters;
+    public static Action<GameObject> onSetPlayerParameters;
+    public static Action onPlayerTakeDamage;
+    public static Action onPlayerDie;
+
+    public static Action<GameObject> onSelectTarget;
+    public static Action onDeselectTarget;
 
     public static Action<List<Resource>, Vector3> spawnResources;
 }

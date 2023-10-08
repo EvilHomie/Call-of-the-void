@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class AsteroidParameters : MonoBehaviour, IDadamageable, ITarget
 {
-    [SerializeField] GameObject explosionParticle;
+    ObjectManager objectManager;
     [SerializeField] float asteroidHP;
     [SerializeField] float asteroidMaxHP;
 
     private void Awake()
     {
         asteroidHP = GetComponent<Rigidbody>().mass;
+        objectManager = GetComponent<ObjectManager>();
         asteroidMaxHP = asteroidHP;
     }
 
@@ -17,9 +18,8 @@ public class AsteroidParameters : MonoBehaviour, IDadamageable, ITarget
         asteroidHP -= energyDMG + kineticDMG;
 
         if (asteroidHP < 0)
-        {
-            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-            Destroy(gameObject);            
+        {            
+            objectManager.OnDestroyEvents();
         }
     }
     public void GetCurrentParameters(out float hullHP, out float armorHP, out float shieldHP)

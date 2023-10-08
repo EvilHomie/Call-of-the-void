@@ -11,24 +11,10 @@ public class SpawnManagerLogic : MonoBehaviour
     [SerializeField] protected float maxSpawnDelay;
 
     [SerializeField] protected float spawnDelay;
-    float playerVelocity = 0;
-    Transform playerTransform = null;
-
-    protected virtual void OnEnable()
-    {
-        EventBus.broadcastPlayerVelocity += GetPlayerVelocity;
-        EventBus.broadcastPlayerTransform += GetPlayerTransform;
-    }
-
-    protected virtual void OnDisable()
-    {
-        EventBus.broadcastPlayerVelocity -= GetPlayerVelocity;
-        EventBus.broadcastPlayerTransform -= GetPlayerTransform;
-    }
 
     protected void ChoiseSpawnMethod()
     {
-        if (playerVelocity > lowerValuePlayerVelocity)
+        if (GlobalData.playerVelocity.magnitude > lowerValuePlayerVelocity)
         {
             SpawnWhenPlayerMove();   
         }
@@ -36,16 +22,6 @@ public class SpawnManagerLogic : MonoBehaviour
         {
             SpawnWhenPlayerStay();
         }
-    }
-
-    protected void GetPlayerVelocity(Vector3 playerVelocity)
-    {
-        this.playerVelocity = playerVelocity.magnitude;
-    }
-
-    protected void GetPlayerTransform(Transform playerTransform)
-    {
-        this.playerTransform = playerTransform;
     }
 
     void SpawnWhenPlayerStay()
@@ -70,7 +46,7 @@ public class SpawnManagerLogic : MonoBehaviour
     {
         float randomAngle = Random.Range(-spawnAngleWhenPlayerIsMoving, spawnAngleWhenPlayerIsMoving);
 
-        Vector3 Pos = Quaternion.Euler(0, playerTransform.eulerAngles.y + randomAngle, 0) * transform.forward * spawnRadius + transform.position;
+        Vector3 Pos = Quaternion.Euler(0, GlobalData.playerTransform.eulerAngles.y + randomAngle, 0) * transform.forward * spawnRadius + transform.position;
         Instantiate(objectsPrefabs[RandomObjectIndex()], Pos, Quaternion.identity);
     }
 

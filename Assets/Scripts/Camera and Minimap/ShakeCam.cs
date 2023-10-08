@@ -21,12 +21,12 @@ public class ShakeCam : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.shakeCam += ShakeCamera;
+        EventBus.onPlayerTakeDamage += ShakeCamera;
     }
 
     private void OnDisable()
     {
-        EventBus.shakeCam -= ShakeCamera;
+        EventBus.onPlayerTakeDamage -= ShakeCamera;
     }
 
     void ShakeCamera()

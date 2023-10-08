@@ -2,17 +2,15 @@ using UnityEngine;
 
 public class EnemyStationSpawnManager : SpawnManagerLogic
 {
-    protected override void OnEnable()
+    void OnEnable()
     {         
-        base.OnEnable();
-        StationOnDestroyComand.onStationDestroy += SetDelayAndSpawn;
+        EventBus.onStationDestroy += SetDelayAndSpawn;
         SetDelayAndSpawn();
     }
 
-    protected override void OnDisable()
-    {        
-        base.OnDisable();
-        StationOnDestroyComand.onStationDestroy -= SetDelayAndSpawn;
+    void OnDisable()
+    {
+        EventBus.onStationDestroy -= SetDelayAndSpawn;
     }   
 
     void SetDelayAndSpawn()

@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class BigObjectSpawnManager : SpawnManagerLogic
 {
-    protected override void OnEnable()
+    void OnEnable()
     {
-        base.OnEnable();
         BigObjectManager.onBigObjectDestroy += SetDelayAndSpawn;
         SetDelayAndSpawn();
     }
-    protected override void OnDisable()
+    void OnDisable()
     {
-        base.OnDisable();
         BigObjectManager.onBigObjectDestroy -= SetDelayAndSpawn;
     }
 

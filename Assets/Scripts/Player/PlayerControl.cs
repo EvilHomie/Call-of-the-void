@@ -16,6 +16,10 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+
+        GlobalData.mousePos = mousePosition2D;
+        GlobalData.playerTransform = transform;
+        GlobalData.playerVelocity = playerRb.velocity;
     }
 
     
@@ -25,9 +29,9 @@ public class PlayerControl : MonoBehaviour
         MoveForward();
         AditionMove();
 
-        EventBus.broadcastMousePosition?.Invoke(mousePosition2D);
-        EventBus.broadcastPlayerVelocity?.Invoke(playerRb.velocity);
-        EventBus.broadcastPlayerTransform?.Invoke(transform);
+        GlobalData.mousePos = mousePosition2D;
+        GlobalData.playerTransform = transform;
+        GlobalData.playerVelocity = playerRb.velocity;
     }
 
     void MousePosTrack()

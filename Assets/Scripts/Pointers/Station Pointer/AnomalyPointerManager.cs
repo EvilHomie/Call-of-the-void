@@ -1,14 +1,14 @@
-public class AnomalyPointerManager : PointerManager
+public class AnomalyPointerManager : PointerLogic
 {  
-    protected override void OnEnable()
+    void OnEnable()
     {
-        base.OnEnable();
-        EventBus.sendAnomalyData += GetTargetData;
+        EventBus.onAnomalySpawn += GetTargetData;
+        EventBus.onAnomalyDestroy += DisablePointer;
     }
 
-    protected override void OnDisable()
+    void OnDisable()
     {
-        base.OnDisable();
-        EventBus.sendAnomalyData -= GetTargetData;
+        EventBus.onAnomalySpawn -= GetTargetData;
+        EventBus.onAnomalyDestroy -= DisablePointer;
     }
 }

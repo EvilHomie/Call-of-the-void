@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class AsteroidSpawnManager : SpawnManagerLogic
 {
-    protected override void OnEnable()
+    float defMinSpawnDelay;
+    float defMaxSpawnDelay;
+    void OnEnable()
     {        
-        base.OnEnable();
-        RepitSpawn();
-        PlayerInFiledManager.comandToAsteroids += ChangeSpawnDelay;
+        Invoke(nameof(RepitSpawn), spawnDelay);
+        defMinSpawnDelay = minSpawnDelay;
+        defMaxSpawnDelay = maxSpawnDelay;
+        EventBus.onPlayerInAsteroidField += ChangeSpawnDelay;
     }
 
-    protected override void OnDisable()
+    void OnDisable()
     {
-        base.OnDisable();
-        PlayerInFiledManager.comandToAsteroids -= ChangeSpawnDelay;
+        EventBus.onPlayerInAsteroidField -= ChangeSpawnDelay;
     }
 
     void RepitSpawn()
@@ -24,7 +26,7 @@ public class AsteroidSpawnManager : SpawnManagerLogic
 
     void ChangeSpawnDelay(float multipler)
     {
-        minSpawnDelay /= multipler;
-        maxSpawnDelay /= multipler;
+        minSpawnDelay = defMinSpawnDelay * multipler;
+        maxSpawnDelay = defMaxSpawnDelay * multipler;
     }
 }

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MiniAsteroidsManager : MonoBehaviour
@@ -9,22 +8,24 @@ public class MiniAsteroidsManager : MonoBehaviour
     [SerializeField] float defRateOverTime = 0.2f;
     [SerializeField] float defRateOverDistance = 0.1f;
 
-
+    private void Awake()
+    {
+        _particleSystem = GetComponent<ParticleSystem>();
+        emission = _particleSystem.emission;
+    }
     private void OnEnable()
     {        
-        GetDefValues();
-        PlayerInFiledManager.comandToAsteroids += ChangeEmissionRate;
+        SetDefValues();
+        EventBus.onPlayerInAsteroidField += ChangeEmissionRate;
     }
 
     private void OnDisable()
     {
-        PlayerInFiledManager.comandToAsteroids -= ChangeEmissionRate;
+        EventBus.onPlayerInAsteroidField -= ChangeEmissionRate;
     }
 
-    void GetDefValues()
-    {
-        _particleSystem = GetComponent<ParticleSystem>();
-        emission = _particleSystem.emission;
+    void SetDefValues()
+    {        
         emission.rateOverTime = defRateOverTime;
         emission.rateOverDistance = defRateOverDistance;
     }
@@ -33,7 +34,5 @@ public class MiniAsteroidsManager : MonoBehaviour
     {
         emission.rateOverTime = defRateOverTime * multipler;
         emission.rateOverDistance = defRateOverDistance * multipler;
-        defRateOverTime *= multipler;
-        defRateOverDistance *= multipler;
     }    
 }

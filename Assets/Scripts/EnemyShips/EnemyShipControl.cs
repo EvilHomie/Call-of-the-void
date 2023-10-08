@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyShipControl : MonoBehaviour
 {
     Rigidbody enemyRb;
-    Vector3 playerPos;
     float currentDistanceFromPlayer;
     float changeDirectionDelay;
     
@@ -34,26 +33,15 @@ public class EnemyShipControl : MonoBehaviour
     {
         enemyRb = GetComponent<Rigidbody>();
         SetParameters();
-        EventBus.broadcastPlayerTransform += GetPlayerPos;
         StartCoroutine(ChangeSideDirection());
-    }
-
-    private void OnDestroy()
-    {
-        EventBus.broadcastPlayerTransform -= GetPlayerPos;
-    }
+    }    
 
     private void FixedUpdate()
     {
-        currentDistanceFromPlayer = Vector3.Distance(playerPos, transform.position);
+        currentDistanceFromPlayer = Vector3.Distance(GlobalData.playerTransform.position, transform.position);
 
         RotateToplayer();
         MoveToPlayer();
-    }
-
-    private void GetPlayerPos(Transform playerTransform)
-    {
-        playerPos = playerTransform.position;
     }
 
     void SetParameters()
@@ -69,7 +57,7 @@ public class EnemyShipControl : MonoBehaviour
     {
         if (currentDistanceFromPlayer < maxDistaceFromPlayer)
         {
-            Vector3 playerDirection = playerPos - transform.position;
+            Vector3 playerDirection = GlobalData.playerTransform.position - transform.position;
             Quaternion toPlayer = Quaternion.LookRotation(playerDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toPlayer, enemyRotateSpeed * Time.deltaTime);
         }        

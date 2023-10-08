@@ -2,12 +2,12 @@ public class DisplayPlayerShipParameters : DisplayParameters
 {
     protected override void OnEnable()
     {
-        EventBus.playerMaxParameters += SetMaxParameters;
-        EventBus.playerCurrentParameters += DisplayCurrentParameters;
+        EventBus.onSetPlayerParameters += SetMaxParameters;
+        EventBus.onPlayerDie += TurnOffDisplay;
     }
     protected override void OnDisable()
     {
-        EventBus.playerMaxParameters -= SetMaxParameters;
-        EventBus.playerCurrentParameters -= DisplayCurrentParameters;
+        EventBus.onSetPlayerParameters -= SetMaxParameters;
+        EventBus.onPlayerDie -= TurnOffDisplay;
     }
 }

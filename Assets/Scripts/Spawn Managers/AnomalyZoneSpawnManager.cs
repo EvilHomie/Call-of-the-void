@@ -2,16 +2,14 @@ using UnityEngine;
 
 public class AnomalyZoneSpawnManager : SpawnManagerLogic
 {
-    protected override void OnEnable()
+    void OnEnable()
     {
-        base.OnEnable();
-        EventBus.onAnomalyZoneDestroy += SetDelayAndSpawn;
+        EventBus.onAnomalyDestroy += SetDelayAndSpawn;
         SetDelayAndSpawn();
     }
-    protected override void OnDisable()
+    void OnDisable()
     {
-        base.OnDisable();
-        EventBus.onAnomalyZoneDestroy -= SetDelayAndSpawn;
+        EventBus.onAnomalyDestroy -= SetDelayAndSpawn;
     }
 
     void SetDelayAndSpawn()

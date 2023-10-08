@@ -4,26 +4,32 @@ using UnityEngine.UI;
 
 public class DisplayParameters : MonoBehaviour
 {
-    Slider hullSlider;
-    Slider armorSlider;
-    Slider shieldSlider;
+    [SerializeField] Slider hullSlider;
+    [SerializeField] Slider armorSlider;
+    [SerializeField] Slider shieldSlider;
 
-    TextMeshProUGUI hullHPText;
-    TextMeshProUGUI nameText;
-    TextMeshProUGUI armorHPText;
-    TextMeshProUGUI shieldHPText;
+    [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] TextMeshProUGUI hullHPText;
+    [SerializeField] TextMeshProUGUI armorHPText;
+    [SerializeField] TextMeshProUGUI shieldHPText;
 
-    private void Awake()
-    {
-        GetReferences();
-    }
+    ITarget targetParameter;   
 
     protected virtual void OnEnable() { }
 
     protected virtual void OnDisable() { }
 
-    protected void DisplayCurrentParameters(float hullHP, float armorHP, float shieldHP)
+    private void FixedUpdate()
     {
+        if (targetParameter != null)
+        {            
+            DisplayCurrentParameters();
+        }        
+    }
+    protected void DisplayCurrentParameters()
+    {
+        targetParameter.GetCurrentParameters(out float hullHP, out float armorHP, out float shieldHP);
+        
         hullSlider.value = hullHP;
         armorSlider.value = armorHP;
         shieldSlider.value = shieldHP;
@@ -31,24 +37,36 @@ public class DisplayParameters : MonoBehaviour
         hullHPText.text = Mathf.Round(hullHP).ToString();
         armorHPText.text = Mathf.Round(armorHP).ToString();
         shieldHPText.text = Mathf.Round(shieldHP).ToString();
+
+        if (hullHP <= 0)
+        {
+            TurnOffDisplay();
+        }
     }
-    protected void SetMaxParameters(string name, float maxHullHP, float maxArmorHP, float maxShieldHP)
+    protected void SetMaxParameters(GameObject obj)
     {
-        nameText.text = name;        
-        hullSlider.maxValue = maxHullHP;
-        armorSlider.maxValue = maxArmorHP;
-        shieldSlider.maxValue = maxShieldHP;
+        if (obj != null)
+        {
+            SwitchBars(true);
+            targetParameter = obj.GetComponent<ITarget>();
+            targetParameter.GetMaxParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP);
+            nameText.text = obj.tag;
+            hullSlider.maxValue = maxHullHP;
+            armorSlider.maxValue = maxArmorHP;
+            shieldSlider.maxValue = maxShieldHP;
+        }        
     }
 
-    void GetReferences()
+    protected void TurnOffDisplay()
     {
-        hullSlider = transform.Find("Hull Slider").GetComponent<Slider>();
-        armorSlider = transform.Find("Armor Slider").GetComponent<Slider>();
-        shieldSlider = transform.Find("Shield Slider").GetComponent<Slider>();
-
-        nameText = transform.Find("Name").GetComponent<TextMeshProUGUI>();
-        hullHPText = hullSlider.transform.Find("Hull HP Text").GetComponent<TextMeshProUGUI>();
-        armorHPText = armorSlider.transform.Find("Armor HP Text").GetComponent<TextMeshProUGUI>();
-        shieldHPText = shieldSlider.transform.Find("Shield HP Text").GetComponent<TextMeshProUGUI>();
-    }        
+        targetParameter = null;
+        SwitchBars(false);
+    }
+    protected void SwitchBars(bool status)
+    {
+        foreach (Transform t in transform)
+        {
+            t.gameObject.SetActive(status);
+        }
+    }
 }

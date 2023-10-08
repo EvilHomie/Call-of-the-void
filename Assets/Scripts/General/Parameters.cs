@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 public class Parameters : MonoBehaviour, IDadamageable, ITarget
-{
-    [SerializeField] ParticleSystem[] explodeParticle;
+{    
+    ObjectManager objectManager;
     [SerializeField] float hullHP;
     [SerializeField] float armorHP;
     [SerializeField] float shieldHP;
@@ -23,6 +22,7 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
 
     private void Awake()
     {
+        objectManager = GetComponent<ObjectManager>();
         fullHull = hullHP;
         fullArmor = armorHP;
         fullShield = shieldHP;
@@ -62,13 +62,13 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
         }
         if (hullHP <= 0)
         {
-            StartCoroutine(Destroy());
+            objectManager.OnDestroyEvents();
         }
 
 
         if (gameObject.CompareTag("Player"))
         {
-            EventBus.shakeCam?.Invoke();
+            EventBus.onPlayerTakeDamage?.Invoke();
         }
     }
     public void GetMaxParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP)
@@ -100,18 +100,5 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
     {
         yield return new WaitForSeconds(shieldStartRegDelay);
         shieldIsActive = true;
-    }
-
-    IEnumerator Destroy()
-    {
-        int explodeCount = explodeParticle.Length;
-
-        for (int i = 0; i < explodeCount; ++i) 
-        {
-            explodeParticle[i].gameObject.SetActive(true);
-            yield return new WaitForSeconds(1);
-        }
-        yield return new WaitForSeconds(explodeParticle[explodeCount - 1].main.duration);
-        Destroy(gameObject);        
     }
 }

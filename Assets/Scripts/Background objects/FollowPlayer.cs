@@ -3,17 +3,14 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     [SerializeField] Vector3 offset;
-    private void OnEnable()
+
+    private void FixedUpdate()
     {
-        EventBus.broadcastPlayerTransform += SetPosition;
-    }
-    private void OnDisable()
-    {
-        EventBus.broadcastPlayerTransform -= SetPosition;
+        SetPosition();
     }
 
-    private void SetPosition(Transform playerTransform)
+    private void SetPosition()
     {
-        transform.position = playerTransform.position + offset;
+        transform.position = GlobalData.playerTransform.position + offset;
     }
 }

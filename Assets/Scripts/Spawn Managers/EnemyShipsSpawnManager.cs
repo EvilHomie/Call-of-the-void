@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class EnemyShipsSpawnManager : SpawnManagerLogic
 {
-    protected override void OnEnable()
+    void OnEnable()
     {        
-        base.OnEnable();
         RepitSpawn();        
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();        
     }
 
     void RepitSpawn()

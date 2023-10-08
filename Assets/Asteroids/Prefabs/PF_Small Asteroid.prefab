@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 8996320452259741372}
   - component: {fileID: 9798896485171383}
   - component: {fileID: -4133017719395254207}
+  - component: {fileID: -5923293229669424082}
+  - component: {fileID: 5414209122798447718}
   m_Layer: 0
   m_Name: PF_Small Asteroid
   m_TagString: Asteroid
@@ -163,8 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6364e9c1e107022499b83c33b810e759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionParticle: {fileID: 4767705418860891765, guid: add79a24a4375c64f9ea0a042bb57a3e,
-    type: 3}
   asteroidHP: 0
   asteroidMaxHP: 0
 --- !u!114 &9798896485171383
@@ -192,6 +192,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistanceFromPlayer: 750
+--- !u!114 &-5923293229669424082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5563323982375897026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925469a3532a797429229c4a89468821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticlePF: {fileID: 4767705418860891765, guid: add79a24a4375c64f9ea0a042bb57a3e,
+    type: 3}
+  explosionCount: 1
+--- !u!114 &5414209122798447718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5563323982375897026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f88409c1f3c5045a421cc6ad285b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourcesInObj:
+  - type: 0
+    dropChance: 60
+    amount: 2
+  - type: 1
+    dropChance: 30
+    amount: 1
 --- !u!1 &7538042900046577967
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,14 +1,14 @@
-public class StationPointerManager : PointerManager
+public class StationPointerManager : PointerLogic
 {
-    protected override void OnEnable()
+    void OnEnable()
     {        
-        base.OnEnable();
-        EventBus.sendStationData += GetTargetData;
+        EventBus.onStationSpawn += GetTargetData;
+        EventBus.onStationDestroy += DisablePointer;
     }
 
-    protected override void OnDisable()
+    void OnDisable()
     {      
-        base.OnDisable();
-        EventBus.sendStationData -= GetTargetData;
+        EventBus.onStationSpawn -= GetTargetData;
+        EventBus.onStationDestroy -= DisablePointer;
     }
 }

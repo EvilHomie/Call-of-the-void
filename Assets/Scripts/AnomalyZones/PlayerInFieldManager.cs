@@ -1,35 +1,30 @@
 using System;
 using UnityEngine;
 
-public class PlayerInFiledManager : MonoBehaviour
+public class PlayerInFieldManager : MonoBehaviour
 {
     [SerializeField] float countMultipler;
     [SerializeField] float triggerDistanceFromPlayer;
     [SerializeField] bool playerIsInsideField = false;
 
-    public static Action<float> comandToAsteroids;
+    
     float currentDistanceFromPlayer;
 
-    Vector3 playePos;
-    private void OnEnable()
+    private void Awake()
     {
-        EventBus.broadcastPlayerTransform += GetPlayerPos;
-        InvokeRepeating(nameof(CheckDistance), 5, 2);
+        InvokeRepeating(nameof(CheckDistance), 5, 1);
     }
-    void GetPlayerPos(Transform playerTransform)
-    {
-        playePos = playerTransform.position;
-    }
+
     void CheckDistance()
     {
-        currentDistanceFromPlayer = Vector3.Distance(playePos, transform.position);
+        currentDistanceFromPlayer = Vector3.Distance(GlobalData.playerTransform.position, transform.position);
 
         if (!playerIsInsideField)
         {            
             if (currentDistanceFromPlayer < triggerDistanceFromPlayer)
             {
                 playerIsInsideField = true;
-                comandToAsteroids?.Invoke(countMultipler);
+                EventBus.onPlayerInAsteroidField?.Invoke(countMultipler);
             }
         }
         else
@@ -37,7 +32,7 @@ public class PlayerInFiledManager : MonoBehaviour
             if (currentDistanceFromPlayer > triggerDistanceFromPlayer)
             {
                 playerIsInsideField = false;
-                comandToAsteroids?.Invoke(1 / countMultipler);
+                EventBus.onPlayerInAsteroidField?.Invoke(1);
             }
         }
     }

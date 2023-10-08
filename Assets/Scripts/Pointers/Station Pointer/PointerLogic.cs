@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PointerManager : MonoBehaviour
+public class PointerLogic : MonoBehaviour
 {
     [SerializeField] GameObject pointer;
     [SerializeField] TextMeshProUGUI detectionText;
@@ -11,7 +11,6 @@ public class PointerManager : MonoBehaviour
 
     [SerializeField] List<Transform> listChildsObj = new();
 
-    Vector3 playerPos;
     Vector3 targetPos;
     bool pointerEnabled;
     Color defaultColor;
@@ -20,16 +19,7 @@ public class PointerManager : MonoBehaviour
         defaultColor = detectionText.faceColor;
         Fillist();
         DisablePointer();
-    }
-    protected virtual void OnEnable()
-    {
-        EventBus.broadcastPlayerTransform += GetPlayerPos;
-    }
-
-    protected virtual void OnDisable()
-    {
-        EventBus.broadcastPlayerTransform -= GetPlayerPos;
-    }
+    }   
 
     void FixedUpdate()
     {
@@ -46,31 +36,23 @@ public class PointerManager : MonoBehaviour
 
     protected void GetTargetData(Vector3 targetPos, string targetName)
     {
-        if (targetPos != Vector3.zero)
-        {
-            this.targetPos = targetPos;
-            this.targetName.text = $">>{targetName}<<";
-            EnablePointer();
-            StartCoroutine(PulsingText());
-        }
-        else { DisablePointer(); }
+        this.targetPos = targetPos;
+        this.targetName.text = $">>{targetName}<<";
+        EnablePointer();
+        StartCoroutine(PulsingText());
     }
 
-    protected void GetPlayerPos(Transform playerTransform)
-    {
-        playerPos = playerTransform.position;
-    }
     void RotateToTarget()
     {
         if (pointerEnabled)
         {
-            Vector3 stationDir = (targetPos - playerPos).normalized;
+            Vector3 stationDir = (targetPos - GlobalData.playerTransform.position).normalized;
             Quaternion toStation = Quaternion.LookRotation(stationDir, Vector3.right);
             pointer.transform.rotation = Quaternion.RotateTowards(pointer.transform.rotation, toStation, 180f);
         }
     }
 
-    void DisablePointer()
+    protected void DisablePointer()
     {
         pointerEnabled = false;
         listChildsObj.ForEach(child => child.gameObject.SetActive(false));

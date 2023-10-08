@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6912538669214558789}
   - component: {fileID: 5791064541742611194}
   - component: {fileID: 1700206105242935366}
-  - component: {fileID: 2943974046397474178}
   - component: {fileID: 6231754265180648221}
   m_Layer: 0
   m_Name: Asteriods Field
@@ -58,18 +57,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38decc53e2a792a44b154a5678d185cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2943974046397474178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4465505208520082089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce44934e0f483543ab03229b58a3b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6231754265180648221

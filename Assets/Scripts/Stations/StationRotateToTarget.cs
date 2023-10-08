@@ -5,7 +5,6 @@ public class StationRotateToTarget : MonoBehaviour
 {
 
     readonly float stationRotateSpeed = 5f;
-    Vector3 targetPosition;
     ShootInPlayer[] turretsArray;
     List<bool> targetInFocus = new();
 
@@ -14,16 +13,6 @@ public class StationRotateToTarget : MonoBehaviour
         turretsArray = GetComponentsInChildren<ShootInPlayer>();
         FillList();
     }
-    void OnEnable()
-    {
-        EventBus.broadcastPlayerTransform += TakeTargetPosition;
-    }
-
-    void OnDisable()
-    {
-        EventBus.broadcastPlayerTransform -= TakeTargetPosition;
-    }
-
 
     private void FixedUpdate()
     {
@@ -34,17 +23,12 @@ public class StationRotateToTarget : MonoBehaviour
     }
     void RotateToTarget()
     {
-        Vector3 targetDirection = targetPosition - transform.position;
+        Vector3 targetDirection = GlobalData.playerTransform.position - transform.position;
         Vector3 targetDirection2D = new Vector3(targetDirection.x, 0, targetDirection.z).normalized;
         Quaternion toTarget = Quaternion.LookRotation(targetDirection2D, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, toTarget, stationRotateSpeed * Time.fixedDeltaTime);
-
     }
 
-    void TakeTargetPosition(Transform playerTransform)
-    {
-        targetPosition = playerTransform.position;
-    }
 
     void FillList()
     {

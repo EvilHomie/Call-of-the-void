@@ -12,28 +12,16 @@ public class AsteroidManager : MonoBehaviour
     readonly float minTumbleSpeed = 0.3f;
     readonly float maxTumbleSpeed = 1.0f;
 
-    readonly float radiusAroundPlayer = 100f;
-    
-    Vector3 playerPos;    
+    readonly float radiusAroundPlayer = 100f;    
 
     void OnEnable()
     {
-        EventBus.broadcastPlayerTransform += GetPlayerPos;
-        asteroidRB = GetComponent<Rigidbody>();        
-
+        asteroidRB = GetComponent<Rigidbody>();
         RandomRotator();
-        MoveToGameZone();        
-    }
+        MoveToGameZone();
 
-    private void OnDestroy()
-    {
-        EventBus.broadcastPlayerTransform -= GetPlayerPos;
     }
-
-    void GetPlayerPos(Transform playerTransform)
-    {
-        playerPos = playerTransform.position;
-    }
+    
     void RandomRotator()
     {
         tumbleSpeed = Random.Range(minTumbleSpeed, maxTumbleSpeed);
@@ -48,7 +36,7 @@ public class AsteroidManager : MonoBehaviour
 
     Vector3 DirectionCoordonates()
     {
-        Vector3 randomPointPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusAroundPlayer + playerPos;
+        Vector3 randomPointPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusAroundPlayer + GlobalData.playerTransform.position;
         Vector3 direction = randomPointPos - transform.position;
         return direction.normalized;
     }  
