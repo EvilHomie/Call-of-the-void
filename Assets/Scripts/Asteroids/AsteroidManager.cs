@@ -14,7 +14,7 @@ public class AsteroidManager : MonoBehaviour
 
     readonly float radiusAroundPlayer = 100f;    
 
-    void OnEnable()
+    void Start()
     {
         asteroidRB = GetComponent<Rigidbody>();
         RandomRotator();

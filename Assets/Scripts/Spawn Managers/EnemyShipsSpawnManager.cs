@@ -3,8 +3,14 @@ using UnityEngine;
 public class EnemyShipsSpawnManager : SpawnManagerLogic
 {
     void OnEnable()
-    {        
-        RepitSpawn();        
+    {
+        spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+        Invoke(nameof(RepitSpawn), spawnDelay);
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke();
     }
 
     void RepitSpawn()

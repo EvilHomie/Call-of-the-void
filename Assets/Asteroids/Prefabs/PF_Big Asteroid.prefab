@@ -100,8 +100,8 @@ GameObject:
   - component: {fileID: 5530057491152214349}
   - component: {fileID: 5062183893928996572}
   - component: {fileID: -8724912261759761101}
-  - component: {fileID: 3809516541384719027}
   - component: {fileID: -7408981433452375109}
+  - component: {fileID: -6901831583768827381}
   m_Layer: 0
   m_Name: PF_Big Asteroid
   m_TagString: Asteroid
@@ -205,7 +205,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5736858169570194651}
   serializedVersion: 4
-  m_Mass: 150
+  m_Mass: 300
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -275,21 +275,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistanceFromPlayer: 750
---- !u!114 &3809516541384719027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5736858169570194651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 925469a3532a797429229c4a89468821, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionParticlePF: {fileID: 4767705418860891765, guid: 85bdd679ed054cd4382422a54072f78d,
-    type: 3}
-  explosionCount: 1
 --- !u!114 &-7408981433452375109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,3 +294,19 @@ MonoBehaviour:
   - type: 1
     dropChance: 30
     amount: 3
+--- !u!114 &-6901831583768827381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5736858169570194651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e112ee84dd4f771448e4a50eab135374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticlePF: {fileID: 4767705418860891765, guid: 85bdd679ed054cd4382422a54072f78d,
+    type: 3}
+  explosionsCount: 1
+  explosionsDelay: 1

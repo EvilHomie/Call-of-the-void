@@ -10140,7 +10140,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 431127215680662001}
-  - component: {fileID: 1740415867702643961}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -10163,21 +10162,6 @@ Transform:
   m_Father: {fileID: 6760676132330261197}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1740415867702643961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599069631017269322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4f17b539d14d444ba186bc1f632c1fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 2294516099223407039, guid: feab74e91c3bc4245afab66b9609a21d, type: 3}
-  - {fileID: 6307115990872510012, guid: cd0ca121b296cf74cb3ddd9eac2a88b7, type: 3}
 --- !u!1 &1777148974806357675
 GameObject:
   m_ObjectHideFlags: 0
@@ -10227,8 +10211,9 @@ GameObject:
   - component: {fileID: 1007214551831054729}
   - component: {fileID: 332294346262349262}
   - component: {fileID: 8027422085531654556}
-  - component: {fileID: 8641983916987922873}
   - component: {fileID: 5324478291328056628}
+  - component: {fileID: 6616623597494918484}
+  - component: {fileID: 3399479556478772706}
   m_Layer: 0
   m_Name: PF_EnemyShip1
   m_TagString: Enemy
@@ -10372,6 +10357,7 @@ MonoBehaviour:
   shieldRegRate: 5
   shieldStartRegDelay: 5
   shieldIsActive: 1
+  objDie: 0
 --- !u!114 &1007214551831054729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10400,14 +10386,14 @@ MonoBehaviour:
   mainEngineSpeedminValue: 15
   mainEngineSpeedmaxValue: 30
   enemyRotateSpeed: 0
-  enemyRotateSpeedMinValue: 150
-  enemyRotateSpeedMaxValue: 200
+  enemyRotateSpeedMinValue: 90
+  enemyRotateSpeedMaxValue: 180
   enemyRCSSpeed: 0
   rCSpeedMinValue: 10
   rCSpeedMaxValue: 15
   maxDistaceFromPlayer: 0
-  maxDistaceFromPlayerMinValue: 150
-  maxDistaceFromPlayerMaxValue: 150
+  maxDistaceFromPlayerMinValue: 75
+  maxDistaceFromPlayerMaxValue: 100
   minDistaceFromPlayer: 0
   minDistaceFromPlayerMinValue: 30
   minDistaceFromPlayerMaxValue: 50
@@ -10424,21 +10410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistanceFromPlayer: 750
---- !u!114 &8641983916987922873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919046468026766890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 925469a3532a797429229c4a89468821, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionParticlePF: {fileID: 6886433278860426915, guid: 0c2840822377ab445b6c3d8d8b2590e9,
-    type: 3}
-  explosionCount: 1
 --- !u!114 &5324478291328056628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10458,6 +10429,50 @@ MonoBehaviour:
   - type: 2
     dropChance: 30
     amount: 3
+--- !u!114 &6616623597494918484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919046468026766890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e112ee84dd4f771448e4a50eab135374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticlePF: {fileID: 6886433278860426915, guid: 0c2840822377ab445b6c3d8d8b2590e9,
+    type: 3}
+  explosionsCount: 1
+  explosionsDelay: 4
+--- !u!114 &3399479556478772706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919046468026766890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f17b539d14d444ba186bc1f632c1fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableWeapons:
+  - {fileID: 6307115990872510012, guid: cd0ca121b296cf74cb3ddd9eac2a88b7, type: 3}
+  - {fileID: 2294516099223407039, guid: feab74e91c3bc4245afab66b9609a21d, type: 3}
+  weaponContainer: {fileID: 1599069631017269322}
+  minFireRate: 1
+  maxFireRate: 3
+  minProjectileSpeed: 75
+  maxProjectileSpeed: 150
+  minProjectileLifeTime: 0.5
+  maxProjectileLifeTime: 1
+  minEnergyDmg: 10
+  maxEnergyDmg: 20
+  minKeneticDmg: 10
+  maxKeneticDmg: 20
+  minWeaponDistance: 75
+  maxWeaponDistance: 100
 --- !u!1 &2260283330944298871
 GameObject:
   m_ObjectHideFlags: 0

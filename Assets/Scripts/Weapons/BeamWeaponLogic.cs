@@ -22,8 +22,8 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
     readonly List<ParticleSystem> permanentParticles = new();
 
     IEnumerator shooting;
-    readonly float beamLength = 150f;
 
+    [SerializeField] float beamLength;
     [SerializeField] float energyDamage;
     [SerializeField] float kineticDamage;
 
@@ -33,10 +33,11 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
     {
         FillPermamentParticlesList();
     }
-    public void SetParameters(float energyDmg, float kineticDmg)
+    public void SetWeaponParameters(float fireRate, float projectileSpeed, float projectileLifeTime, float energyDMG, float kineticDMG, float beamLength)
     {
-        energyDamage = energyDmg;
-        kineticDamage = kineticDmg;
+        energyDamage = energyDMG;
+        kineticDamage = kineticDMG;
+        this.beamLength = beamLength;
     }
 
     void PlayPermamentParticles(bool enable)

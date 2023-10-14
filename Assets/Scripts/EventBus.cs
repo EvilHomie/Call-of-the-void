@@ -20,5 +20,8 @@ public class EventBus: MonoBehaviour
     public static Action<GameObject> onSelectTarget;
     public static Action onDeselectTarget;
 
+
+
+    public static Action<GameObject> onObjDie;
     public static Action<List<Resource>, Vector3> spawnResources;
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Parameters : MonoBehaviour, IDadamageable, ITarget
 {    
-    ObjectManager objectManager;
     [SerializeField] float hullHP;
     [SerializeField] float armorHP;
     [SerializeField] float shieldHP;
@@ -19,10 +18,10 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
 
     [SerializeField] float shieldStartRegDelay;
     [SerializeField] bool shieldIsActive = true;
+    [SerializeField] bool objDie = false;
 
     private void Awake()
     {
-        objectManager = GetComponent<ObjectManager>();
         fullHull = hullHP;
         fullArmor = armorHP;
         fullShield = shieldHP;
@@ -60,9 +59,10 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
                 hullHP -= energyDMG + kineticDMG;                
             }
         }
-        if (hullHP <= 0)
+        if (hullHP <= 0 && !objDie)
         {
-            objectManager.OnDestroyEvents();
+            objDie = true;
+            EventBus.onObjDie?.Invoke(gameObject);
         }
 
 

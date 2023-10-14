@@ -14,6 +14,7 @@ public class DisplayParameters : MonoBehaviour
     [SerializeField] TextMeshProUGUI shieldHPText;
 
     ITarget targetParameter;   
+    bool displayIsActive = true;
 
     protected virtual void OnEnable() { }
 
@@ -24,7 +25,11 @@ public class DisplayParameters : MonoBehaviour
         if (targetParameter != null)
         {            
             DisplayCurrentParameters();
-        }        
+        } 
+        else if(displayIsActive)
+        {
+            TurnOffDisplay();
+        }
     }
     protected void DisplayCurrentParameters()
     {
@@ -43,11 +48,12 @@ public class DisplayParameters : MonoBehaviour
             TurnOffDisplay();
         }
     }
-    protected void SetMaxParameters(GameObject obj)
+    protected virtual void SetMaxParameters(GameObject obj)
     {
         if (obj != null)
         {
             SwitchBars(true);
+            displayIsActive = true;
             targetParameter = obj.GetComponent<ITarget>();
             targetParameter.GetMaxParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP);
             nameText.text = obj.tag;
@@ -57,10 +63,11 @@ public class DisplayParameters : MonoBehaviour
         }        
     }
 
-    protected void TurnOffDisplay()
+    protected virtual void TurnOffDisplay()
     {
         targetParameter = null;
         SwitchBars(false);
+        displayIsActive = false;
     }
     protected void SwitchBars(bool status)
     {

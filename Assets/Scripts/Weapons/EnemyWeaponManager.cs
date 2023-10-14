@@ -3,23 +3,42 @@ using UnityEngine;
 
 public class EnemyWeaponManager : MonoBehaviour
 {
-    [SerializeField] List<GameObject> weapons;
+    [SerializeField] List<GameObject> availableWeapons;
+    [SerializeField] GameObject weaponContainer;
 
-    float minEnergyDmg = 10f;
-    float maxEnergyDmg = 20f;
+    [SerializeField] float minFireRate;
+    [SerializeField] float maxFireRate;
 
-    float minKeneticDmg = 10f;
-    float maxKeneticDmg = 20f;
+    [SerializeField] float minProjectileSpeed;
+    [SerializeField] float maxProjectileSpeed;
+
+    [SerializeField] float minProjectileLifeTime;
+    [SerializeField] float maxProjectileLifeTime;
+
+    [SerializeField] float minEnergyDmg;
+    [SerializeField] float maxEnergyDmg;
+
+    [SerializeField] float minKeneticDmg;
+    [SerializeField] float maxKeneticDmg;
+
+    [SerializeField] float minWeaponDistance;
+    [SerializeField] float maxWeaponDistance;
 
     private void Awake()
     {
-        GameObject weapon = Instantiate(weapons[Random.Range(0, weapons.Count)], transform);
-
-        weapon.AddComponent<ShootInPlayer>();
-
+        float fireRate = Random.Range(minFireRate, maxFireRate);
+        float projectileSpeed = Random.Range(minProjectileSpeed, maxProjectileSpeed);
+        float projectileLifeTime = Random.Range(minProjectileLifeTime, maxProjectileLifeTime);
         float enDmg = Random.Range(minEnergyDmg, maxEnergyDmg);
         float kenDmg = Random.Range(minKeneticDmg, maxKeneticDmg);
-        weapon.GetComponent<IWeapon>().SetParameters(enDmg, kenDmg);
+        float weaponDistance = Random.Range(minWeaponDistance, maxWeaponDistance);
 
+        int randomIndex = Random.Range(0, availableWeapons.Count);
+        GameObject weapon = Instantiate(availableWeapons[randomIndex], weaponContainer.transform);
+        weapon.AddComponent<ShootInPlayer>().weaponDistance = weaponDistance;
+
+        
+
+        weapon.GetComponent<IWeapon>().SetWeaponParameters(fireRate, projectileSpeed, projectileLifeTime, enDmg, kenDmg, weaponDistance);
     }
 }
