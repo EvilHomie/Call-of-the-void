@@ -9,6 +9,7 @@ TagManager:
   - Station
   - Weapon
   - Resource
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - MouseTrackLayer
   - MiniMapIcon
   - Projectile
-  - 
+  - Resource
   - 
   - 
   - 

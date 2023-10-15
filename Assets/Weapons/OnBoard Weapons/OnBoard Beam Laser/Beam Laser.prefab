@@ -4908,7 +4908,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.05
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5032,6 +5032,9 @@ MonoBehaviour:
   firePoint: {fileID: 4388295704765274901}
   startPoint: {fileID: 4942118594830341666}
   endPoint: {fileID: 5426271234279083297}
+  layer:
+    serializedVersion: 2
+    m_Bits: 1
   weaponAS: {fileID: 8337054165707011193}
   endPointAS: {fileID: 241462827657772545}
   startShoot: {fileID: 8300000, guid: 3c56c26253fa32047bbe1c4bf9251ade, type: 3}
@@ -5039,6 +5042,7 @@ MonoBehaviour:
   continueShoot: {fileID: 8300000, guid: 5b1c92c62bf443841980a3a2cd6ed389, type: 3}
   chargeParticles: {fileID: 8471823944381818806}
   lightPoint: {fileID: 1864477932508933233}
+  beamLength: 100
   energyDamage: 50
   kineticDamage: 50
 --- !u!1 &2374763885595497208
@@ -10010,9 +10014,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4622748168409886027}
   - component: {fileID: 241462827657772545}
-  m_Layer: 0
+  - component: {fileID: 5824265406850802212}
+  m_Layer: 8
   m_Name: End Point
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10139,6 +10144,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &5824265406850802212
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426271234279083297}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5923405022997047992
 GameObject:
   m_ObjectHideFlags: 0

@@ -4984,7 +4984,7 @@ Transform:
   - {fileID: 6346893007380514893}
   - {fileID: 3100452446143939055}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &3452290812597313082
 AudioSource:
@@ -4998,7 +4998,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.05
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5114,7 +5114,6 @@ MonoBehaviour:
   energyDamage: 20
   kineticDamage: 20
   offSetSpawnProjectile: 1.5
-  projectile: {fileID: 0}
 --- !u!114 &4932863120637733030
 MonoBehaviour:
   m_ObjectHideFlags: 0

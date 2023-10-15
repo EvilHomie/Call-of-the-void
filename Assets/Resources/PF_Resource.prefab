@@ -110,6 +110,9 @@ GameObject:
   - component: {fileID: 4966364645812592214}
   - component: {fileID: -896661376286950063}
   - component: {fileID: 4458220903191838922}
+  - component: {fileID: 7611741331559174835}
+  - component: {fileID: 5117536915449566989}
+  - component: {fileID: 5421412644638499424}
   m_Layer: 0
   m_Name: PF_Resource
   m_TagString: Untagged
@@ -147,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceCount: 1
   type: 0
+  image: {fileID: 711519183, guid: 6cb86d712d7ca3f458a1d0094e9fb45c, type: 3}
 --- !u!54 &-896661376286950063
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -192,3 +196,51 @@ MonoBehaviour:
   tumbleSpeed: 0
   minTumbleSpeed: 10
   maxTumbleSpeed: 15
+--- !u!114 &7611741331559174835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6358600940365621455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b587b870c0ba46d49b507bb4c2355b05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticle: {fileID: 874915135278516284, guid: 4461bdd8ebfeb9b47871b391e5f5f39b,
+    type: 3}
+--- !u!135 &5117536915449566989
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6358600940365621455}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5421412644638499424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6358600940365621455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b30b0e65cb9ce944bed7f9dc1f52755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistanceFromPlayer: 500
