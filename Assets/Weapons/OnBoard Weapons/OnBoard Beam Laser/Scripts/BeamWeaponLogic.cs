@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BeamWeaponLogic : MonoBehaviour, IWeapon
 {
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] Transform firePoint;
-    [SerializeField] GameObject startPoint;
     [SerializeField] GameObject endPoint;
-    [SerializeField] LayerMask layer;
+    [SerializeField] LayerMask interactLayer;
 
     [SerializeField] AudioSource weaponAS;
     [SerializeField] AudioSource endPointAS;
@@ -19,8 +17,7 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
 
     [SerializeField] ParticleSystem chargeParticles;
     [SerializeField] ParticleSystem lightPoint;
-
-    readonly List<ParticleSystem> permanentParticles = new();
+    [SerializeField] ParticleSystem shootParticles;
 
     IEnumerator shooting;
 
@@ -30,10 +27,6 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
 
     bool isShooting = false;
 
-    void Awake()
-    {
-        FillPermamentParticlesList();
-    }
     public void SetWeaponParameters(float fireRate, float projectileSpeed, float projectileLifeTime, float energyDMG, float kineticDMG, float beamLength)
     {
         energyDamage = energyDMG;
@@ -41,34 +34,14 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
         this.beamLength = beamLength;
     }
 
-    void PlayPermamentParticles(bool enable)
+    private void OnDisable()
     {
-        for (int i = 0; i < permanentParticles.Count; i++)
+        if (isShooting)
         {
-            if (enable) permanentParticles[i].Play();
-            if (!enable) permanentParticles[i].Stop();
-        }
-    }  
-
-    void FillPermamentParticlesList()
-    {
-        for (int i = 0; i < startPoint.transform.childCount; i++)
-        {
-            if (startPoint.transform.GetChild(i).TryGetComponent<ParticleSystem>(out var ps))
-            {
-                permanentParticles.Add(ps);                
-            }
-        }
-
-        for (int i = 0; i < endPoint.transform.childCount; i++)
-        {
-            if (endPoint.transform.GetChild(i).TryGetComponent<ParticleSystem>(out var ps))
-            {
-                permanentParticles.Add(ps);
-            }
-        }
+            isShooting = false;
+            lineRenderer.enabled = false;
+        }        
     }
-
     public void Shoot()
     {
         if (!isShooting)
@@ -92,27 +65,27 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
         yield return new WaitForSeconds(startShoot.length);
 
         chargeParticles.Stop();
-        PlayPermamentParticles(true);
+        shootParticles.Play();
         PlayAudioEffect(true, continueShoot);
 
         lineRenderer.enabled = true;
 
-        while (isShooting & lineRenderer.enabled == true)
+        while (isShooting)
         {
             lineRenderer.SetPosition(0, firePoint.position);
             lineRenderer.SetPosition(1, firePoint.position + firePoint.forward * beamLength);  
 
-            if (Physics.Raycast(transform.position, firePoint.forward, out RaycastHit raycastHit, beamLength, layer))
+            if (Physics.Raycast(transform.position, firePoint.forward, out RaycastHit raycastHit, beamLength, interactLayer))
             {
                 lineRenderer.SetPosition(1, raycastHit.point);
-                IDadamageable hit = raycastHit.collider.GetComponent<IDadamageable>();
+                IDadamageable hit = raycastHit.collider.transform.root.gameObject.GetComponent<IDadamageable>();
 
                 hit?.Damage(energyDamage * Time.deltaTime, kineticDamage * Time.deltaTime);
-                if (!endPointAS.isPlaying) endPointAS.Play();
+                endPoint.transform.position = lineRenderer.GetPosition(1);
+                if (!endPoint.activeSelf) endPoint.SetActive(true);
             }
-            else { if (endPointAS.isPlaying) endPointAS.Stop(); }
-
-            endPoint.transform.position = lineRenderer.GetPosition(1);
+            else { if (endPoint.activeSelf) endPoint.SetActive(false); }
+            
             yield return null;
         }   
     }
@@ -120,11 +93,12 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
     IEnumerator StopShooting()
     {
         lineRenderer.enabled = false;
+        if (endPoint.activeSelf) endPoint.SetActive(false);
         StopCoroutine(shooting);
 
         chargeParticles.Stop();
         lightPoint.Stop();
-        PlayPermamentParticles(false);
+        shootParticles.Stop();
         PlayAudioEffect(false, endShoot);
 
         yield return new WaitForSeconds(endShoot.length);

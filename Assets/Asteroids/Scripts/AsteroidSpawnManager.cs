@@ -27,7 +27,7 @@ public class AsteroidSpawnManager : SpawnManagerLogic
 
     void ChangeSpawnDelay(float multipler)
     {
-        minSpawnDelay = defMinSpawnDelay * multipler;
-        maxSpawnDelay = defMaxSpawnDelay * multipler;
+        minSpawnDelay = defMinSpawnDelay / multipler;
+        maxSpawnDelay = defMaxSpawnDelay / multipler;
     }
 }

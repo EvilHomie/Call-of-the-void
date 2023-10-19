@@ -6,6 +6,7 @@ public class EventBus: MonoBehaviour
 {
     public static Action<Vector3, string> onStationSpawn;
     public static Action onStationDestroy;
+    public static Action onBGBigObjectDestroy;
 
     public static Action<Vector3, string> onAnomalySpawn;
     public static Action onAnomalyDestroy;

@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class CollectableLogic : MonoBehaviour
 {
-    [SerializeField] ParticleSystem explosionParticle;
     Rigidbody rb;    
-    bool isResDestroy = false;
 
     private void Start()
     {
@@ -24,22 +22,16 @@ public class CollectableLogic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.transform.root.CompareTag("Player"))
         {
             EventBus.onCollectResource?.Invoke(gameObject);
-        }
-        else if (other.gameObject.CompareTag("Projectile") && !isResDestroy)
-        {
-            isResDestroy = true;
-            Instantiate(explosionParticle, transform.position, Quaternion.identity);
-            Destroy(gameObject);            
         }
     }
 
     bool CheckDistance()
     {
         float distance = Vector3.Distance(GlobalData.playerTransform.position, transform.position);
-        if(distance <=GlobalData.grabRadius) { return true; }
+        if(distance <= GlobalData.grabRadius) { return true; }
         else { return false; }
     }
 

@@ -37,7 +37,7 @@ public class SpawnManagerLogic : MonoBehaviour
 
         randomPos.x = Mathf.Cos(dotProductAngle) * spawnRadius + transform.position.x;
         randomPos.z = Mathf.Sin(dotProductAngle * (Random.value > 0.5f ? 1f : -1f)) * spawnRadius + transform.position.z;
-        randomPos.y = transform.position.y;
+        randomPos.y = 0;
 
         Instantiate(objectsPrefabs[RandomObjectIndex()], randomPos, Quaternion.identity);
     }
@@ -47,6 +47,7 @@ public class SpawnManagerLogic : MonoBehaviour
         float randomAngle = Random.Range(-spawnAngleWhenPlayerIsMoving, spawnAngleWhenPlayerIsMoving);
 
         Vector3 Pos = Quaternion.Euler(0, GlobalData.playerTransform.eulerAngles.y + randomAngle, 0) * transform.forward * spawnRadius + transform.position;
+        Pos.y = 0;
         Instantiate(objectsPrefabs[RandomObjectIndex()], Pos, Quaternion.identity);
     }
 

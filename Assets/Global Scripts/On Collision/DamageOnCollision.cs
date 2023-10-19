@@ -3,8 +3,8 @@ using UnityEngine;
 public class DamageOnCollision : MonoBehaviour
 {
     IDadamageable IDadamageable;
-
-    readonly float damageMod = 20;
+        
+    float damageMod = 10;
 
     private void Awake()
     {

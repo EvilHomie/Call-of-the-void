@@ -19,7 +19,7 @@ public class ProjectileManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        IDadamageable target = collision.gameObject.GetComponent<IDadamageable>();
+        IDadamageable target = collision.transform.root.gameObject.GetComponent<IDadamageable>();
 
         target?.Damage(energyDamage, kineticDamage);
         Instantiate(hitEfect, collision.contacts[0].point, transform.rotation * Quaternion.Euler(0f, 180f, 0f));

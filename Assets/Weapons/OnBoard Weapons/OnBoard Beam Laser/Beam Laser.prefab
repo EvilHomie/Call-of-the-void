@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2110255315133486963}
+  m_Father: {fileID: 5089256205055764073}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &7236549969034278374
@@ -4838,7 +4838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5089256205055764073}
   m_Layer: 0
-  m_Name: Shoot Starting VFX
+  m_Name: Shooting Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4857,6 +4857,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1345154920849566193}
+  - {fileID: 5968343972791080686}
   - {fileID: 4309815646639991550}
   m_Father: {fileID: 4388295704765274901}
   m_RootOrder: -1
@@ -5030,9 +5031,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 34028783175602041}
   firePoint: {fileID: 4388295704765274901}
-  startPoint: {fileID: 4942118594830341666}
   endPoint: {fileID: 5426271234279083297}
-  layer:
+  interactLayer:
     serializedVersion: 2
     m_Bits: 1
   weaponAS: {fileID: 8337054165707011193}
@@ -5042,6 +5042,7 @@ MonoBehaviour:
   continueShoot: {fileID: 8300000, guid: 5b1c92c62bf443841980a3a2cd6ed389, type: 3}
   chargeParticles: {fileID: 8471823944381818806}
   lightPoint: {fileID: 1864477932508933233}
+  shootParticles: {fileID: 7236549969034278374}
   beamLength: 100
   energyDamage: 50
   kineticDamage: 50
@@ -5128,7 +5129,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9967,41 +9968,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5089256205055764073}
-  - {fileID: 2110255315133486963}
   - {fileID: 4622748168409886027}
   m_Father: {fileID: 3746536285159898635}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4942118594830341666
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2110255315133486963}
-  m_Layer: 0
-  m_Name: Start Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2110255315133486963
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4942118594830341666}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5968343972791080686}
-  m_Father: {fileID: 4388295704765274901}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5426271234279083297
@@ -10014,14 +9982,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4622748168409886027}
   - component: {fileID: 241462827657772545}
-  - component: {fileID: 5824265406850802212}
   m_Layer: 8
-  m_Name: End Point
+  m_Name: End Point Particles
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4622748168409886027
 Transform:
   m_ObjectHideFlags: 0
@@ -10050,7 +10017,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9f0d925b01fbba546a0439a77a2e5bb2, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 3
   Loop: 1
@@ -10144,27 +10111,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!135 &5824265406850802212
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5426271234279083297}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5923405022997047992
 GameObject:
   m_ObjectHideFlags: 0
@@ -10177,7 +10123,7 @@ GameObject:
   - component: {fileID: 1249895278587836571}
   - component: {fileID: 3227277711997169641}
   m_Layer: 0
-  m_Name: End Hit Particles
+  m_Name: Hit Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10215,7 +10161,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

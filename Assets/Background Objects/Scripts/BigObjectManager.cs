@@ -5,11 +5,9 @@ public class BigObjectManager : MonoBehaviour
 {
     [SerializeField] Texture[] bigObjectTextures;
     Renderer bigObjectRenderer;
-    Rigidbody bigObjectRb;
+    Rigidbody bigObjectRb;      
 
-    public static Action onBigObjectDestroy;    
-
-    readonly float minSize = 5f;
+    readonly float minSize = 10f;
     readonly float maxSize = 100f;
 
     float moveSpeedBasedOnSize;
@@ -24,7 +22,7 @@ public class BigObjectManager : MonoBehaviour
 
     private void OnDisable()
     {
-        onBigObjectDestroy?.Invoke();
+        EventBus.onBGBigObjectDestroy?.Invoke();
     }
 
     void ChoiseTexture()
@@ -48,5 +46,6 @@ public class BigObjectManager : MonoBehaviour
     {
         bigObjectRb = GetComponent<Rigidbody>();
         bigObjectRb.AddForce(Vector3.left * moveSpeedBasedOnSize, ForceMode.VelocityChange);
+        Debug.Log(moveSpeedBasedOnSize);
     }
 }

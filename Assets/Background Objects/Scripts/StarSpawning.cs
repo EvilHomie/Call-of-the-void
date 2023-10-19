@@ -8,22 +8,20 @@ public class StarSpawning : MonoBehaviour
     [SerializeField] float minSpawnDelay;
     [SerializeField] float maxSpawnDelay;
 
-    readonly float spawnPosXValue = 2.85f;
-    readonly float spawnPosZValue = 1.6f;
-    float bGScale;
+    [SerializeField] float spawnPosXValue;
+    [SerializeField] float spawnPosZValue;
 
     Vector3 spawnPos;
 
     void Start()
     {
-        bGScale = transform.parent.localScale.x;
         RepitSpawn();
     }
 
     void StarSpawn()
     {
-        float randomPosX = Random.Range(-spawnPosXValue, spawnPosXValue) * bGScale;
-        float randomPosZ = Random.Range(-spawnPosZValue, spawnPosZValue) * bGScale;
+        float randomPosX = Random.Range(-spawnPosXValue, spawnPosXValue);
+        float randomPosZ = Random.Range(-spawnPosZValue, spawnPosZValue);
         spawnPos = new Vector3(randomPosX, 0 , randomPosZ) + transform.position;
 
         Instantiate(starPrefab, spawnPos, starPrefab.transform.rotation, transform);

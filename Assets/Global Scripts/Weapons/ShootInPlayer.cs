@@ -14,7 +14,7 @@ public class ShootInPlayer : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit raycastHit, weaponDistance, 1))
         {
-            GameObject target = raycastHit.collider.gameObject;
+            GameObject target = raycastHit.collider.transform.root.gameObject;
             if (target.CompareTag("Player") || target.CompareTag("Asteroid") || target.CompareTag("Resource"))
             {
                 weapon.Shoot();

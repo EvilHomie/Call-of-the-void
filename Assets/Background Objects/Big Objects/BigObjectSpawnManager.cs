@@ -4,12 +4,12 @@ public class BigObjectSpawnManager : SpawnManagerLogic
 {
     void OnEnable()
     {
-        BigObjectManager.onBigObjectDestroy += SetDelayAndSpawn;
+        EventBus.onBGBigObjectDestroy += SetDelayAndSpawn;
         SetDelayAndSpawn();
     }
     void OnDisable()
     {
-        BigObjectManager.onBigObjectDestroy -= SetDelayAndSpawn;
+        EventBus.onBGBigObjectDestroy -= SetDelayAndSpawn;
     }
 
     void SetDelayAndSpawn()

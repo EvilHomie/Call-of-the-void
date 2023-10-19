@@ -3,13 +3,7 @@ using UnityEngine;
 public class AsteroidParameters : MonoBehaviour, IDadamageable, ITarget
 {
     [SerializeField] float asteroidHP;
-    [SerializeField] float asteroidMaxHP;
-
-    private void Awake()
-    {
-        asteroidHP = GetComponent<Rigidbody>().mass;
-        asteroidMaxHP = asteroidHP;
-    }
+    [SerializeField] float asteroidMaxHP;    
 
     public void Damage(float energyDMG, float kineticDMG)
     {
@@ -31,5 +25,11 @@ public class AsteroidParameters : MonoBehaviour, IDadamageable, ITarget
         maxHullHP = asteroidMaxHP;
         maxArmorHP = 0;
         maxShieldHP = 0;
+    }
+
+    public void SetParameters(float hp)
+    {
+        asteroidHP = hp;
+        asteroidMaxHP = hp;
     }
 }

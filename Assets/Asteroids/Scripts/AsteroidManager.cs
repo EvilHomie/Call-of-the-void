@@ -2,30 +2,70 @@ using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
-    Rigidbody asteroidRB;   
+    Rigidbody asteroidRB;
+    AsteroidParameters parameters;
+    ResourcesInObject resInObj;
 
-    float moveSpeed;
-    readonly float minMoveSpeed = 3;
-    readonly float maxMoveSpeed = 10;
+    [Header("Speed")]
+    [SerializeField] float moveSpeed;
+    [SerializeField] float minMoveSpeed;
+    [SerializeField] float maxMoveSpeed;
 
-    float tumbleSpeed;
-    readonly float minTumbleSpeed = 0.3f;
-    readonly float maxTumbleSpeed = 1.0f;
+    [Header("Rotation")]
+    [SerializeField] float tumbleSpeed;
+    [SerializeField] float minTumbleSpeed;
+    [SerializeField] float maxTumbleSpeed;
 
-    readonly float radiusAroundPlayer = 100f;    
+    [Header("Size and mass")]
+    [SerializeField] float size;
+    [SerializeField] float minsize;
+    [SerializeField] float maxsize;
+    [SerializeField] float massMod;
 
-    void Start()
+    [Header("HpMod")]
+    [SerializeField] int hpMod;
+
+    [Header("")]
+    [SerializeField] float radiusAroundPlayer;    
+
+    void Awake()
     {
         asteroidRB = GetComponent<Rigidbody>();
+        parameters = GetComponent<AsteroidParameters>();
+        resInObj = GetComponent<ResourcesInObject>();        
+    }
+    private void Start()
+    {
+        SetSize();
+        SetMassAndHp();
+        SetResCount();
         RandomRotator();
         MoveToGameZone();
-
     }
-    
+
+    void SetSize()
+    {
+        size = Random.Range(minsize, maxsize);
+        transform.localScale = new Vector3(size, 1, size);
+    }
+
+    void SetMassAndHp()
+    {
+        asteroidRB.mass = (int)(massMod * size * size);
+        parameters.SetParameters(asteroidRB.mass * hpMod);
+    }
+
+    void SetResCount()
+    {
+        foreach (Resource res in resInObj.resourcesInObj)
+        {
+            res.amount = (int)size;
+        }
+    }
     void RandomRotator()
     {
         tumbleSpeed = Random.Range(minTumbleSpeed, maxTumbleSpeed);
-        asteroidRB.angularVelocity = Random.insideUnitSphere * tumbleSpeed;
+        asteroidRB.AddTorque(Vector3.up * tumbleSpeed, ForceMode.VelocityChange);
     }
 
     void MoveToGameZone()

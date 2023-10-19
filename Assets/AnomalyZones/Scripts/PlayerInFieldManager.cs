@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerInFieldManager : MonoBehaviour
 {
     [SerializeField] float countMultipler;
+    [SerializeField] float speedBost;
     [SerializeField] float triggerDistanceFromPlayer;
     [SerializeField] bool playerIsInsideField = false;
 
@@ -13,6 +14,10 @@ public class PlayerInFieldManager : MonoBehaviour
     private void Awake()
     {
         InvokeRepeating(nameof(CheckDistance), 5, 1);
+    }
+    private void OnDestroy()
+    {
+        CancelInvoke();
     }
 
     void CheckDistance()

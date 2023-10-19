@@ -15,8 +15,8 @@ public class TwinklingStarManager : MonoBehaviour
     readonly float maxLifeTime = 15f;
 
     float randomSize;
-    readonly float minSize = 0.005f;
-    readonly float maxSize = 0.01f;
+    readonly float minSize = 0.25f;
+    readonly float maxSize = 0.75f;
 
     readonly float minBlinkBorderBeforeDestroy = 0.01f;
 
@@ -24,11 +24,7 @@ public class TwinklingStarManager : MonoBehaviour
     {
         starRender = GetComponent<Renderer>();
         starColor = starRender.material.color;
-
-        randomSize = Random.Range(minSize, maxSize);
-        transform.localScale = new Vector3(randomSize, 1, randomSize);
-
-        
+        RandomSize();
 
         StartCoroutine(nameof(DestroyStar));
     }
@@ -38,6 +34,11 @@ public class TwinklingStarManager : MonoBehaviour
         Pulsing();
     }
 
+    void RandomSize()
+    {
+        randomSize = Random.Range(minSize, maxSize);
+        transform.localScale = new Vector3(randomSize, 1, randomSize);
+    }
     void Pulsing()
     {
         blinkSpeed = Random.Range(minBlinkSpeed, maxBlinkSpeed);

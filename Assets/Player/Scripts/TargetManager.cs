@@ -19,7 +19,7 @@ public class TargetManager : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, layer))
         {
-            currentTarget = raycastHit.collider.gameObject;
+            currentTarget = raycastHit.collider.transform.root.gameObject;
             EventBus.onSelectTarget?.Invoke(currentTarget);
         }
         else
