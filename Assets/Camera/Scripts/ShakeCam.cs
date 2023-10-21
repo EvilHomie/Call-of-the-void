@@ -1,9 +1,11 @@
 using Cinemachine;
 using System.Collections;
+using UniRx;
 using UnityEngine;
 
 public class ShakeCam : MonoBehaviour
 {
+    CompositeDisposable _disposable = new();
     CinemachineVirtualCamera virtualCam;
     CinemachineBasicMultiChannelPerlin perlinNoise;
 
@@ -13,7 +15,7 @@ public class ShakeCam : MonoBehaviour
     bool cameraIsShaking = false;
 
 
-    private void Start()
+    private void Awake()
     {
         virtualCam = GetComponent<CinemachineVirtualCamera>();
         perlinNoise = virtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -21,12 +23,12 @@ public class ShakeCam : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.onPlayerTakeDamage += ShakeCamera;
+        EventBus.ComandOnPlayerTakeDamage.Subscribe(_ => ShakeCamera()).AddTo(_disposable);
     }
 
     private void OnDisable()
     {
-        EventBus.onPlayerTakeDamage -= ShakeCamera;
+        _disposable.Clear();
     }
 
     void ShakeCamera()

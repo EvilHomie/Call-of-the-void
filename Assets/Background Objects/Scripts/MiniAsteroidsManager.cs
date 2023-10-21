@@ -1,7 +1,9 @@
+using UniRx;
 using UnityEngine;
 
 public class MiniAsteroidsManager : MonoBehaviour
 {
+    CompositeDisposable _disposables = new();
     ParticleSystem _particleSystem;
     ParticleSystem.EmissionModule emission;
 
@@ -16,12 +18,12 @@ public class MiniAsteroidsManager : MonoBehaviour
     private void OnEnable()
     {        
         SetDefValues();
-        EventBus.onPlayerInAsteroidField += ChangeEmissionRate;
+        EventBus.AsteroidsSpawnMod.Subscribe(mod => ChangeEmissionRate(mod)).AddTo(_disposables);
     }
 
     private void OnDisable()
     {
-        EventBus.onPlayerInAsteroidField -= ChangeEmissionRate;
+        _disposables.Clear();
     }
 
     void SetDefValues()

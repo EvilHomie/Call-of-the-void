@@ -4,12 +4,12 @@ public class PlayerManager : MonoBehaviour
 {   
     private void Start()
     {        
-        EventBus.onSetPlayerParameters?.Invoke(gameObject);
+        EventBus.ComandOnSetPlayerParameters.Execute(gameObject);
     }
 
     private void OnDestroy()
     {
-        EventBus.onPlayerDie?.Invoke();
+        EventBus.ComandOnPlayerDie.Execute();
     }
 
 }

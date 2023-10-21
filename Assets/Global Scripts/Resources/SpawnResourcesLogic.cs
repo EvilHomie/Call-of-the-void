@@ -1,36 +1,47 @@
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 public class SpawnResourcesLogic : MonoBehaviour
 {
+    CompositeDisposable _disposable = new();
     [SerializeField] List<Sprite> resourceSprites;
     [SerializeField] GameObject resourceItemPrefab;
 
-    List<Resource> resInObj = new();
+    
 
     private void OnEnable()
     {
-        EventBus.onObjDie += SpawnreSources;
+        EventBus.ComandOnObjDie.Subscribe(obj =>
+        {
+            obj.TryGetComponent(out ResourcesInObject resInObj);
+
+            if (resInObj != null) 
+            {                
+                SpawnreSources(resInObj);
+            }
+            
+        }).AddTo(_disposable);
     }
 
     private void OnDisable()
     {
-        EventBus.onObjDie -= SpawnreSources;
+        _disposable.Clear();
     }
 
-    private void SpawnreSources(GameObject obj)
+    private void SpawnreSources(ResourcesInObject resInObj)
     {
-        resInObj = obj.GetComponent<ResourcesInObject>().resourcesInObj;
-        if (resInObj != null && resInObj.Count != 0)
+        List<Resource> resList = resInObj.resourcesInObj;
+        if (resList.Count != 0)
         {
-            foreach (Resource resource in resInObj)
+            foreach (Resource resource in resList)
             {
                 for (int i = 0; i < resource.amount; i++)
                 {
                     float chance = Random.Range(0, 100f);
                     if (resource.dropChance >= chance)
                     {
-                        GameObject newResourceItem = Instantiate(resourceItemPrefab, obj.transform.position, Quaternion.identity);
+                        GameObject newResourceItem = Instantiate(resourceItemPrefab, resInObj.transform.position, Quaternion.identity);
                         Sprite newResourceimage = resourceSprites.Find(sprite => sprite.name == resource.type.ToString());
                         newResourceItem.GetComponent<ResourceItem>().SetParameters(resource.type, newResourceimage);
                     }

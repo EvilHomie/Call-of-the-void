@@ -1,35 +1,37 @@
+using UniRx;
 using UnityEngine;
 
 public class AsteroidParameters : MonoBehaviour, IDadamageable, ITarget
 {
-    [SerializeField] float asteroidHP;
+    [SerializeField] FloatReactiveProperty asteroidHP;
     [SerializeField] float asteroidMaxHP;    
 
     public void Damage(float energyDMG, float kineticDMG)
     {
-        asteroidHP -= energyDMG + kineticDMG;
+        asteroidHP.Value -= energyDMG + kineticDMG;
 
-        if (asteroidHP < 0)
-        {            
-            EventBus.onObjDie?.Invoke(gameObject);
+        if (asteroidHP.Value < 0)
+        {
+            EventBus.ComandOnObjDie.Execute(gameObject);
         }
     }
-    public void GetCurrentParameters(out float hullHP, out float armorHP, out float shieldHP)
+    public void GetCurrentParameters(out FloatReactiveProperty HullHPRP, out FloatReactiveProperty ArmorHPRP, out FloatReactiveProperty ShieldHPRP)
     {
-        hullHP = asteroidHP;
-        armorHP = 0;
-        shieldHP = 0;
+        HullHPRP = asteroidHP;
+        ArmorHPRP = new();
+        ShieldHPRP = new();
     }
-    public void GetMaxParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP)
+    public void GetStaticParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP, out string name)
     {
         maxHullHP = asteroidMaxHP;
         maxArmorHP = 0;
         maxShieldHP = 0;
+        name = gameObject.name;
     }
 
     public void SetParameters(float hp)
     {
-        asteroidHP = hp;
+        asteroidHP.Value = hp;
         asteroidMaxHP = hp;
     }
 }

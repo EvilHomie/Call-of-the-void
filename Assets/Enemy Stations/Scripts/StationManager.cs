@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class StationManager : MonoBehaviour
 {
-    new string[] name;
-
     private void OnEnable()
-    {
-        name = gameObject.name.Split(' ');
-        EventBus.onStationSpawn?.Invoke(transform.position, name[0]);
+    {        
+        EventBus.ComandOnStationSpawn.Execute(gameObject);
     }
     private void OnDestroy()
     {
-        EventBus.onStationDestroy?.Invoke();
+        EventBus.ComandOnStationDestroy.Execute();
     }
 }

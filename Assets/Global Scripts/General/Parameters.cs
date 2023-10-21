@@ -1,11 +1,12 @@
 using System.Collections;
+using UniRx;
 using UnityEngine;
 
 public class Parameters : MonoBehaviour, IDadamageable, ITarget
-{    
-    [SerializeField] float hullHP;
-    [SerializeField] float armorHP;
-    [SerializeField] float shieldHP;
+{
+    [SerializeField] FloatReactiveProperty HullHP = new();
+    [SerializeField] FloatReactiveProperty ArmorHP = new();
+    [SerializeField] FloatReactiveProperty ShieldHP = new();
 
     float fullHull;
     float fullArmor;
@@ -22,66 +23,69 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
 
     private void Awake()
     {
-        fullHull = hullHP;
-        fullArmor = armorHP;
-        fullShield = shieldHP;
+        fullHull = HullHP.Value;
+        fullArmor = ArmorHP.Value;
+        fullShield = ShieldHP.Value;
     }
     private void FixedUpdate()
     {
         RegShield();
-    }   
+    }
 
     void RegShield()
     {
-        if (shieldIsActive & shieldHP < fullShield)
+        if (shieldIsActive & ShieldHP.Value < fullShield)
         {
-            shieldHP += shieldRegRate * Time.fixedDeltaTime;
+            ShieldHP.Value += shieldRegRate * Time.fixedDeltaTime;
         }
     }
 
     public void Damage(float energyDMG, float kineticDMG)
-    {     
-        shieldHP -= energyDMG;        
+    {
+        ShieldHP.Value -= energyDMG;
 
-        if (shieldHP <= 0)
+        if (ShieldHP.Value <= 0)
         {
-            shieldHP = 0;
-            CheckShieldStatus();            
-        }     
+            ShieldHP.Value = 0;
+            CheckShieldStatus();
+        }
 
         if (!shieldIsActive)
         {
-            armorHP -= kineticDMG;
+            ArmorHP.Value -= kineticDMG;
 
-            if (armorHP <= 0)
+            if (ArmorHP.Value <= 0)
             {
-                armorHP = 0;
-                hullHP -= energyDMG + kineticDMG;                
+                ArmorHP.Value = 0;
+                HullHP.Value -= energyDMG + kineticDMG;
             }
         }
-        if (hullHP <= 0 && !objDie)
+        if (HullHP.Value <= 0 && !objDie)
         {
             objDie = true;
-            EventBus.onObjDie?.Invoke(gameObject);
+            EventBus.ComandOnObjDie.Execute(gameObject);
         }
 
 
         if (gameObject.CompareTag("Player"))
         {
-            EventBus.onPlayerTakeDamage?.Invoke();
+            EventBus.ComandOnPlayerTakeDamage.Execute();
+            Debug.Log("PLayerTakeDamage");
         }
     }
-    public void GetMaxParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP)
+    public void GetStaticParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP, out string name)
     {
         maxHullHP = fullHull;
         maxArmorHP = fullArmor;
         maxShieldHP = fullShield;
+        name = gameObject.name;
     }
-    public void GetCurrentParameters(out float hullHP, out float armorHP, out float shieldHP)
+    public void GetCurrentParameters(out FloatReactiveProperty HullHPRP, out FloatReactiveProperty ArmorHPRP, out FloatReactiveProperty ShieldHPRP)
     {
-        hullHP = this.hullHP;
-        armorHP = this.armorHP;
-        shieldHP = this.shieldHP;
+
+        HullHPRP = HullHP;
+        ArmorHPRP = ArmorHP;
+        ShieldHPRP = ShieldHP;
     }
     void CheckShieldStatus()
     {
@@ -101,4 +105,60 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
         yield return new WaitForSeconds(shieldStartRegDelay);
         shieldIsActive = true;
     }
+
+
 }
+//    if (shieldHP.Value > 0)
+//        {
+//            shieldHP.Value -= energyDMG;
+//            if (shieldHP.Value< 0)
+//            {
+//                shieldHP.Value = 0;
+//                StartCoroutine(DisableShieldOnDelay());
+//}
+                
+//        }
+            
+
+
+
+
+
+//        if (shieldHP.Value == 0)
+//    armorHP.Value -= kineticDMG;
+
+
+
+
+
+//if (shieldHP.Value == 0 && armorHP.Value == 0)
+//    hullHP.Value -= energyDMG + kineticDMG;
+
+
+
+
+
+
+
+
+
+
+
+//if (shieldHP.Value > 0)
+//    shieldHP.Value -= energyDMG;
+
+//if (shieldHP.Value < 0)
+//    shieldHP.Value = 0;
+
+
+//if (shieldHP.Value <= 0)
+//{
+//    shieldHP.Value = 0;
+//    CheckShieldStatus();
+//}
+
+
+
+
+
+

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    CompositeDisposable _disposable = new();
     [SerializeField] List<InventoryItem> inventoryList = new();
-
 
     //[SerializeField] List<Test> test = new();
 
@@ -12,12 +13,15 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.onCollectResource += PutInInventory;
+        EventBus.ComandOnCollectResource.Subscribe(res => 
+        {
+            PutInInventory(res);
+        }).AddTo(_disposable);
     }
 
     private void OnDisable()
     {
-        EventBus.onCollectResource -= PutInInventory;
+        _disposable.Clear();
     }
 
     //private void Update()

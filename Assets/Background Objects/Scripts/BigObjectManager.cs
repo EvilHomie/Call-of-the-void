@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class BigObjectManager : MonoBehaviour
@@ -22,7 +21,7 @@ public class BigObjectManager : MonoBehaviour
 
     private void OnDisable()
     {
-        EventBus.onBGBigObjectDestroy?.Invoke();
+        EventBus.ComandOnBigBGobjectDestroy.Execute();
     }
 
     void ChoiseTexture()

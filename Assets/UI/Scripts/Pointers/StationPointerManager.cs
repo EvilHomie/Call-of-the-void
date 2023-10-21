@@ -1,14 +1,16 @@
+using UniRx;
+
 public class StationPointerManager : PointerLogic
 {
+    CompositeDisposable _disposables = new();
     void OnEnable()
-    {        
-        EventBus.onStationSpawn += GetTargetData;
-        EventBus.onStationDestroy += DisablePointer;
+    {
+        EventBus.ComandOnStationSpawn.Subscribe(station => SetTargetData(station)).AddTo(_disposables);
+        EventBus.ComandOnStationDestroy.Subscribe(_ => DisablePointer()).AddTo(_disposables);
     }
 
     void OnDisable()
-    {      
-        EventBus.onStationSpawn -= GetTargetData;
-        EventBus.onStationDestroy -= DisablePointer;
+    {
+        _disposables.Clear();
     }
 }

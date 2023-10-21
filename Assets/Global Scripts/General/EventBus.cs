@@ -1,30 +1,38 @@
-using System;
-using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 public class EventBus: MonoBehaviour
 {
-    public static Action<Vector3, string> onStationSpawn;
-    public static Action onStationDestroy;
-    public static Action onBGBigObjectDestroy;
+    #region Events
 
-    public static Action<Vector3, string> onAnomalySpawn;
-    public static Action onAnomalyDestroy;
-    public static Action<float> onPlayerInAsteroidField;
+    public static ReactiveCommand<GameObject> ComandOnCollectResource = new();
+    public static BoolReactiveProperty TractorBeamActiveStatus = new(false); 
+    
+    public static ReactiveCommand<GameObject> ComandOnObjDie  = new();
+
+    public static ReactiveCommand ComandOnTryGetTarget = new();
+    public static ReactiveProperty<GameObject> SelectedTarget = new();
+
+    public static ReactiveCommand ComandOnPlayerDie = new();
+    public static ReactiveCommand ComandOnPlayerTakeDamage = new();    
+    public static ReactiveCommand<GameObject> ComandOnSetPlayerParameters = new();
+
+    public static FloatReactiveProperty AsteroidsSpawnMod = new(1);
+    public static ReactiveCommand ComandOnAnomalyDestroy = new();
+    public static ReactiveCommand<GameObject> ComandOnAnomalySpawn = new();
+    public static ReactiveCommand ComandOnBigBGobjectDestroy = new();
+
+    public static ReactiveCommand<GameObject> ComandOnStationSpawn = new();
+    public static ReactiveCommand ComandOnStationDestroy = new();
 
     
 
-    public static Action<GameObject> onSetPlayerParameters;
-    public static Action onPlayerTakeDamage;
-    public static Action onPlayerDie;
-
-    public static Action<GameObject> onSelectTarget;
-    public static Action onDeselectTarget;
-
-
-
-    public static Action<GameObject> onObjDie;
-    public static Action<List<Resource>, Vector3> spawnResources;
-
-    public static Action<GameObject> onCollectResource;
+    #endregion
+    //private void OnEnable()
+    //{
+    //    ComandForCollectResource.Subscribe(res =>
+    //    {
+    //        Debug.Log(_disposable.Count);
+    //    }).AddTo(_disposable);
+    //}
 }

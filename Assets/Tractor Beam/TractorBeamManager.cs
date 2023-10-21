@@ -1,39 +1,40 @@
+using UniRx;
 using UnityEngine;
 
 public class TractorBeamManager : MonoBehaviour
 {
-    AudioSource aS;
+    CompositeDisposable _disposable = new();
+    AudioSource audioSource;
     [SerializeField] AudioClip resPickUpSound;
 
-    private void Start()
+    void Awake()
     {
-        aS = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
-        EventBus.onCollectResource += PlayPickUpSound;
+        EventBus.ComandOnCollectResource.Subscribe(res => PlayPickUpSound()).AddTo(_disposable);
+
+        EventBus.TractorBeamActiveStatus.Subscribe(status => TractorBeamSoundManager(status)).AddTo(_disposable);
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
-        EventBus.onCollectResource -= PlayPickUpSound;
+        _disposable.Clear();
+        audioSource.Stop();
     }
 
-    private void PlayPickUpSound(GameObject @object)
+    void PlayPickUpSound()
     {
-        aS.PlayOneShot(resPickUpSound);
+        audioSource.PlayOneShot(resPickUpSound);
     }
 
-    private void Update()
+    void TractorBeamSoundManager(bool status)
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            aS.Play();
-        }
-        else if (Input.GetKeyUp(KeyCode.F))
-        {
-            aS.Stop();
-        }
+        if (status) audioSource.Play();
+        else audioSource.Stop();
     }
+
+
 }

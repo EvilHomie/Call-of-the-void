@@ -1,7 +1,9 @@
+using UniRx;
 using UnityEngine;
 
 public class AsteroidSpawnManager : SpawnManagerLogic
 {
+    CompositeDisposable _disposables = new();
     float defMinSpawnDelay;
     float defMaxSpawnDelay;
     void OnEnable()
@@ -10,12 +12,12 @@ public class AsteroidSpawnManager : SpawnManagerLogic
         Invoke(nameof(RepitSpawn), spawnDelay);
         defMinSpawnDelay = minSpawnDelay;
         defMaxSpawnDelay = maxSpawnDelay;
-        EventBus.onPlayerInAsteroidField += ChangeSpawnDelay;
+        EventBus.AsteroidsSpawnMod.Subscribe(mod=> ChangeSpawnDelay(mod)).AddTo(_disposables);
     }
 
     void OnDisable()
     {
-        EventBus.onPlayerInAsteroidField -= ChangeSpawnDelay;
+        _disposables.Clear();
     }
 
     void RepitSpawn()

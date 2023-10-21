@@ -11,11 +11,11 @@ public class PlayerInFieldManager : MonoBehaviour
     
     float currentDistanceFromPlayer;
 
-    private void Awake()
+    private void OnEnable()
     {
         InvokeRepeating(nameof(CheckDistance), 5, 1);
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         CancelInvoke();
     }
@@ -29,7 +29,7 @@ public class PlayerInFieldManager : MonoBehaviour
             if (currentDistanceFromPlayer < triggerDistanceFromPlayer)
             {
                 playerIsInsideField = true;
-                EventBus.onPlayerInAsteroidField?.Invoke(countMultipler);
+                EventBus.AsteroidsSpawnMod.Value = countMultipler;
             }
         }
         else
@@ -37,7 +37,7 @@ public class PlayerInFieldManager : MonoBehaviour
             if (currentDistanceFromPlayer > triggerDistanceFromPlayer)
             {
                 playerIsInsideField = false;
-                EventBus.onPlayerInAsteroidField?.Invoke(1);
+                EventBus.AsteroidsSpawnMod.Value = 1;
             }
         }
     }

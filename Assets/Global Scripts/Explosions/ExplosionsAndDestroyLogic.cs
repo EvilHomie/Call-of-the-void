@@ -1,32 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 public class ExplosionsAndDestroyLogic : MonoBehaviour
 {
-    ExplosionsInObject explInObj;
+    CompositeDisposable _disposable = new();
+    
     private IEnumerator coroutine;
     
     private void OnEnable()
     {
-        EventBus.onObjDie += LaunchExplosions;
+        EventBus.ComandOnObjDie.Subscribe(obj =>
+        {
+            LaunchExplosions(obj);
+        }).AddTo(_disposable);
     }
 
     private void OnDisable()
     {
-        EventBus.onObjDie -= LaunchExplosions;
+        _disposable.Clear();
     }
 
     private void LaunchExplosions(GameObject obj)
-    {        
-        coroutine = SpawnExplosions(obj);
-        StartCoroutine(coroutine);
+    {
+        obj.TryGetComponent(out ExplosionsInObject explInObj);
+        if (explInObj != null)
+        {
+            coroutine = SpawnExplosions(obj, explInObj);
+            StartCoroutine(coroutine);
+        }        
     }
 
 
-    IEnumerator SpawnExplosions(GameObject obj)
+    IEnumerator SpawnExplosions(GameObject obj, ExplosionsInObject explInObj)
     {
-        explInObj = obj.GetComponent<ExplosionsInObject>();
         List<GameObject> activeBlowEffects = new();
 
         if (explInObj.explosionsCount == 1)

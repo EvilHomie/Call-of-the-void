@@ -386,7 +386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &96493878
 Transform:
   m_ObjectHideFlags: 0
@@ -419,8 +419,8 @@ MonoBehaviour:
   spawnRadius: 1500
   lowerValuePlayerVelocity: 10
   spawnAngleWhenPlayerIsMoving: 90
-  minSpawnDelay: 60
-  maxSpawnDelay: 120
+  minSpawnDelay: 1
+  maxSpawnDelay: 1
   spawnDelay: 0
 --- !u!1 &105778060
 GameObject:
@@ -868,7 +868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &299280155
 Transform:
   m_ObjectHideFlags: 0
@@ -8027,8 +8027,8 @@ MonoBehaviour:
   spawnRadius: 1500
   lowerValuePlayerVelocity: 10
   spawnAngleWhenPlayerIsMoving: 90
-  minSpawnDelay: 60
-  maxSpawnDelay: 90
+  minSpawnDelay: 1
+  maxSpawnDelay: 1
   spawnDelay: 0
 --- !u!1001 &1070297793
 PrefabInstance:
@@ -8304,6 +8304,8 @@ GameObject:
   - component: {fileID: 1422327565}
   - component: {fileID: 1422327567}
   - component: {fileID: 1422327568}
+  - component: {fileID: 1422327569}
+  - component: {fileID: 1422327570}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8368,6 +8370,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e571b54c08d46ba4cbff0e7606ad5abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1422327569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422327564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e91f32c114061459d16a9050dbe65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TestHeal:
+    value: 0
+  TestArmor:
+    value: 0
+  TestShield:
+    value: 0
+--- !u!114 &1422327570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422327564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4a0e86aaaec7247aa654591db82a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1428351523
@@ -14375,8 +14407,8 @@ MonoBehaviour:
   spawnRadius: 1000
   lowerValuePlayerVelocity: 10
   spawnAngleWhenPlayerIsMoving: 45
-  minSpawnDelay: 15
-  maxSpawnDelay: 30
+  minSpawnDelay: 2
+  maxSpawnDelay: 2
   spawnDelay: 0
 --- !u!1 &1860989490
 GameObject:
@@ -14799,6 +14831,8 @@ GameObject:
   - component: {fileID: 1954114720}
   - component: {fileID: 1954114722}
   - component: {fileID: 1954114723}
+  - component: {fileID: 1954114725}
+  - component: {fileID: 1954114724}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -14925,7 +14959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 330585545}
-  layer:
+  interactLayer:
     serializedVersion: 2
     m_Bits: 1
 --- !u!114 &1954114721
@@ -14940,9 +14974,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e5c34ded5201149921cd0f0758f264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hullHP: 500
-  armorHP: 500
-  shieldHP: 500
+  HullHP:
+    value: 1000
+  ArmorHP:
+    value: 500
+  ShieldHP:
+    value: 250
   hullRegRate: 0
   armorRegRate: 0
   shieldRegRate: 10
@@ -14977,6 +15014,40 @@ MonoBehaviour:
     type: 3}
   explosionsCount: 1
   explosionsDelay: 3
+--- !u!114 &1954114724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954114707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a680303024f7144bfd07945a845881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health:
+    value: 0
+  HullHP:
+    value: 0
+--- !u!114 &1954114725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954114707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e91f32c114061459d16a9050dbe65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TestHeal:
+    value: 0
+  TestArmor:
+    value: 0
+  TestShield:
+    value: 0
 --- !u!1 &1985154036
 GameObject:
   m_ObjectHideFlags: 0
@@ -27231,7 +27302,7 @@ GameObject:
   - component: {fileID: 6232754337281723927}
   - component: {fileID: 7822586116118700642}
   m_Layer: 0
-  m_Name: LeftWing
+  m_Name: RightWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42741,7 +42812,7 @@ GameObject:
   - component: {fileID: 2098285870675573622}
   - component: {fileID: 7491874747269151944}
   m_Layer: 0
-  m_Name: RightWing
+  m_Name: LeftWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

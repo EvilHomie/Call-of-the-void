@@ -1,30 +1,40 @@
+using UniRx;
 using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
+    CompositeDisposable _disposable = new();
     [SerializeField] Camera mainCamera;
-    [SerializeField] LayerMask layer;
+    [SerializeField] LayerMask interactLayer;
     GameObject currentTarget;
-    
-    private void Update()
+
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SetTarget();
-        }        
-    }   
+        EventBus.ComandOnTryGetTarget.Subscribe(_ => SetTarget()).AddTo(_disposable);
+    }
+
+    private void OnDisable()
+    {
+        _disposable.Clear();
+    }
 
     void SetTarget()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, layer))
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, interactLayer))
         {
             currentTarget = raycastHit.collider.transform.root.gameObject;
-            EventBus.onSelectTarget?.Invoke(currentTarget);
+
+            if (currentTarget.CompareTag("Resource")) return;
+
+            EventBus.SelectedTarget.Value = currentTarget;
+
+            Debug.Log("Target selected");
         }
         else
         {
-            EventBus.onDeselectTarget?.Invoke();
+            EventBus.SelectedTarget.Value = null;
+            Debug.Log("Target null");
         }
     }  
 }

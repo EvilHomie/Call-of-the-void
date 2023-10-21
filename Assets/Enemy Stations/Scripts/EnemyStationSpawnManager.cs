@@ -1,16 +1,18 @@
+using UniRx;
 using UnityEngine;
 
 public class EnemyStationSpawnManager : SpawnManagerLogic
 {
+    CompositeDisposable _disposables = new();
     void OnEnable()
     {         
-        EventBus.onStationDestroy += SetDelayAndSpawn;
+        EventBus.ComandOnStationDestroy.Subscribe(_=> SetDelayAndSpawn()).AddTo(_disposables);
         SetDelayAndSpawn();
     }
 
     void OnDisable()
     {
-        EventBus.onStationDestroy -= SetDelayAndSpawn;
+        _disposables.Clear();
     }   
 
     void SetDelayAndSpawn()

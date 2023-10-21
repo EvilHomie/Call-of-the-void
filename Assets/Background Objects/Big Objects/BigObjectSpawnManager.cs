@@ -1,15 +1,17 @@
+using UniRx;
 using UnityEngine;
 
 public class BigObjectSpawnManager : SpawnManagerLogic
 {
+    CompositeDisposable _disposables = new();
     void OnEnable()
     {
-        EventBus.onBGBigObjectDestroy += SetDelayAndSpawn;
+        EventBus.ComandOnBigBGobjectDestroy.Subscribe(_ => SetDelayAndSpawn()).AddTo(_disposables);
         SetDelayAndSpawn();
     }
     void OnDisable()
     {
-        EventBus.onBGBigObjectDestroy -= SetDelayAndSpawn;
+        _disposables.Clear();
     }
 
     void SetDelayAndSpawn()

@@ -34,10 +34,12 @@ public class PointerLogic : MonoBehaviour
         }
     }
 
-    protected void GetTargetData(Vector3 targetPos, string targetName)
+    protected void SetTargetData(GameObject anomaly)
     {
-        this.targetPos = targetPos;
-        this.targetName.text = $">>{targetName}<<";
+        string[] name = anomaly.name.Split('('); 
+        targetPos = new Vector3(anomaly.transform.position.x, 0, anomaly.transform.position.z);
+        Debug.Log(targetPos);
+        targetName.text = $">>{name[0]}<<";
         EnablePointer();
         StartCoroutine(PulsingText());
     }
