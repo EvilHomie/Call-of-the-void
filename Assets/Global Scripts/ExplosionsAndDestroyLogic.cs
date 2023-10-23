@@ -11,7 +11,7 @@ public class ExplosionsAndDestroyLogic : MonoBehaviour
     
     private void OnEnable()
     {
-        EventBus.ComandOnObjDie.Subscribe(obj =>
+        EventBus.CommandOnObjDie.Subscribe(obj =>
         {
             LaunchExplosions(obj);
         }).AddTo(_disposable);

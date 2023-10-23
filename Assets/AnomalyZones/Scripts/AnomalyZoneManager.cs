@@ -4,10 +4,10 @@ public class AnomalyZoneManager : MonoBehaviour
 {   
     private void OnEnable()
     {
-        EventBus.ComandOnAnomalySpawn.Execute(gameObject);
+        EventBus.CommandOnAnomalySpawn.Execute(gameObject);
     }
     private void OnDestroy()
     {
-        EventBus.ComandOnAnomalyDestroy.Execute();
+        EventBus.CommandOnAnomalyDestroy.Execute();
     }
 }

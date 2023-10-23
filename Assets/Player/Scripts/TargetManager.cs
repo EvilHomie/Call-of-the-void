@@ -10,7 +10,7 @@ public class TargetManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.ComandOnTryGetTarget.Subscribe(_ => SetTarget()).AddTo(_disposable);
+        EventBus.CommandOnTryGetTarget.Subscribe(_ => SetTarget()).AddTo(_disposable);
     }
 
     private void OnDisable()

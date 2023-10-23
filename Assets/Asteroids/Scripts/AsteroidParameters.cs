@@ -16,7 +16,7 @@ public class AsteroidParameters : MonoBehaviour, IDadamageable, ITarget
 
         if (AsteroidHP.Value < 0)
         {
-            EventBus.ComandOnObjDie.Execute(gameObject);
+            EventBus.CommandOnObjDie.Execute(gameObject);
         }
     }
     public void GetCurrentParameters(out FloatReactiveProperty HullHPRP, out FloatReactiveProperty ArmorHPRP, out FloatReactiveProperty ShieldHPRP)

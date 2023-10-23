@@ -12,7 +12,7 @@ public class SpawnResourcesLogic : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.ComandOnObjDie.Subscribe(obj =>
+        EventBus.CommandOnObjDie.Subscribe(obj =>
         {
             obj.TryGetComponent(out ResourcesInObject resInObj);
 
@@ -56,6 +56,7 @@ public enum ResourceType
     Copper,
     Silver,
     Gold,
-    Titanium
+    Titanium,
+    Nothing
 }
 

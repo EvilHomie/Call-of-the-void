@@ -33,7 +33,7 @@ public class CollectableLogic : MonoBehaviour
     {
         if (other.gameObject.transform.root.CompareTag("Player"))
         {
-            EventBus.ComandOnCollectResource.Execute(gameObject);
+            EventBus.CommandOnCollectResource.Execute(gameObject);
         }
     }
 

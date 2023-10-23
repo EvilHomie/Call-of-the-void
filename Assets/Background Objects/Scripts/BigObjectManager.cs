@@ -21,7 +21,7 @@ public class BigObjectManager : MonoBehaviour
 
     private void OnDisable()
     {
-        EventBus.ComandOnBigBGobjectDestroy.Execute();
+        EventBus.CommandOnBigBGobjectDestroy.Execute();
     }
 
     void ChoiseTexture()

@@ -23,7 +23,7 @@ public class ShakeCam : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.ComandOnPlayerTakeDamage.Subscribe(_ => ShakeCamera()).AddTo(_disposable);
+        EventBus.CommandOnPlayerTakeDamage.Subscribe(_ => ShakeCamera()).AddTo(_disposable);
     }
 
     private void OnDisable()

@@ -65,13 +65,13 @@ public class Parameters : MonoBehaviour, IDadamageable, ITarget
         if (HullHP.Value <= 0 && !objDie)
         {
             objDie = true;
-            EventBus.ComandOnObjDie.Execute(gameObject);
+            EventBus.CommandOnObjDie.Execute(gameObject);
         }
 
 
         if (gameObject.CompareTag("Player"))
         {
-            EventBus.ComandOnPlayerTakeDamage.Execute();
+            EventBus.CommandOnPlayerTakeDamage.Execute();
             Debug.Log("PLayerTakeDamage");
         }
     }

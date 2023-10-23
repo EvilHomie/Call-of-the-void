@@ -5,18 +5,22 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     CompositeDisposable _disposable = new();
-    [SerializeField] List<InventoryItem> inventoryList = new();
-
-    //[SerializeField] List<Test> test = new();
-
+    [SerializeField] GameObject slotPrefab;
+    [SerializeField] AudioClip successSound;
+    [SerializeField] AudioClip errorSound;
+    [SerializeField] GameObject slotsContainer;
+    [SerializeField] List<InventoryItem> cargoSlotList = new();
     [SerializeField] int resCount;
 
-    private void OnEnable()
+    void OnEnable()
     {
-        EventBus.ComandOnCollectResource.Subscribe(res => 
-        {
-            PutInInventory(res);
-        }).AddTo(_disposable);
+        EventBus.CommandOnCollectResource.Subscribe(res => PutInInventoryLogic(res)).AddTo(_disposable);
+
+        EventBus.InventoryActiveStatus.Subscribe(status => SwitchHud(status)).AddTo(_disposable);
+    }
+    void Start()
+    {
+        ÑreateSlots(GlobalData.CargoCurentSlotsNumber);
     }
 
     private void OnDisable()
@@ -24,48 +28,80 @@ public class PlayerInventory : MonoBehaviour
         _disposable.Clear();
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.T))
-    //    {
-    //        Test();
-    //    }
-    //}
-    //void Test()
-    //{
-    //    test.Clear();
-    //    foreach (InventoryItem item in inventoryList)
-    //    {
-    //        Test qwe = new()
-    //        {
-    //            type = item.type,
-    //            amount = item.amount,
-    //            image = item.image
-    //        };
-    //        test.Add(qwe);
-    //    }
-    //}
+    void SwitchHud(bool status)
+    {
+        foreach (Transform t in transform)
+        {
+            t.gameObject.SetActive(status);
+        }
+        if (status)
+            FillSlots();
+    }
+
+    void ÑreateSlots(int count)
+    {
+        if (cargoSlotList.Count < GlobalData.CargoMaxSlotNumber)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                GlobalData.CargoCurentSlotsNumber++;
+                InventoryItem item = new()
+                {
+                    resAmountInSlot = 0,
+                    typeSlot = ResourceType.Nothing,
+                    imageSlot = null
+                };
+                Instantiate(slotPrefab, slotsContainer.transform);
+                cargoSlotList.Add(item);
+            }
+        }
+        else
+        {
+            EventBus.CommandForShowError.Execute("Max Slots Count Reached");
+            EventBus.CommandForPlaySound.Execute(errorSound);
+        }
+    }
+
+    void FillSlots()
+    {
+        SlotManager[] slots = slotsContainer.GetComponentsInChildren<SlotManager>();
+
+        for (int i = 0; i < cargoSlotList.Count; i++)
+        {
+            slots[i].SetParameters(cargoSlotList[i].imageSlot, cargoSlotList[i].resAmountInSlot, cargoSlotList[i].typeSlot);
+        }
+
+    }
 
 
-    void PutInInventory(GameObject resource)
+    void PutInInventoryLogic(GameObject resource)
     {
         ResourceItem curRes = resource.GetComponent<ResourceItem>();
-        InventoryItem inventoryRes = new()
+
+        InventoryItem compatibleSlot = cargoSlotList.Find(slot =>
+        (slot.typeSlot == curRes.type || slot.typeSlot == ResourceType.Nothing) && slot.resAmountInSlot < GlobalData.CargoSlotCapacity);
+
+        if (compatibleSlot != null)
         {
-            amount = curRes.resourceCount,
-            type = curRes.type,
-            image = curRes.image
-        };
-        inventoryList.Add(inventoryRes);
-        Destroy(resource);
+            compatibleSlot.resAmountInSlot++;
+            compatibleSlot.typeSlot = curRes.type;
+            compatibleSlot.imageSlot = curRes.image;
+            EventBus.CommandForPlaySound.Execute(successSound);
+            Destroy(resource);
+        }
+        else
+        {
+            EventBus.CommandForShowError.Execute("Not Enough Space In Cargo");
+            EventBus.CommandForPlaySound.Execute(errorSound);
+        }
     }
 }
 
 [System.Serializable]
 public class InventoryItem
 {
-    public int amount = 1;
-    public ResourceType type;
-    public Sprite image;
+    public int resAmountInSlot;
+    public ResourceType typeSlot;
+    public Sprite imageSlot;
 }
 

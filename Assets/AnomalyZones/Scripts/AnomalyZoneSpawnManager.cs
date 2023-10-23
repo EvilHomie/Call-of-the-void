@@ -6,7 +6,7 @@ public class AnomalyZoneSpawnManager : SpawnManagerLogic
     CompositeDisposable _disposables = new();
     void OnEnable()
     {
-        EventBus.ComandOnAnomalyDestroy.Subscribe(_ => SetDelayAndSpawn()).AddTo(_disposables);
+        EventBus.CommandOnAnomalyDestroy.Subscribe(_ => SetDelayAndSpawn()).AddTo(_disposables);
         SetDelayAndSpawn();
     }
     void OnDisable()

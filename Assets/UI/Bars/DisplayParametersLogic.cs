@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -38,6 +39,7 @@ public class DisplayParametersLogic : MonoBehaviour
     void SetMaxParameters(ITarget parameters)
     {
         Debug.Log("SetMaxParameters");
+        _disposables.Clear();
         parameters.GetStaticParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP, out string name);
 
         nameText.text = name;

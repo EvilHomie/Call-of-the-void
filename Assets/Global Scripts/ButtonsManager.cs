@@ -16,9 +16,16 @@ public class ButtonsManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            EventBus.ComandOnTryGetTarget.Execute();
+            EventBus.CommandOnTryGetTarget.Execute();
             Debug.Log("Button is Presed");
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            EventBus.InventoryActiveStatus.Value = !EventBus.InventoryActiveStatus.Value;
+        }
+        
+
 
     }
 

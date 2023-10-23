@@ -6,7 +6,7 @@ public class EnemyStationSpawnManager : SpawnManagerLogic
     CompositeDisposable _disposables = new();
     void OnEnable()
     {         
-        EventBus.ComandOnStationDestroy.Subscribe(_=> SetDelayAndSpawn()).AddTo(_disposables);
+        EventBus.CommandOnStationDestroy.Subscribe(_=> SetDelayAndSpawn()).AddTo(_disposables);
         SetDelayAndSpawn();
     }
 

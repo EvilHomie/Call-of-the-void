@@ -5,7 +5,6 @@ public class TractorBeamManager : MonoBehaviour
 {
     CompositeDisposable _disposable = new();
     AudioSource audioSource;
-    [SerializeField] AudioClip resPickUpSound;
 
     void Awake()
     {
@@ -14,8 +13,6 @@ public class TractorBeamManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.ComandOnCollectResource.Subscribe(res => PlayPickUpSound()).AddTo(_disposable);
-
         EventBus.TractorBeamActiveStatus.Subscribe(status => TractorBeamSoundManager(status)).AddTo(_disposable);
     }
 
@@ -25,16 +22,9 @@ public class TractorBeamManager : MonoBehaviour
         audioSource.Stop();
     }
 
-    void PlayPickUpSound()
-    {
-        audioSource.PlayOneShot(resPickUpSound);
-    }
-
     void TractorBeamSoundManager(bool status)
     {
         if (status) audioSource.Play();
         else audioSource.Stop();
     }
-
-
 }
