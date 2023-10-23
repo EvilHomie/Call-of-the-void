@@ -11,6 +11,6 @@ public class FollowPlayer : MonoBehaviour
 
     private void SetPosition()
     {
-        transform.position = GlobalData.playerTransform.position + offset;
+        transform.position = GlobalData.PlayerTransform.position + offset;
     }
 }

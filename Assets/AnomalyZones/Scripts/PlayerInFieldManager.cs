@@ -22,7 +22,7 @@ public class PlayerInFieldManager : MonoBehaviour
 
     void CheckDistance()
     {
-        currentDistanceFromPlayer = Vector3.Distance(GlobalData.playerTransform.position, transform.position);
+        currentDistanceFromPlayer = Vector3.Distance(GlobalData.PlayerTransform.position, transform.position);
 
         if (!playerIsInsideField)
         {            

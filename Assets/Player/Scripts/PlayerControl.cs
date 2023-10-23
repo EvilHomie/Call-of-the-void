@@ -13,13 +13,13 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] float playerRotateSpeed;
     [SerializeField] float rCSSpeed;
 
-    void Start()
+    void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
 
-        GlobalData.mousePos = mousePosition2D;
-        GlobalData.playerTransform = transform;
-        GlobalData.playerVelocity = playerRb.velocity;
+        GlobalData.MousePos = mousePosition2D;
+        GlobalData.PlayerTransform = transform;
+        GlobalData.PlayerVelocity = playerRb.velocity;
     }
 
     
@@ -29,9 +29,9 @@ public class PlayerControl : MonoBehaviour
         MoveForward();
         AditionMove();
 
-        GlobalData.mousePos = mousePosition2D;
-        GlobalData.playerTransform = transform;
-        GlobalData.playerVelocity = playerRb.velocity;
+        GlobalData.MousePos = mousePosition2D;
+        GlobalData.PlayerTransform = transform;
+        GlobalData.PlayerVelocity = playerRb.velocity;
     }
 
     void MousePosTrack()

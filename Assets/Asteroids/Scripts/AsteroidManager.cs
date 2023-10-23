@@ -3,7 +3,7 @@ using UnityEngine;
 public class AsteroidManager : MonoBehaviour
 {
     Rigidbody asteroidRB;
-    AsteroidParameters parameters;
+    IDadamageable parameters;
     ResourcesInObject resInObj;
 
     [Header("Speed")]
@@ -31,7 +31,7 @@ public class AsteroidManager : MonoBehaviour
     void Awake()
     {
         asteroidRB = GetComponent<Rigidbody>();
-        parameters = GetComponent<AsteroidParameters>();
+        parameters = GetComponent<IDadamageable>();
         resInObj = GetComponent<ResourcesInObject>();        
     }
     private void Start()
@@ -52,7 +52,7 @@ public class AsteroidManager : MonoBehaviour
     void SetMassAndHp()
     {
         asteroidRB.mass = (int)(massMod * size * size);
-        parameters.SetParameters(asteroidRB.mass * hpMod);
+        parameters.SetMaxHpParameters(asteroidRB.mass * hpMod, 0, 0);
     }
 
     void SetResCount()
@@ -76,7 +76,7 @@ public class AsteroidManager : MonoBehaviour
 
     Vector3 DirectionCoordonates()
     {
-        Vector3 randomPointPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusAroundPlayer + GlobalData.playerTransform.position;
+        Vector3 randomPointPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * radiusAroundPlayer + GlobalData.PlayerTransform.position;
         Vector3 direction = randomPointPos - transform.position;
         return direction.normalized;
     }  

@@ -45,6 +45,5 @@ public class BigObjectManager : MonoBehaviour
     {
         bigObjectRb = GetComponent<Rigidbody>();
         bigObjectRb.AddForce(Vector3.left * moveSpeedBasedOnSize, ForceMode.VelocityChange);
-        Debug.Log(moveSpeedBasedOnSize);
     }
 }

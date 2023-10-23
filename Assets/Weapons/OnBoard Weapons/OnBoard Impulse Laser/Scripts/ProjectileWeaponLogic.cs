@@ -15,11 +15,13 @@ public class ProjectileWeaponLogic : MonoBehaviour, IWeapon
     [SerializeField] float projectileLifeTime;
     [SerializeField] float energyDamage;
     [SerializeField] float kineticDamage;
+    [SerializeField] float asteroidMultiplier;
+    [SerializeField] float enemyMultiplier;
     [SerializeField] float offSetSpawnProjectile;
 
     void Start()
     {
-        projectilePF.GetComponent<ProjectileManager>().SetProjectileParameters(projectileSpeed, projectileLifeTime, energyDamage, kineticDamage);
+        projectilePF.GetComponent<ProjectileManager>().SetProjectileParameters(projectileSpeed, projectileLifeTime, energyDamage, kineticDamage, asteroidMultiplier, enemyMultiplier);
     }
 
     public void Shoot()
@@ -41,12 +43,14 @@ public class ProjectileWeaponLogic : MonoBehaviour, IWeapon
     {
     }
 
-    public void SetWeaponParameters(float fireRate, float projectileSpeed, float projectileLifeTime, float energyDMG, float kineticDMG, float beamLength)
+    public void SetWeaponParameters(float fireRate, float projectileSpeed, float projectileLifeTime, float energyDMG, float kineticDMG, float weaponDistance, float asteroidMultiplier, float enemyMultiplier)
     {
         this.fireRate = fireRate;
         this.projectileSpeed = projectileSpeed;
         this.projectileLifeTime = projectileLifeTime;
         energyDamage = energyDMG;
         kineticDamage = kineticDMG;
+        this.asteroidMultiplier = asteroidMultiplier;
+        this.enemyMultiplier = enemyMultiplier;
     }
 }

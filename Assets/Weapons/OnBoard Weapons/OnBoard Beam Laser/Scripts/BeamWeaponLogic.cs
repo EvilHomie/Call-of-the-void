@@ -24,9 +24,19 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
     [SerializeField] float beamLength;
     [SerializeField] float energyDamage;
     [SerializeField] float kineticDamage;
+    [SerializeField] float asteroidMultiplier;
+    [SerializeField] float enemyMultiplier;
 
     bool isShooting = false;
 
+    public void SetWeaponParameters(float fireRate, float projectileSpeed, float projectileLifeTime, float energyDMG, float kineticDMG, float weaponDistance, float asteroidMultiplier, float enemyMultiplier)
+    {
+        energyDamage = energyDMG;
+        kineticDamage = kineticDMG;
+        beamLength = weaponDistance;
+        this.asteroidMultiplier = asteroidMultiplier;
+        this.enemyMultiplier = enemyMultiplier;
+    }
     public void SetWeaponParameters(float fireRate, float projectileSpeed, float projectileLifeTime, float energyDMG, float kineticDMG, float beamLength)
     {
         energyDamage = energyDMG;
@@ -80,7 +90,7 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
                 lineRenderer.SetPosition(1, raycastHit.point);
                 IDadamageable hit = raycastHit.collider.transform.root.gameObject.GetComponent<IDadamageable>();
 
-                hit?.Damage(energyDamage * Time.deltaTime, kineticDamage * Time.deltaTime);
+                hit?.Damage(energyDamage * Time.deltaTime, kineticDamage * Time.deltaTime, asteroidMultiplier, enemyMultiplier);
                 endPoint.transform.position = lineRenderer.GetPosition(1);
                 if (!endPoint.activeSelf) endPoint.SetActive(true);
             }
@@ -112,7 +122,7 @@ public class BeamWeaponLogic : MonoBehaviour, IWeapon
         weaponAS.clip = audioClipName;
         weaponAS.Play();
         endPointAS.Stop();
-    }    
+    }
 }
 
 

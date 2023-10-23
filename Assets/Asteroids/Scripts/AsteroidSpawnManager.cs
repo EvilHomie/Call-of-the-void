@@ -18,6 +18,7 @@ public class AsteroidSpawnManager : SpawnManagerLogic
     void OnDisable()
     {
         _disposables.Clear();
+        CancelInvoke();
     }
 
     void RepitSpawn()

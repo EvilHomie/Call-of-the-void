@@ -5108,11 +5108,13 @@ MonoBehaviour:
   shootParticle: {fileID: 2934917115931067405}
   audioSource: {fileID: 3452290812597313082}
   shootSound: {fileID: 8300000, guid: 3eaccb11874c4b447bfca8bd24f6ad83, type: 3}
-  fireRate: 3
-  projectileSpeed: 150
-  projectileLifeTime: 1
-  energyDamage: 20
-  kineticDamage: 20
+  fireRate: 0
+  projectileSpeed: 0
+  projectileLifeTime: 0
+  energyDamage: 0
+  kineticDamage: 0
+  asteroidMultiplier: 0
+  enemyMultiplier: 0
   offSetSpawnProjectile: 1.5
 --- !u!114 &4932863120637733030
 MonoBehaviour:

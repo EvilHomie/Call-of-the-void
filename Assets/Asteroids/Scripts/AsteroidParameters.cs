@@ -3,35 +3,42 @@ using UnityEngine;
 
 public class AsteroidParameters : MonoBehaviour, IDadamageable, ITarget
 {
-    [SerializeField] FloatReactiveProperty asteroidHP;
-    [SerializeField] float asteroidMaxHP;    
+    [SerializeField] FloatReactiveProperty AsteroidHP;
+    [SerializeField] FloatReactiveProperty AsteroidMaxHP;    
 
-    public void Damage(float energyDMG, float kineticDMG)
+    void Start()
     {
-        asteroidHP.Value -= energyDMG + kineticDMG;
+        AsteroidHP.Value = AsteroidMaxHP.Value;
+    }
+    public void Damage(float energyDMG, float kineticDMG, float asteroidMultiplier, float enemyMultiplier)
+    {
+        AsteroidHP.Value -= (energyDMG + kineticDMG) * asteroidMultiplier;
 
-        if (asteroidHP.Value < 0)
+        if (AsteroidHP.Value < 0)
         {
             EventBus.ComandOnObjDie.Execute(gameObject);
         }
     }
     public void GetCurrentParameters(out FloatReactiveProperty HullHPRP, out FloatReactiveProperty ArmorHPRP, out FloatReactiveProperty ShieldHPRP)
     {
-        HullHPRP = asteroidHP;
+        HullHPRP = AsteroidHP;
         ArmorHPRP = new();
         ShieldHPRP = new();
     }
     public void GetStaticParameters(out float maxHullHP, out float maxArmorHP, out float maxShieldHP, out string name)
     {
-        maxHullHP = asteroidMaxHP;
+        maxHullHP = AsteroidMaxHP.Value;
         maxArmorHP = 0;
         maxShieldHP = 0;
         name = gameObject.name;
     }
 
-    public void SetParameters(float hp)
+    public void SetMaxHpParameters(float hullHP, float armorHP, float shieldHP)
     {
-        asteroidHP.Value = hp;
-        asteroidMaxHP = hp;
+        AsteroidMaxHP.Value = hullHP ;
+    }
+
+    public void SetRegRates(float hullRegRate, float armorRegRate, float shieldRegRate, float shieldStartRegDelay)
+    {
     }
 }
