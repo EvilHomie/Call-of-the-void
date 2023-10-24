@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class EventBus: MonoBehaviour
 {
-    public static ReactiveCommand<GameObject> CommandOnCollectResource = new();
-    public static BoolReactiveProperty TractorBeamActiveStatus = new(false);
-    public static BoolReactiveProperty InventoryActiveStatus = new(false);
+    public static ReactiveCommand<GameObject> CommandOnCollectResource = new();    
 
     public static ReactiveCommand<GameObject> CommandOnObjDie  = new();
 

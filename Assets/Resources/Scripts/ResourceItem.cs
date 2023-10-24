@@ -3,7 +3,7 @@ using UnityEngine;
 public class ResourceItem : MonoBehaviour
 {    
     SpriteRenderer resourceRenderer;
-    public int resourceCount = 1;
+    public int count = 1;
     public ResourceType type;
     public Sprite image;
 
@@ -15,7 +15,7 @@ public class ResourceItem : MonoBehaviour
     {        
         type = resourceType;
         image = resourceImage;
-        this.resourceRenderer.sprite = image;        
+        resourceRenderer.sprite = image;        
     }
 }
 

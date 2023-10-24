@@ -1,15 +1,13 @@
 using UniRx;
 using UnityEngine;
 
-public class CollectableLogic : MonoBehaviour
+public class ResCollectControl : MonoBehaviour
 {
     CompositeDisposable _disposable = new();
     CompositeDisposable _disposable2 = new();
     Rigidbody rb;
 
     LineRenderer lineRenderer;
-
-    bool tractorBeamIsActive = false;
 
     private void Awake()
     {
@@ -19,7 +17,9 @@ public class CollectableLogic : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.TractorBeamActiveStatus.Subscribe(activeStatus => TractorBeamChangeStatusLogic(activeStatus)).AddTo(_disposable);
+        PlayerDevices.TractorBeamActiveStatus
+            .Where(status => status == true)
+            .Subscribe(_ => GrabLogic()).AddTo(_disposable);
     }
 
     private void OnDisable()
@@ -37,10 +37,9 @@ public class CollectableLogic : MonoBehaviour
         }
     }
 
-    void TractorBeamChangeStatusLogic(bool status)
+    void GrabLogic()
     {
-        tractorBeamIsActive = status;
-        if (status && InTractorBeamRange())
+        if (InTractorBeamRange())
         {
             TranslateToPlayer();
             lineRenderer.enabled = true;
@@ -49,7 +48,7 @@ public class CollectableLogic : MonoBehaviour
     bool InTractorBeamRange()
     {
         float distance = Vector3.Distance(GlobalData.PlayerTransform.position, transform.position);
-        if (distance <= GlobalData.GrabRadius) return true;
+        if (distance <= PlayerDevices.tractorBeamGrabRadius) return true;
         else return false;
     }
 
@@ -60,7 +59,7 @@ public class CollectableLogic : MonoBehaviour
                 .Subscribe(_ =>
                 {
                     MoveToPlayer();
-                    if (!tractorBeamIsActive || !InTractorBeamRange())
+                    if (!PlayerDevices.TractorBeamActiveStatus.Value || !InTractorBeamRange())
                     {
                         _disposable2.Clear();
                         lineRenderer.enabled = false;
@@ -72,7 +71,7 @@ public class CollectableLogic : MonoBehaviour
     {
         Vector3 dir = GlobalData.PlayerTransform.position - transform.position;
         dir = dir.normalized;
-        rb.AddForce(dir * GlobalData.PullSpeed, ForceMode.Acceleration);
+        rb.AddForce(dir * PlayerDevices.tractorBeamPullSpeed, ForceMode.Acceleration);
 
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, GlobalData.PlayerTransform.position);

@@ -6,11 +6,11 @@ public class ButtonsManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            EventBus.TractorBeamActiveStatus.Value = true;
+            PlayerDevices.TractorBeamActiveStatus.Value = true;
         }
         else if (Input.GetKeyUp(KeyCode.F))
         {
-            EventBus.TractorBeamActiveStatus.Value = false;
+            PlayerDevices.TractorBeamActiveStatus.Value = false;
         }
 
 
@@ -22,7 +22,7 @@ public class ButtonsManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            EventBus.InventoryActiveStatus.Value = !EventBus.InventoryActiveStatus.Value;
+            PlayerDevices.InventoryActiveStatus.Value = !PlayerDevices.InventoryActiveStatus.Value;
         }
         
 

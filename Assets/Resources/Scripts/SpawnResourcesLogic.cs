@@ -56,7 +56,6 @@ public enum ResourceType
     Copper,
     Silver,
     Gold,
-    Titanium,
-    Nothing
+    Titanium
 }
 
