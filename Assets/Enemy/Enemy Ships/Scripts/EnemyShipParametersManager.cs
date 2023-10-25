@@ -60,6 +60,7 @@ public class EnemyShipParametersManager : MonoBehaviour
         float projectileSpeed = ValueCalc(defProjectileSpeed);
         float projectileLifeTime = ValueCalc(defProjectileLifeTime);
         weaponDistance = projectileSpeed * projectileLifeTime;
+        controlZoneRadius = weaponDistance * 2;
 
         int randomWeaponIndex = Random.Range(0, availableWeapons.Count);
         GameObject weapon = Instantiate(availableWeapons[randomWeaponIndex], weaponContainer.transform);

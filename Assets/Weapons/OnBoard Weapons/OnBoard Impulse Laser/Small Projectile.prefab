@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6004248690362702609
 Transform:
   m_ObjectHideFlags: 0
@@ -150,5 +150,7 @@ MonoBehaviour:
   projectileLifeTime: 0
   energyDamage: 0
   kineticDamage: 0
+  asteroidMultiplier: 0
+  enemyMultiplier: 0
   hitEfect: {fileID: 4684389042269171066, guid: 2a47fbc443d67044a8e4b4a9dd36df0c,
     type: 3}

@@ -13,6 +13,7 @@ public class EnemyStationSpawnManager : SpawnManagerLogic
     void OnDisable()
     {
         _disposables.Clear();
+        CancelInvoke();
     }   
 
     void SetDelayAndSpawn()

@@ -35,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 1374193109338841291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5045294800774643731}
@@ -44,7 +44,7 @@ Transform:
   - {fileID: 7306528093312383265}
   - {fileID: 5926284964496534967}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7192497730845891925
 MeshFilter:
@@ -115,7 +115,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 4.2
+  m_Radius: 3.09
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9104046835387286476
 MonoBehaviour:
@@ -141,9 +141,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e5c34ded5201149921cd0f0758f264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hullHP: 500
-  armorHP: 500
-  shieldHP: 500
+  HullHP:
+    value: 0
+  ArmorHP:
+    value: 0
+  ShieldHP:
+    value: 0
+  fullHull:
+    value: 1000
+  fullArmor:
+    value: 500
+  fullShield:
+    value: 500
   hullRegRate: 0
   armorRegRate: 0
   shieldRegRate: 10
@@ -316,11 +325,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1698763020634053855}
     m_Modifications:
+    - target: {fileID: 1696076318635591160, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: weaponRotateSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3088454345083513984, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f42002f8b4035aa488801f0b247549fa, type: 2}
+    - target: {fileID: 3107042870031677746, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: energyDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: kineticDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: enemyMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: asteroidMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: projectileLifeTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_RootOrder
@@ -339,7 +383,7 @@ PrefabInstance:
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
@@ -391,6 +435,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6682057091207897869}
   m_SourcePrefab: {fileID: 100100000, guid: 004b92eb88a52f646b9a4e6c9a922511, type: 3}
+--- !u!4 &52527463203273650 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 588611922723056214, guid: 004b92eb88a52f646b9a4e6c9a922511,
+    type: 3}
+  m_PrefabInstance: {fileID: 617474871497675236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7306528093312383265 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
@@ -415,7 +465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5baaafc5ab23f42a99fae1a3963a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDistance: 0
+  firePoint: {fileID: 52527463203273650}
+  weaponDistance: 300
   targetInFocus: 0
 --- !u!1001 &3243096011841947460
 PrefabInstance:
@@ -425,11 +476,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1698763020634053855}
     m_Modifications:
+    - target: {fileID: 1696076318635591160, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: weaponRotateSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3088454345083513984, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f42002f8b4035aa488801f0b247549fa, type: 2}
+    - target: {fileID: 3107042870031677746, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: energyDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: kineticDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: enemyMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: asteroidMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: projectileLifeTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_RootOrder
@@ -438,7 +524,7 @@ PrefabInstance:
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
@@ -500,6 +586,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8388314239105601480}
   m_SourcePrefab: {fileID: 100100000, guid: 004b92eb88a52f646b9a4e6c9a922511, type: 3}
+--- !u!4 &2678201207769853202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 588611922723056214, guid: 004b92eb88a52f646b9a4e6c9a922511,
+    type: 3}
+  m_PrefabInstance: {fileID: 3243096011841947460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4681065385955553153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
@@ -524,7 +616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5baaafc5ab23f42a99fae1a3963a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDistance: 0
+  firePoint: {fileID: 2678201207769853202}
+  weaponDistance: 300
   targetInFocus: 0
 --- !u!1001 &4596436134952650098
 PrefabInstance:
@@ -534,11 +627,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1698763020634053855}
     m_Modifications:
+    - target: {fileID: 1696076318635591160, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: weaponRotateSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3088454345083513984, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f42002f8b4035aa488801f0b247549fa, type: 2}
+    - target: {fileID: 3107042870031677746, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: energyDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: kineticDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: enemyMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: asteroidMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: projectileLifeTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_RootOrder
@@ -557,7 +685,7 @@ PrefabInstance:
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.8
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
@@ -609,6 +737,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4953502757494977555}
   m_SourcePrefab: {fileID: 100100000, guid: 004b92eb88a52f646b9a4e6c9a922511, type: 3}
+--- !u!4 &4027054945624190756 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 588611922723056214, guid: 004b92eb88a52f646b9a4e6c9a922511,
+    type: 3}
+  m_PrefabInstance: {fileID: 4596436134952650098}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4694559364580674894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9146738899640371260, guid: 004b92eb88a52f646b9a4e6c9a922511,
@@ -627,7 +761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5baaafc5ab23f42a99fae1a3963a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDistance: 0
+  firePoint: {fileID: 4027054945624190756}
+  weaponDistance: 300
   targetInFocus: 0
 --- !u!4 &5926284964496534967 stripped
 Transform:
@@ -643,6 +778,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1698763020634053855}
     m_Modifications:
+    - target: {fileID: 1696076318635591160, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: weaponRotateSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2980968283958738511, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
@@ -658,6 +798,36 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 913241902622abb4abcf9d5e02ba44b6, type: 2}
+    - target: {fileID: 3107042870031677746, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: energyDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: kineticDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: enemyMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: asteroidMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147706411506039608, guid: 004b92eb88a52f646b9a4e6c9a922511,
+        type: 3}
+      propertyPath: projectileLifeTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_RootOrder
@@ -666,7 +836,7 @@ PrefabInstance:
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
         type: 3}
@@ -746,11 +916,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5baaafc5ab23f42a99fae1a3963a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDistance: 0
+  firePoint: {fileID: 5836278522658595133}
+  weaponDistance: 300
   targetInFocus: 0
 --- !u!4 &3828690258538242990 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7924002769211664581, guid: 004b92eb88a52f646b9a4e6c9a922511,
+    type: 3}
+  m_PrefabInstance: {fileID: 6401175312611740523}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5836278522658595133 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 588611922723056214, guid: 004b92eb88a52f646b9a4e6c9a922511,
     type: 3}
   m_PrefabInstance: {fileID: 6401175312611740523}
   m_PrefabAsset: {fileID: 0}

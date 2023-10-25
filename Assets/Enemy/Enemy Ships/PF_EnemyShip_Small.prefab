@@ -10360,31 +10360,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26b49c6f4acb0744a05c971cbf4ba67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentRangeMultipler: 20
-  defHullHp: 100
+  percentRangeMultipler: 50
+  defHullHp: 200
   defHullRegRate: 0
-  defArmorHp: 100
+  defArmorHp: 200
   defArmorRegRate: 0
-  defShieldHp: 100
+  defShieldHp: 200
   defShieldRegRate: 5
   shieldStartRegDelay: 5
   availableWeapons:
   - {fileID: 2294516099223407039, guid: feab74e91c3bc4245afab66b9609a21d, type: 3}
   - {fileID: 6307115990872510012, guid: cd0ca121b296cf74cb3ddd9eac2a88b7, type: 3}
   weaponContainer: {fileID: 1599069631017269322}
-  defFireRate: 1
+  defFireRate: 2
   defProjectileSpeed: 100
-  defProjectileLifeTime: 1
+  defProjectileLifeTime: 2
   weaponDistance: 0
-  defKineticDMG: 10
-  defEnergyDMG: 10
+  defKineticDMG: 20
+  defEnergyDMG: 20
   defAsteroidMultiplier: 1
   defEnemyMultiplier: 1
   defMainEngineSpeed: 20
   defRotateSpeed: 90
   defRCSSpeed: 15
-  controlZoneRadius: 200
-  checkControlZoneDelay: 2
+  controlZoneRadius: 0
+  checkControlZoneDelay: 1
 --- !u!114 &6878142456737854796
 MonoBehaviour:
   m_ObjectHideFlags: 0
