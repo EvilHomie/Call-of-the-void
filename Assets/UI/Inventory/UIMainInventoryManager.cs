@@ -6,12 +6,12 @@ public class UIMainInventoryManager : MonoBehaviour
 {
     CompositeDisposable _disposable = new();
     [SerializeField] GameObject slotsContainer;
-    List<Transform> slots = new();
+    [SerializeField] List<Transform> slots = new();
     
 
     void OnEnable()
     {
-        PlayerDevices.InventoryActiveStatus.Subscribe(status => SwitchHud(status)).AddTo(_disposable);
+        PlayerCargo.InventoryActiveStatus.Subscribe(status => SwitchHud(status)).AddTo(_disposable);        
     }
 
     private void Start()
@@ -34,28 +34,27 @@ public class UIMainInventoryManager : MonoBehaviour
         }
         if (status)
         {
-            ActivateEvalableSlots();
-            SetResInSlots();
+            PlayerCargo.currentCargo.Value.slotsNumberLevel.Subscribe(_ => ActivateEvalableSlots()).AddTo(_disposable);
+            SetInventoryResInSlots();
         }            
     }    
 
     void ActivateEvalableSlots()
     { 
-        for (int i = 0; i < PlayerDevices.cargoCurentSlotsNumber; i++)
+        foreach (Transform slot in slots)
         {
-            slots[i].gameObject.SetActive(true);
-        }
-
-        for (int i = PlayerDevices.cargoCurentSlotsNumber; i < PlayerDevices.cargoMaxSlotNumber; i++)
-        {
-            slots[i].gameObject.SetActive(false);
+            if (slot.GetSiblingIndex() < PlayerCargo.currentCargo.Value.CurrentSlotsNumber)
+            {
+                slot.gameObject.SetActive(true);
+            }
+            else slot.gameObject.SetActive(false);
         }
     }
-    void SetResInSlots()
+    void SetInventoryResInSlots()
     {
-        for (int i = 0; i < PlayerDevices.inventory.Count; i++)
+        for (int i = 0; i < PlayerCargo.inventory.Count; i++)
         {
-            slots[i].GetComponent<SlotManager>().SetParameters(PlayerDevices.inventory[i]);
+            slots[i].GetComponent<MainInventorySlotManager>().SetParameters(PlayerCargo.inventory[i]);
         }
     }
 }

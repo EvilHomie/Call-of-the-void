@@ -2,11 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotManager : MonoBehaviour
+public class MainInventorySlotManager : MonoBehaviour
 {
-    public Image resInSlotImage;
-    public TextMeshProUGUI resInSlotCount;
-    public ResourceType resInSlotType;
+    [SerializeField] Image resInSlotImage;
+    [SerializeField] TextMeshProUGUI resInSlotCount;
+    [SerializeField] ResourceType resInSlotType;
 
     public void SetParameters(InventoryItem item)
     {

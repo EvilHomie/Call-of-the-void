@@ -22,11 +22,24 @@ public class ButtonsManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            PlayerDevices.InventoryActiveStatus.Value = !PlayerDevices.InventoryActiveStatus.Value;
+            PlayerCargo.InventoryActiveStatus.Value = !PlayerCargo.InventoryActiveStatus.Value;
+            if (PlayerCargo.InventoryActiveStatus.Value)
+            {
+                EventBus.SelectDevice.Value = null;
+                Time.timeScale = 0;
+            }else Time.timeScale = 1;
         }
-        
 
-
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            PlayerCargo.currentCargo.Value.improvementsList[0].improvementLevel.Value++;
+            Debug.Log("slotLevelIncrease");
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            PlayerCargo.currentCargo.Value.slotsCapacityLevel.Value++;
+            Debug.Log("slotCapacityIncrease");
+        }
     }
 
 

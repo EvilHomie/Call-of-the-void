@@ -60,9 +60,9 @@ public class ResCollectControl : MonoBehaviour
                 {
                     MoveToPlayer();
                     if (!PlayerDevices.TractorBeamActiveStatus.Value || !InTractorBeamRange())
-                    {
-                        _disposable2.Clear();
+                    {                        
                         lineRenderer.enabled = false;
+                        _disposable2.Clear();
                     }
                 }).AddTo(_disposable2);
     }

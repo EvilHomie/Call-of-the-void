@@ -50,12 +50,4 @@ public class SpawnResourcesLogic : MonoBehaviour
         }        
     }    
 }
-public enum ResourceType
-{
-    Iron,
-    Copper,
-    Silver,
-    Gold,
-    Titanium
-}
 

@@ -23,7 +23,7 @@ public class CollectResourceLogic : MonoBehaviour
 
         if (TryCombine(curRes)) return;
 
-        if (PlayerDevices.inventory.Count < PlayerDevices.cargoCurentSlotsNumber)
+        if (PlayerCargo.inventory.Count < PlayerCargo.currentCargo.Value.CurrentSlotsNumber)
         {
             InventoryItem newItem = new()
             {
@@ -31,7 +31,7 @@ public class CollectResourceLogic : MonoBehaviour
                 type = curRes.type,
                 image = curRes.image
             };
-            PlayerDevices.inventory.Add(newItem);
+            PlayerCargo.inventory.Add(newItem);
             EventBus.CommandForPlaySound.Execute(successSound);
             Destroy(resource);
         }
@@ -44,8 +44,8 @@ public class CollectResourceLogic : MonoBehaviour
 
     bool TryCombine(ResourceItem resource)
     {
-        InventoryItem compatibleItem = PlayerDevices.inventory.Find(item =>
-        item.type == resource.type && item.count < PlayerDevices.cargoSlotCapacity);
+        InventoryItem compatibleItem = PlayerCargo.inventory.Find(item =>
+        item.type == resource.type && item.count < PlayerCargo.currentCargo.Value.CurrentSlotsCapacity);
         if (compatibleItem != null)
         {
             compatibleItem.count++;

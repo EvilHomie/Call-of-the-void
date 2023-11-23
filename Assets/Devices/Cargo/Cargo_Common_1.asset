@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb565a5f6e1c0d041becc498ed100c53, type: 3}
+  m_Name: Cargo_Common_1
+  m_EditorClassIdentifier: 
+  deviceImage: {fileID: 2800000, guid: 22954ac0cb8f381479b6465bd762723a, type: 3}
+  deviceType: 6
+  deviceDescription: 'Device Description
+
+
+    CONTAINER.
+
+    allows you to store
+    resources.'
+  slotsNumberLevel:
+    value: 2
+  slotsNumberMaxLevel: 3
+  slotNumberEachLevel: 1
+  slotsCapacityLevel:
+    value: 2
+  slotsCapacityMaxLevel: 5
+  slotCapacityEachLevel: 2
+  improvementsList: []
+  improvementsCostList:
+  - upgradeLevel: 3
+    conditionsForUpgrade:
+    - resourceType: 0
+      resAmount: 3
+  - upgradeLevel: 4
+    conditionsForUpgrade:
+    - resourceType: 1
+      resAmount: 4
+  - upgradeLevel: 5
+    conditionsForUpgrade:
+    - resourceType: 1
+      resAmount: 2
+    - resourceType: 2
+      resAmount: 2
