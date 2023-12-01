@@ -6,11 +6,11 @@ public class ButtonsManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            PlayerDevices.TractorBeamActiveStatus.Value = true;
+            EventBus.TractorBeamActiveStatus.Value = true;
         }
         else if (Input.GetKeyUp(KeyCode.F))
         {
-            PlayerDevices.TractorBeamActiveStatus.Value = false;
+            EventBus.TractorBeamActiveStatus.Value = false;
         }
 
 
@@ -22,23 +22,12 @@ public class ButtonsManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            PlayerCargo.InventoryActiveStatus.Value = !PlayerCargo.InventoryActiveStatus.Value;
-            if (PlayerCargo.InventoryActiveStatus.Value)
+            EventBus.InventoryActiveStatus.Value = !EventBus.InventoryActiveStatus.Value;
+            if (EventBus.InventoryActiveStatus.Value)
             {
                 EventBus.SelectDevice.Value = null;
                 Time.timeScale = 0;
             }else Time.timeScale = 1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            PlayerCargo.currentCargo.Value.improvementsList[0].improvementLevel.Value++;
-            Debug.Log("slotLevelIncrease");
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            PlayerCargo.currentCargo.Value.slotsCapacityLevel.Value++;
-            Debug.Log("slotCapacityIncrease");
         }
     }
 

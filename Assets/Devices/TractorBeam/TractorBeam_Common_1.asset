@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4855c87c90b1bb442834bd8063039f10, type: 3}
+  m_Name: TractorBeam_Common_1
+  m_EditorClassIdentifier: 
+  deviceImage: {fileID: 2800000, guid: 39e5f2426de0c714db9044182f7d46b9, type: 3}
+  deviceType: 4
+  deviceDescription: 'Device Description
+
+
+
+    TractorBeam.
+
+    allows you to collect
+    resources.'
+  collectDistanceLevel:
+    value: 1
+  collectDistanceMaxLevel: 2
+  collectDistanceEachLevel: 10
+  pullSpeedLevel:
+    value: 1
+  pullSpeedMaxLevel: 4
+  pullSpeedEachLevel: 1
+  improvementsList: []
+  improvementsCostList:
+  - upgradeLevel: 2
+    conditionsForUpgrade:
+    - resourceType: 0
+      resAmount: 2
+  - upgradeLevel: 3
+    conditionsForUpgrade:
+    - resourceType: 0
+      resAmount: 3
+  - upgradeLevel: 4
+    conditionsForUpgrade:
+    - resourceType: 0
+      resAmount: 2
+    - resourceType: 1
+      resAmount: 2

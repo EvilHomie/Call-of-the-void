@@ -10,7 +10,7 @@ public class Cargo : ScriptableObject, IDevice
     public DeviceType deviceType = DeviceType.Cargo;
     public string deviceDescription = "Device Description\r\n\r\nCONTAINER.\r\nallows you to store resources.";
 
-    [Header("Slots Number")]
+    [Header("Slots Amount")]
     public IntReactiveProperty slotsNumberLevel;
     public int slotsNumberMaxLevel;
     public int slotNumberEachLevel;
@@ -30,21 +30,8 @@ public class Cargo : ScriptableObject, IDevice
 
     public void FillImprovementsList()
     {
-        improvementsList.Add(GreatImprovement("Max Slot Number", slotsNumberLevel, slotsNumberMaxLevel, CurrentSlotsNumber, slotNumberEachLevel));
-        improvementsList.Add(GreatImprovement("Max Slot Capacity", slotsCapacityLevel, slotsCapacityMaxLevel, CurrentSlotsCapacity, slotCapacityEachLevel));
-    }
-
-    Improvement GreatImprovement(string name, IntReactiveProperty level, int maxLevel, int curValue, int upgEffect)
-    {
-        Improvement improvement = new()
-        {
-            improvementName = name,
-            improvementLevel = level,
-            improvementMaxLevel = maxLevel,
-            curentValue = curValue,
-            upgEffect = upgEffect
-        };
-        return improvement;
+        improvementsList.Add(DeviceManager.GreatImprovement("Slots Amount", slotsNumberLevel, slotsNumberMaxLevel, CurrentSlotsNumber, slotNumberEachLevel));
+        improvementsList.Add(DeviceManager.GreatImprovement("Slots Capacity", slotsCapacityLevel, slotsCapacityMaxLevel, CurrentSlotsCapacity, slotCapacityEachLevel));
     }
 
     public Texture GetDeviceImage()

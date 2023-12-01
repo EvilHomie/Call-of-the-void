@@ -4,46 +4,43 @@ using UnityEngine;
 
 public class UIMainInventoryManager : MonoBehaviour
 {
-    CompositeDisposable _disposable = new();
-    [SerializeField] GameObject slotsContainer;
-    [SerializeField] List<Transform> slots = new();
-    
+    CompositeDisposable _disposable_Cargo = new();
+    CompositeDisposable _disposable_SlotLevel = new();
+    [SerializeField] List<MainInventorySlotManager> mainInventorySlots = new();
 
-    void OnEnable()
+    private void OnEnable()
     {
-        PlayerCargo.InventoryActiveStatus.Subscribe(status => SwitchHud(status)).AddTo(_disposable);        
-    }
-
-    private void Start()
-    {
-        foreach (Transform slot in slotsContainer.transform)
+        PlayerCargo.currentCargo.Where(cargo => cargo != null).Subscribe(cargo =>
         {
-            slots.Add(slot);
-        }
+            _disposable_SlotLevel.Clear();
+            ActivateAndFillSlots(cargo);
+        }).AddTo(_disposable_Cargo);
     }
+
     private void OnDisable()
     {
-        _disposable.Clear();
-    }
-
-    void SwitchHud(bool status)
-    {
-        foreach (Transform t in transform)
-        {
-            t.gameObject.SetActive(status);
-        }
-        if (status)
-        {
-            PlayerCargo.currentCargo.Value.slotsNumberLevel.Subscribe(_ => ActivateEvalableSlots()).AddTo(_disposable);
-            SetInventoryResInSlots();
-        }            
+        _disposable_Cargo.Clear();
+        _disposable_SlotLevel.Clear();
     }    
 
-    void ActivateEvalableSlots()
-    { 
-        foreach (Transform slot in slots)
+
+
+    void ActivateAndFillSlots(Cargo cargo)
+    {
+        cargo.slotsNumberLevel.Subscribe(level =>
         {
-            if (slot.GetSiblingIndex() < PlayerCargo.currentCargo.Value.CurrentSlotsNumber)
+            ActivateEvalableSlots(level);
+            SetInventoryResInSlots();
+        }).AddTo(_disposable_SlotLevel);
+    }
+
+
+
+    void ActivateEvalableSlots(int amountActiveSlots)
+    {
+        foreach (MainInventorySlotManager slot in mainInventorySlots)
+        {
+            if (slot.transform.GetSiblingIndex() < amountActiveSlots)
             {
                 slot.gameObject.SetActive(true);
             }
@@ -54,9 +51,7 @@ public class UIMainInventoryManager : MonoBehaviour
     {
         for (int i = 0; i < PlayerCargo.inventory.Count; i++)
         {
-            slots[i].GetComponent<MainInventorySlotManager>().SetParameters(PlayerCargo.inventory[i]);
+            mainInventorySlots[i].SetParameters(PlayerCargo.inventory[i]);
         }
     }
 }
-
-

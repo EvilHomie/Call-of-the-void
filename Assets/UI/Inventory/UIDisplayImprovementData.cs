@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class UIDisplayImprovementData : MonoBehaviour
 {
-    CompositeDisposable _disposable = new();
+    CompositeDisposable _disposable_Device = new();
+    CompositeDisposable _disposable_ImprovementLevel = new();
     [SerializeField] TextMeshProUGUI improvementNameText;
     [SerializeField] Transform improvementLevelIconContainer;
     [SerializeField] TextMeshProUGUI currentValueText;
@@ -20,20 +21,21 @@ public class UIDisplayImprovementData : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.SelectDevice.Where(device => device != null && TryGetImprovementMatch(device)).Subscribe(device =>
+        EventBus.SelectDevice.Where(device => device != null && CheckImprovementMatch(device)).Subscribe(device =>
         {
-            _disposable.Clear();
+            _disposable_ImprovementLevel.Clear();
             DisplayConstantData();
-            SubscribeOnLevelValue();
+            DisplayDinamicData();
 
-        }).AddTo(_disposable);
+        }).AddTo(_disposable_Device);
     }
     void OnDisable()
     {
-        _disposable.Clear();
+        _disposable_Device.Clear();
+        _disposable_ImprovementLevel.Clear();
     }
 
-    bool TryGetImprovementMatch(IDevice improvement)
+    bool CheckImprovementMatch(IDevice improvement)
     {
         if (transform.GetSiblingIndex() < improvement.GetImprovements().Count)
         {
@@ -41,17 +43,15 @@ public class UIDisplayImprovementData : MonoBehaviour
             return true;
         }
         else return false;
-
     }
     void DisplayConstantData()
     {
         improvementNameText.text = improvement.improvementName;
         upgEffectText.text = $"+ {improvement.upgEffect}";
     }
-
-    void SubscribeOnLevelValue()
+    void DisplayDinamicData()
     {
-        improvement.improvementLevel.Subscribe(level => UpdateDinamicData(level)).AddTo(_disposable);
+        improvement.improvementLevel.Subscribe(level => UpdateDinamicData(level)).AddTo(_disposable_ImprovementLevel);
     }
 
     void UpdateDinamicData(int level)
@@ -87,28 +87,37 @@ public class UIDisplayImprovementData : MonoBehaviour
     {
         if (level < improvement.improvementMaxLevel)
         {
-            ImprovementCost nextLevelUpgCondition = EventBus.SelectDevice.Value.GetImprovementsCosts().Find(cost => cost.upgradeLevel == level + 1);
-            maximumLevelReachedText.gameObject.SetActive(false);
-            foreach (Transform conditionObj in upgContainer)
-            {
-                if (conditionObj.GetSiblingIndex() < nextLevelUpgCondition.conditionsForUpgrade.Count)
-                {
-                    conditionObj.gameObject.SetActive(true);
-                    SetConditionData(conditionObj, nextLevelUpgCondition);
-                }
-                else conditionObj.gameObject.SetActive(false);
-            }
+            SwitchDisplayCondition(true);            
+            DisplayNextLevelConditions(level);
         }
         else
         {
-            maximumLevelReachedText.gameObject.SetActive(true);
-            upgContainer.gameObject.SetActive(false);
-            upgEffectText.gameObject.SetActive(false);
-            upgButton.gameObject.SetActive(false);
+            SwitchDisplayCondition(false);
         }
     }
 
-    void SetConditionData(Transform conditionObj, ImprovementCost condition)
+    void DisplayNextLevelConditions(int level)
+    {
+        ImprovementCost nextLevelUpgCost = EventBus.SelectDevice.Value.GetImprovementsCosts().Find(cost => cost.upgradeLevel == level + 1);
+        foreach (Transform conditionObj in upgContainer)
+        {
+            if (conditionObj.GetSiblingIndex() < nextLevelUpgCost.conditionsForUpgrade.Count)
+            {
+                conditionObj.gameObject.SetActive(true);
+                FillConditionData(conditionObj, nextLevelUpgCost);
+            }
+            else conditionObj.gameObject.SetActive(false);
+        }
+    }
+
+    void SwitchDisplayCondition(bool enabled)
+    {
+        maximumLevelReachedText.gameObject.SetActive(!enabled);
+        upgContainer.gameObject.SetActive(enabled);
+        upgEffectText.gameObject.SetActive(enabled);
+        upgButton.gameObject.SetActive(enabled);
+    }
+    void FillConditionData(Transform conditionObj, ImprovementCost condition)
     {
         int index = conditionObj.GetSiblingIndex();
         Sprite newResourceimage = resourceSprites.Find(sprite => sprite.name == condition.conditionsForUpgrade[index].resourceType.ToString());
@@ -116,7 +125,6 @@ public class UIDisplayImprovementData : MonoBehaviour
         conditionObj.GetComponentInChildren<TextMeshProUGUI>().text = $"x {condition.conditionsForUpgrade[index].resAmount}";
         conditionObj.GetComponentInChildren<Image>().sprite = newResourceimage;
     }
-
 
     public void UpgradeLevel()
     {

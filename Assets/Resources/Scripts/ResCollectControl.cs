@@ -17,7 +17,7 @@ public class ResCollectControl : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerDevices.TractorBeamActiveStatus
+        EventBus.TractorBeamActiveStatus
             .Where(status => status == true)
             .Subscribe(_ => GrabLogic()).AddTo(_disposable);
     }
@@ -48,7 +48,7 @@ public class ResCollectControl : MonoBehaviour
     bool InTractorBeamRange()
     {
         float distance = Vector3.Distance(GlobalData.PlayerTransform.position, transform.position);
-        if (distance <= PlayerDevices.tractorBeamGrabRadius) return true;
+        if (distance <= PlayerTractorBeam.currentTractorBeam.Value.CurrentCollectDistance) return true;
         else return false;
     }
 
@@ -59,7 +59,7 @@ public class ResCollectControl : MonoBehaviour
                 .Subscribe(_ =>
                 {
                     MoveToPlayer();
-                    if (!PlayerDevices.TractorBeamActiveStatus.Value || !InTractorBeamRange())
+                    if (!EventBus.TractorBeamActiveStatus.Value || !InTractorBeamRange())
                     {                        
                         lineRenderer.enabled = false;
                         _disposable2.Clear();
@@ -71,7 +71,7 @@ public class ResCollectControl : MonoBehaviour
     {
         Vector3 dir = GlobalData.PlayerTransform.position - transform.position;
         dir = dir.normalized;
-        rb.AddForce(dir * PlayerDevices.tractorBeamPullSpeed, ForceMode.Acceleration);
+        rb.AddForce(dir * PlayerTractorBeam.currentTractorBeam.Value.CurrentPullSpeed, ForceMode.Acceleration);
 
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, GlobalData.PlayerTransform.position);

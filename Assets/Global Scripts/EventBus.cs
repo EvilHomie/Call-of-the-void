@@ -26,6 +26,10 @@ public class EventBus: MonoBehaviour
     public static ReactiveCommand<string> CommandForShowError = new();
     public static ReactiveCommand<AudioClip> CommandForPlaySound = new();
 
+    public static BoolReactiveProperty InventoryActiveStatus = new(false);
+    public static BoolReactiveProperty TractorBeamActiveStatus = new(false);
+
+
 
     public static ReactiveProperty<IDevice> SelectDevice = new();
     public static ReactiveCommand CommandOnCargoSlotIncrease = new();

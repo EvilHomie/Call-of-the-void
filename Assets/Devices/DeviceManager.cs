@@ -1,9 +1,20 @@
 using System.Collections.Generic;
 using UniRx;
 
-public class DeviceManager
+public static class DeviceManager
 {
-    
+    public static Improvement GreatImprovement(string name, IntReactiveProperty level, int maxLevel, int curValue, int upgEffect)
+    {
+        Improvement improvement = new()
+        {
+            improvementName = name,
+            improvementLevel = level,
+            improvementMaxLevel = maxLevel,
+            curentValue = curValue,
+            upgEffect = upgEffect
+        };
+        return improvement;
+    }
 }
 public enum DeviceType
 {
@@ -23,7 +34,7 @@ public class Improvement
     public IntReactiveProperty improvementLevel;
     public int improvementMaxLevel;
     public int curentValue;
-    public int upgEffect;  
+    public int upgEffect;
 }
 
 [System.Serializable]

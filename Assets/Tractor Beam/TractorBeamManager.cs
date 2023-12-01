@@ -13,7 +13,7 @@ public class TractorBeamManager : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerDevices.TractorBeamActiveStatus.Subscribe(status => TractorBeamSoundManager(status)).AddTo(_disposable);
+        EventBus.TractorBeamActiveStatus.Subscribe(status => TractorBeamSoundManager(status)).AddTo(_disposable);
     }
 
     void OnDisable()
