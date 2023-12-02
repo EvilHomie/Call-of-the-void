@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class CollectResourceLogic : MonoBehaviour
 {
-    CompositeDisposable _disposable = new();
-    [SerializeField] AudioClip successSound;
-    [SerializeField] AudioClip errorSound;
+    CompositeDisposable _disposable = new();    
 
     void OnEnable()
     {
@@ -27,29 +25,29 @@ public class CollectResourceLogic : MonoBehaviour
         {
             InventoryItem newItem = new()
             {
-                count = curRes.count,
+                amount = curRes.count,
                 type = curRes.type,
                 image = curRes.image
             };
             PlayerCargo.inventory.Add(newItem);
-            EventBus.CommandForPlaySound.Execute(successSound);
+            EventBus.CommandForPlaySound.Execute("successSound");
             Destroy(resource);
         }
         else
         {
             EventBus.CommandForShowError.Execute("Not Enough Space In Cargo");
-            EventBus.CommandForPlaySound.Execute(errorSound);
+            EventBus.CommandForPlaySound.Execute("errorSound");
         }
     }
 
     bool TryCombine(ResourceItem resource)
     {
         InventoryItem compatibleItem = PlayerCargo.inventory.Find(item =>
-        item.type == resource.type && item.count < PlayerCargo.currentCargo.Value.CurrentSlotsCapacity);
+        item.type == resource.type && item.amount < PlayerCargo.currentCargo.Value.CurrentSlotsCapacity);
         if (compatibleItem != null)
         {
-            compatibleItem.count++;
-            EventBus.CommandForPlaySound.Execute(successSound);
+            compatibleItem.amount++;
+            EventBus.CommandForPlaySound.Execute("successSound");
             Destroy(resource.gameObject);
             return true;
         }
@@ -60,7 +58,7 @@ public class CollectResourceLogic : MonoBehaviour
 [System.Serializable]
 public class InventoryItem
 {
-    public int count;
+    public int amount;
     public ResourceType type;
     public Sprite image;
 }

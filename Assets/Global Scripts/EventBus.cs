@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -24,7 +26,7 @@ public class EventBus: MonoBehaviour
 
 
     public static ReactiveCommand<string> CommandForShowError = new();
-    public static ReactiveCommand<AudioClip> CommandForPlaySound = new();
+    public static ReactiveCommand<string> CommandForPlaySound = new();
 
     public static BoolReactiveProperty InventoryActiveStatus = new(false);
     public static BoolReactiveProperty TractorBeamActiveStatus = new(false);
@@ -33,6 +35,10 @@ public class EventBus: MonoBehaviour
 
     public static ReactiveProperty<IDevice> SelectDevice = new();
     public static ReactiveCommand CommandOnCargoSlotIncrease = new();
+    public static Func<List<Condition>, bool> OnUpgradeDevice;
+    public static ReactiveCommand CommandOnRefreshUIInventory = new();
+
+
 
     //private void OnEnable()
     //{

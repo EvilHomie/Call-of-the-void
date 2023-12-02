@@ -10,8 +10,19 @@ public class MainInventorySlotManager : MonoBehaviour
 
     public void SetParameters(InventoryItem item)
     {
-        resInSlotImage.sprite = item.image;
-        resInSlotCount.text = item.count.ToString();
-        resInSlotType = item.type;
+        if (item != null)
+        {
+            SwitchDisplayMode(true);
+            resInSlotImage.sprite = item.image;
+            resInSlotCount.text = item.amount.ToString();
+            resInSlotType = item.type;
+        }
+        else SwitchDisplayMode(false);        
+    }
+
+    void SwitchDisplayMode(bool enabled)
+    {
+        resInSlotImage.gameObject.SetActive(enabled);
+        resInSlotCount.gameObject.SetActive(enabled);
     }
 }

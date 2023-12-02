@@ -7,6 +7,9 @@ public class AudioManager : MonoBehaviour
 
     AudioSource _source;
 
+    [SerializeField] AudioClip successSound;
+    [SerializeField] AudioClip errorSound;
+
     private void Awake()
     {
         _source = GetComponent<AudioSource>();
@@ -22,8 +25,11 @@ public class AudioManager : MonoBehaviour
         _disposables.Clear();
     }
 
-    void PlaySound(AudioClip sound)
+    void PlaySound(string clipName)
     {
-        _source.PlayOneShot(sound);
+        if (clipName == "successSound")
+            _source.PlayOneShot(successSound);
+        else if (clipName == "errorSound")
+            _source.PlayOneShot(errorSound);
     }
 }

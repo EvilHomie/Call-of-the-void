@@ -15,6 +15,8 @@ public class UIMainInventoryManager : MonoBehaviour
             _disposable_SlotLevel.Clear();
             ActivateAndFillSlots(cargo);
         }).AddTo(_disposable_Cargo);
+        RefreshDisplayResInSlots();
+        EventBus.CommandOnRefreshUIInventory.Subscribe(_ =>RefreshDisplayResInSlots()).AddTo(_disposable_Cargo);
     }
 
     private void OnDisable()
@@ -30,7 +32,6 @@ public class UIMainInventoryManager : MonoBehaviour
         cargo.slotsNumberLevel.Subscribe(level =>
         {
             ActivateEvalableSlots(level);
-            SetInventoryResInSlots();
         }).AddTo(_disposable_SlotLevel);
     }
 
@@ -47,8 +48,13 @@ public class UIMainInventoryManager : MonoBehaviour
             else slot.gameObject.SetActive(false);
         }
     }
-    void SetInventoryResInSlots()
+    void RefreshDisplayResInSlots()
     {
+        foreach (MainInventorySlotManager slot in mainInventorySlots)
+        {
+            slot.SetParameters(null);
+        }
+
         for (int i = 0; i < PlayerCargo.inventory.Count; i++)
         {
             mainInventorySlots[i].SetParameters(PlayerCargo.inventory[i]);

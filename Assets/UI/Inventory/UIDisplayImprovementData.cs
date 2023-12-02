@@ -16,7 +16,8 @@ public class UIDisplayImprovementData : MonoBehaviour
     [SerializeField] Transform upgContainer;
     [SerializeField] Button upgButton;
     [SerializeField] List<Sprite> resourceSprites;
-    Improvement improvement;
+    Improvement currentImprovement;
+    ImprovementCost currentUpgradeCost;
 
 
     void OnEnable()
@@ -39,19 +40,19 @@ public class UIDisplayImprovementData : MonoBehaviour
     {
         if (transform.GetSiblingIndex() < improvement.GetImprovements().Count)
         {
-            this.improvement = improvement.GetImprovements()[transform.GetSiblingIndex()];
+            this.currentImprovement = improvement.GetImprovements()[transform.GetSiblingIndex()];
             return true;
         }
         else return false;
     }
     void DisplayConstantData()
     {
-        improvementNameText.text = improvement.improvementName;
-        upgEffectText.text = $"+ {improvement.upgEffect}";
+        improvementNameText.text = currentImprovement.improvementName;
+        upgEffectText.text = $"+ {currentImprovement.upgEffect}";
     }
     void DisplayDinamicData()
     {
-        improvement.improvementLevel.Subscribe(level => UpdateDinamicData(level)).AddTo(_disposable_ImprovementLevel);
+        currentImprovement.improvementLevel.Subscribe(level => UpdateDinamicData(level)).AddTo(_disposable_ImprovementLevel);
     }
 
     void UpdateDinamicData(int level)
@@ -63,7 +64,7 @@ public class UIDisplayImprovementData : MonoBehaviour
 
     void DisplayCurValue(int level)
     {
-        currentValueText.text = (level * improvement.upgEffect).ToString();
+        currentValueText.text = (level * currentImprovement.upgEffect).ToString();
     }
 
 
@@ -75,7 +76,7 @@ public class UIDisplayImprovementData : MonoBehaviour
             {
                 icon.GetComponent<RawImage>().color = Color.green;
             }
-            else if (icon.GetSiblingIndex() >= level & icon.GetSiblingIndex() < improvement.improvementMaxLevel)
+            else if (icon.GetSiblingIndex() >= level & icon.GetSiblingIndex() < currentImprovement.improvementMaxLevel)
             {
                 icon.GetComponent<RawImage>().color = Color.grey;
             }
@@ -85,10 +86,10 @@ public class UIDisplayImprovementData : MonoBehaviour
 
     void DisplayUpgCondition(int level)
     {
-        if (level < improvement.improvementMaxLevel)
+        if (level < currentImprovement.improvementMaxLevel)
         {
             SwitchDisplayCondition(true);            
-            DisplayNextLevelConditions(level);
+            DisplayUpgradeConditions(level);
         }
         else
         {
@@ -96,15 +97,20 @@ public class UIDisplayImprovementData : MonoBehaviour
         }
     }
 
-    void DisplayNextLevelConditions(int level)
+    void DisplayUpgradeConditions(int level)
     {
-        ImprovementCost nextLevelUpgCost = EventBus.SelectDevice.Value.GetImprovementsCosts().Find(cost => cost.upgradeLevel == level + 1);
+        currentUpgradeCost = EventBus.SelectDevice.Value.GetImprovementsCosts().Find(cost => cost.upgradeLevel == level + 1);
+        DisplayEvalebleConditions();
+    }
+
+    void DisplayEvalebleConditions()
+    {
         foreach (Transform conditionObj in upgContainer)
         {
-            if (conditionObj.GetSiblingIndex() < nextLevelUpgCost.conditionsForUpgrade.Count)
+            if (conditionObj.GetSiblingIndex() < currentUpgradeCost.conditionsForUpgrade.Count)
             {
                 conditionObj.gameObject.SetActive(true);
-                FillConditionData(conditionObj, nextLevelUpgCost);
+                FillConditionData(conditionObj, currentUpgradeCost);
             }
             else conditionObj.gameObject.SetActive(false);
         }
@@ -128,7 +134,15 @@ public class UIDisplayImprovementData : MonoBehaviour
 
     public void UpgradeLevel()
     {
-        improvement.improvementLevel.Value++;
+        if (EventBus.OnUpgradeDevice.Invoke(currentUpgradeCost.conditionsForUpgrade))
+        {
+            EventBus.CommandForPlaySound.Execute("successSound");
+            currentImprovement.improvementLevel.Value++;
+        }
+        else
+        {
+            EventBus.CommandForPlaySound.Execute("errorSound");
+        }
     }
 }
        
