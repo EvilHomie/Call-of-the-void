@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bc0df5050beac41a1c3310213c1ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceCount: 1
+  count: 1
   type: 0
   image: {fileID: 711519183, guid: 6cb86d712d7ca3f458a1d0094e9fb45c, type: 3}
 --- !u!54 &-896661376286950063
@@ -279,7 +279,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 0afbd21afedb2ee448861dfc6486e19e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
