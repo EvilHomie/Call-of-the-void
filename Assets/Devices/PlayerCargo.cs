@@ -9,14 +9,14 @@ public class PlayerCargo : MonoBehaviour
     public static List<InventoryItem> inventory = new();
 
 
-    [Header("TestingArea")]
+    //[Header("TestingArea")]
     [SerializeField] Cargo testCargo_1;
     [SerializeField] Cargo testCargo_2;
-    [SerializeField] List<Improvement> TestImprovementsList = new();
-    [SerializeField] List<ImprovementCost> TestImprovementsCostList = new();
+    //[SerializeField] List<Improvement> TestImprovementsList = new();
+    //[SerializeField] List<ImprovementCost> TestImprovementsCostList = new();
 
 
-    [SerializeField] List<InventoryItem> testInventory;
+    //[SerializeField] List<InventoryItem> testInventory;
 
     private void Start()
     {
@@ -40,19 +40,24 @@ public class PlayerCargo : MonoBehaviour
             TestSetNewCargo(testCargo_2);
         }
 
-        testInventory = inventory;
+        //    //if (inventory.Count > 0)
+        //    //{
+        //    //    Debug.Log("fwaf");
+        //    //    testInventory = inventory;
+        //    //}
+
     }
 
     void TestSetNewCargo(Cargo newCargo)
     {
         currentCargo.Value = Instantiate(newCargo);
         EventBus.SelectDevice.Value = null;
-        Test();
-        void Test()
-        {
-            TestImprovementsList = currentCargo.Value.improvementsList;
-            TestImprovementsCostList = currentCargo.Value.improvementsCostList;
-            Debug.Log(currentCargo.Value.name);
-        }
+        //Test();
+        //void Test()
+        //{
+        //    TestImprovementsList = currentCargo.Value.improvementsList;
+        //    TestImprovementsCostList = currentCargo.Value.improvementsCostList;
+        //    Debug.Log(currentCargo.Value.name);
+        //}
     }
 }

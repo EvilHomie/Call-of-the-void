@@ -28,6 +28,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     void Shoot()
     {
+        if (EventBus.InventoryActiveStatus.Value == true) return;
         if (Input.GetButton("Fire1"))
         {
             for (int i = 0; i < weapons.Length; i++)

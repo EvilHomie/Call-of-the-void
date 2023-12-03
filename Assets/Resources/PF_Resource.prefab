@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 5421412644638499424}
   - component: {fileID: -499731728503057524}
   - component: {fileID: 7848150833844602815}
+  - component: {fileID: 8918228479007070319}
   m_Layer: 0
   m_Name: PF_Resource
   m_TagString: Resource
@@ -136,7 +137,7 @@ Transform:
   m_Children:
   - {fileID: 6007488017466224572}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4966364645812592214
 MonoBehaviour:
@@ -362,3 +363,17 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &8918228479007070319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6358600940365621455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31daaa553db167e45a367339f78d328a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayResNameWindow: {fileID: 7432509863721773485, guid: 7643b0867d52b8c428ada265cb51f731,
+    type: 3}

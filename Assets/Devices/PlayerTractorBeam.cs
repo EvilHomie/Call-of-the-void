@@ -11,8 +11,8 @@ public class PlayerTractorBeam : MonoBehaviour
     [Header("TestingArea")]
     [SerializeField] TractorBeam testTBeam_1;
     [SerializeField] TractorBeam testTBeam_2;
-    [SerializeField] List<Improvement> TestImprovementsList = new();
-    [SerializeField] List<ImprovementCost> TestImprovementsCostList = new();
+    //[SerializeField] List<Improvement> TestImprovementsList = new();
+    //[SerializeField] List<ImprovementCost> TestImprovementsCostList = new();
 
 
     private void Start()
@@ -42,12 +42,12 @@ public class PlayerTractorBeam : MonoBehaviour
     {
         currentTractorBeam.Value = Instantiate(newTBeam);
         EventBus.SelectDevice.Value = null;
-        Test();
-        void Test()
-        {
-            TestImprovementsList = currentTractorBeam.Value.improvementsList;
-            TestImprovementsCostList = currentTractorBeam.Value.improvementsCostList;
-            Debug.Log(currentTractorBeam.Value.name);
-        }
+        //Test();
+        //void Test()
+        //{
+        //    TestImprovementsList = currentTractorBeam.Value.improvementsList;
+        //    TestImprovementsCostList = currentTractorBeam.Value.improvementsCostList;
+        //    Debug.Log(currentTractorBeam.Value.name);
+        //}
     }
 }
