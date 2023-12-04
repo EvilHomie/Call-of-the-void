@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deviceImage: {fileID: 2800000, guid: eb2504074cf8946468f980f2ef17a28e, type: 3}
   deviceType: 6
-  description: 'Device Description
+  deviceRarity: 2
+  deviceDescription: 'Device Description
 
-    
 
     CONTAINER.
 
     allows you to store
     resources.'
+  deviceID: CU1
   slotsNumberLevel:
-    value: 3
+    value: 10
   slotsNumberMaxLevel: 4
   slotNumberEachLevel: 1
   slotsCapacityLevel:
     value: 4
   slotsCapacityMaxLevel: 6
   slotCapacityEachLevel: 5
-  improvementsList: []
   improvementsCostList:
   - upgradeLevel: 4
     conditionsForUpgrade:
@@ -48,3 +48,8 @@ MonoBehaviour:
       resAmount: 5
     - resourceType: 3
       resAmount: 4
+  CreateConditions:
+  - resourceType: 0
+    resAmount: 5
+  - resourceType: 1
+    resAmount: 5

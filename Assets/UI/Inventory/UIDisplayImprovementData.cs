@@ -134,7 +134,7 @@ public class UIDisplayImprovementData : MonoBehaviour
 
     public void UpgradeLevel()
     {
-        if (EventBus.OnUpgradeDevice.Invoke(currentUpgradeCost.conditionsForUpgrade))
+        if (EventBus.SpendResOnBuy?.Invoke(currentUpgradeCost.conditionsForUpgrade) == true)
         {
             EventBus.CommandForPlaySound.Execute("successSound");
             currentImprovement.improvementLevel.Value++;

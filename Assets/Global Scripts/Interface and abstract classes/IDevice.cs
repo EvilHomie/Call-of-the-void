@@ -10,4 +10,14 @@ public interface IDevice
     List<Improvement> GetImprovements();
 
     List<ImprovementCost> GetImprovementsCosts();
+
+    DeviceRarity GetDeviceRarity();
+
+    List<Condition> GetCreateCondition();
+
+    string GetName();
+
+    DeviceType GetDeviceType();
+
+    string GetDeviceID();
 }

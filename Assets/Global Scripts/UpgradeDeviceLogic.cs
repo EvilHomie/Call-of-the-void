@@ -9,11 +9,11 @@ public class UpgradeDeviceLogic : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.OnUpgradeDevice += TryUpgradeDevice;
+        EventBus.SpendResOnBuy += TryUpgradeDevice;
     }
     private void OnDisable()
     {
-        EventBus.OnUpgradeDevice -= TryUpgradeDevice;
+        EventBus.SpendResOnBuy -= TryUpgradeDevice;
     }
 
     private bool TryUpgradeDevice(List<Condition> conditions)

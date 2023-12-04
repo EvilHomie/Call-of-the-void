@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour
     }
     void MoveForward()
     {
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButton("Fire2") && Time.timeScale == 1)
         {
             playerRb.AddForce(transform.forward * mainEngineSpeed, ForceMode.Acceleration);
         }    

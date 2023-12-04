@@ -6,27 +6,36 @@ using UnityEngine;
 public class TractorBeam : ScriptableObject, IDevice
 {    
     [Header("Image and Type")]
-    public Texture deviceImage;
-    public DeviceType deviceType = DeviceType.TractorBeam;
-    public string deviceDescription = "Device Description\r\n\r\nTractorBeam.\r\nallows you to collect resources.";
+    [SerializeField] Texture deviceImage;
+    [SerializeField] DeviceType deviceType = DeviceType.TractorBeam;
+    [SerializeField] DeviceRarity deviceRarity;
+    [SerializeField] string deviceDescription = "Device Description\r\n\r\nTractorBeam.\r\nallows you to collect resources.";
+    [SerializeField] string deviceID;
 
     [Header("Collect Distance")]
-    public IntReactiveProperty collectDistanceLevel;
-    public int collectDistanceMaxLevel;
-    public int collectDistanceEachLevel;
+    [SerializeField] IntReactiveProperty collectDistanceLevel;
+    [SerializeField] int collectDistanceMaxLevel;
+    [SerializeField] int collectDistanceEachLevel;
     public  int CurrentCollectDistance => collectDistanceLevel.Value * collectDistanceEachLevel;
 
     [Header("Pull Speed")]
-    public IntReactiveProperty pullSpeedLevel;
-    public int pullSpeedMaxLevel;
-    public int pullSpeedEachLevel;
+    [SerializeField] IntReactiveProperty pullSpeedLevel;
+    [SerializeField] int pullSpeedMaxLevel;
+    [SerializeField] int pullSpeedEachLevel;
     public  int CurrentPullSpeed => pullSpeedLevel.Value * pullSpeedEachLevel;
 
 
     [Header("UpgradeLists")]
-    public List<Improvement> improvementsList = new();
-    public List<ImprovementCost> improvementsCostList = new();
+    List<Improvement> improvementsList = new();
+    [SerializeField] List<ImprovementCost> improvementsCostList = new();
 
+    [Header("Create Cost")]
+    [SerializeField] List<Condition> CreateConditions;
+
+    private void Awake()
+    {
+        FillImprovementsList();
+    }
 
     public void FillImprovementsList()
     {
@@ -52,5 +61,30 @@ public class TractorBeam : ScriptableObject, IDevice
     public List<ImprovementCost> GetImprovementsCosts()
     {
         return improvementsCostList;
+    }
+
+    public DeviceRarity GetDeviceRarity()
+    {
+        return deviceRarity;
+    }
+
+    public List<Condition> GetCreateCondition()
+    {
+        return CreateConditions;
+    }
+
+    public string GetName()
+    {
+        return $"{deviceRarity} {deviceType}";
+    }
+
+    public DeviceType GetDeviceType()
+    {
+        return deviceType;
+    }
+
+    public string GetDeviceID()
+    {
+        return deviceID;
     }
 }

@@ -27,6 +27,15 @@ public enum DeviceType
     Cargo
 }
 
+public enum DeviceRarity
+{
+    Poor,
+    Common,
+    Uncommon,
+    Rare,
+    Epic
+}
+
 [System.Serializable]
 public class Improvement
 {

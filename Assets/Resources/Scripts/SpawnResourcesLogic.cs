@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UniRx;
+using UnityEditor.iOS;
 using UnityEngine;
 
 public class SpawnResourcesLogic : MonoBehaviour
@@ -22,11 +23,21 @@ public class SpawnResourcesLogic : MonoBehaviour
             }
             
         }).AddTo(_disposable);
+
+
+        EventBus.CommandOnGetResImageByName += GetResImageByName;
     }
 
     private void OnDisable()
     {
         _disposable.Clear();
+        EventBus.CommandOnGetResImageByName -= GetResImageByName;
+    }
+
+    private Sprite GetResImageByName(string resName)
+    {
+        Sprite newResourceimage = resourceSprites.Find(sprite => sprite.name == resName);
+        return newResourceimage;
     }
 
     private void SpawnreSources(ResourcesInObject resInObj)
@@ -41,9 +52,8 @@ public class SpawnResourcesLogic : MonoBehaviour
                     float chance = Random.Range(0, 100f);
                     if (resource.dropChance >= chance)
                     {
-                        GameObject newResourceItem = Instantiate(resourceItemPrefab, resInObj.transform.position, Quaternion.identity);
-                        Sprite newResourceimage = resourceSprites.Find(sprite => sprite.name == resource.type.ToString());
-                        newResourceItem.GetComponent<ResourceItem>().SetParameters(resource.type, newResourceimage);
+                        GameObject newResourceItem = Instantiate(resourceItemPrefab, resInObj.transform.position, Quaternion.identity);                        
+                        newResourceItem.GetComponent<ResourceItem>().SetParameters(resource.type, GetResImageByName(resource.type.ToString()));
                     }
                 }
             }

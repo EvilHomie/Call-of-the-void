@@ -51,12 +51,12 @@ public class MoveEffectsControl : MonoBehaviour
 
     void EngineParticlesControll()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && Time.timeScale == 1)
         {
             mainEngine.Play();
             engineAudioSource.Play(); 
         }
-        else if (Input.GetButtonUp("Fire2"))
+        else if (Input.GetButtonUp("Fire2") && Time.timeScale == 1)
         {
             mainEngine.Stop();
             engineAudioSource.Stop();

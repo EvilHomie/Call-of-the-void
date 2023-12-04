@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deviceImage: {fileID: 2800000, guid: 39e5f2426de0c714db9044182f7d46b9, type: 3}
   deviceType: 4
+  deviceRarity: 1
   deviceDescription: 'Device Description
 
 
@@ -21,9 +22,10 @@ MonoBehaviour:
 
     allows you to collect
     resources.'
+  deviceID: TBC1
   collectDistanceLevel:
-    value: 1
-  collectDistanceMaxLevel: 2
+    value: 2
+  collectDistanceMaxLevel: 4
   collectDistanceEachLevel: 10
   pullSpeedLevel:
     value: 1
@@ -45,3 +47,6 @@ MonoBehaviour:
       resAmount: 2
     - resourceType: 1
       resAmount: 2
+  CreateConditions:
+  - resourceType: 0
+    resAmount: 2

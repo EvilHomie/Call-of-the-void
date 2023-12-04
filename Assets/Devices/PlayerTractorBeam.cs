@@ -19,22 +19,26 @@ public class PlayerTractorBeam : MonoBehaviour
     {
         TestSetNewTBeam(testTBeam_1);
     }
-    void OnEnable()
-    {
-        currentTractorBeam.Where(tBeam => tBeam != null).Subscribe(tBeam =>
-        {
-            tBeam.FillImprovementsList();
-        }).AddTo(_disposable);
-    }
-    private void OnDestroy()
-    {
-        _disposable.Clear();
-    }
+    //void OnEnable()
+    //{
+    //    currentTractorBeam.Where(tBeam => tBeam != null).Subscribe(tBeam =>
+    //    {
+    //        tBeam.FillImprovementsList();
+    //    }).AddTo(_disposable);
+    //}
+    //private void OnDestroy()
+    //{
+    //    _disposable.Clear();
+    //}
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             TestSetNewTBeam(testTBeam_2);
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            TestSetNewTBeam(testTBeam_1);
         }
     }
 

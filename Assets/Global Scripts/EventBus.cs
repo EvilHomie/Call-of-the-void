@@ -35,8 +35,10 @@ public class EventBus: MonoBehaviour
 
     public static ReactiveProperty<IDevice> SelectDevice = new();
     public static ReactiveCommand CommandOnCargoSlotIncrease = new();
-    public static Func<List<Condition>, bool> OnUpgradeDevice;
+    public static Func<List<Condition>, bool> SpendResOnBuy;
     public static ReactiveCommand CommandOnRefreshUIInventory = new();
+    public static Action<Cargo> CommandOnSortInventory;
+    public static Func<string, Sprite> CommandOnGetResImageByName;
 
 
 

@@ -8,7 +8,7 @@ public class OnPointerEnterManager : MonoBehaviour, IPointerEnterHandler
     AditionResWindowManager aditionResWindowManager;
     int slotIndex;
 
-    private void Start()
+    private void Awake()
     {
         aditionWindowRectTransform = aditionResInSLotWindow.GetComponent<RectTransform>();
         aditionResWindowManager = aditionResInSLotWindow.GetComponent<AditionResWindowManager>();
@@ -17,7 +17,7 @@ public class OnPointerEnterManager : MonoBehaviour, IPointerEnterHandler
 
     private void OnEnable()
     {
-        SwitchAditionWindowActivStatus(false);
+        SwitchAditionWindowActiveStatus(false);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -25,11 +25,11 @@ public class OnPointerEnterManager : MonoBehaviour, IPointerEnterHandler
         {
             aditionResWindowManager.callSlotIndex = slotIndex;
             aditionWindowRectTransform.position = transform.position;
-            SwitchAditionWindowActivStatus(true);
+            SwitchAditionWindowActiveStatus(true);
         }
     }
 
-    void SwitchAditionWindowActivStatus(bool activStatus) 
+    void SwitchAditionWindowActiveStatus(bool activStatus) 
     {
         aditionResInSLotWindow.SetActive(activStatus);
     }
