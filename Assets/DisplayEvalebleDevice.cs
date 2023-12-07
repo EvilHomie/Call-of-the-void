@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using UniRx;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -99,10 +100,17 @@ public class DisplayEvalebleDevice : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void CreateAndSetDevice()
     {
-        copyInventory.Clear();
-        PlayerCargo.inventory.ForEach(item => copyInventory.Add(item));
-        if (EventBus.SpendResOnBuy?.Invoke(createCondition) == false)
+        //copyInventory.Clear();
+        //PlayerCargo.inventory.ForEach(item => copyInventory.Add(item));
+
+        if (inputDevice.GetDeviceType() == DeviceType.Cargo)
         {
+            //EventBus.CommandOnSortInventory?.Invoke(PlayerCargo.currentCargo.Value);
+            if (CheckCompabilityNewCargoOnSlotsNumberAndCapacity(inputDevice as Cargo) == false) return;
+        }
+
+        if (EventBus.SpendResOnBuy?.Invoke(createCondition) == false)
+        {            
             EventBus.CommandForPlaySound.Execute("errorSound");
             Debug.Log("Not enough Res");
             return;
@@ -114,32 +122,27 @@ public class DisplayEvalebleDevice : MonoBehaviour, IPointerEnterHandler, IPoint
         else if (inputDevice.GetDeviceType() == DeviceType.Generator) { }
         else if (inputDevice.GetDeviceType() == DeviceType.TractorBeam) { PlayerTractorBeam.currentTractorBeam.Value = inputDevice as TractorBeam; }
         else if (inputDevice.GetDeviceType() == DeviceType.RepairDrone) { }
-        else if (inputDevice.GetDeviceType() == DeviceType.Cargo)
-        {
-            if (CheckCompabilityNewCargoAfterSpendRes() == false) return;           
-        }
+        else if (inputDevice.GetDeviceType() == DeviceType.Cargo) { PlayerCargo.currentCargo.Value = inputDevice as Cargo;}
 
         EventBus.SelectDevice.Value = null;
         EventBus.CommandForPlaySound.Execute("successSound");
         SwitchDescriptionWindowActiveStatus(false);
     }
 
-    bool CheckCompabilityNewCargoAfterSpendRes()
+    bool CheckCompabilityNewCargoOnSlotsNumberAndCapacity(Cargo newCargo)
     {
-        Cargo newCargo = inputDevice as Cargo;
-
         //EventBus.CommandOnSortInventory?.Invoke(newCargo);
 
-        if (PlayerCargo.inventory.Count <= newCargo.CurrentSlotsNumber)
+        if (PlayerCargo.inventory.Count <= newCargo.CurrentSlotsNumber && PlayerCargo.inventory.TrueForAll(item => item.amount <= newCargo.CurrentSlotsCapacity))
         {
-            PlayerCargo.currentCargo.Value = newCargo;
+            //PlayerCargo.currentCargo.Value = newCargo;
             return true;
         }
         else
         {
-            PlayerCargo.inventory.Clear();
-            copyInventory.ForEach(item =>  PlayerCargo.inventory.Add(item));
-            EventBus.CommandOnRefreshUIInventory.Execute();
+            //PlayerCargo.inventory.Clear();
+            //copyInventory.ForEach(item =>  PlayerCargo.inventory.Add(item));
+            //EventBus.CommandOnRefreshUIInventory.Execute();
             EventBus.CommandForPlaySound.Execute("errorSound");
             Debug.Log("Not enough Space");
             return false;

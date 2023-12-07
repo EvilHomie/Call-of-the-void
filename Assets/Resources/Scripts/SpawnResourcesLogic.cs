@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UniRx;
-using UnityEditor.iOS;
 using UnityEngine;
 
 public class SpawnResourcesLogic : MonoBehaviour

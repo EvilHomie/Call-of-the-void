@@ -20,7 +20,6 @@ public class UpgradeDeviceLogic : MonoBehaviour
     {
         if (CheckInventory(conditions))
         {
-
             return true;
         }
         else return false;
@@ -60,25 +59,23 @@ public class UpgradeDeviceLogic : MonoBehaviour
 
         while (RequiredResAmount > 0)
         {
-            InventoryItem minAmountRes = PlayerCargo.inventory.Where(res => res.type == condition.resourceType).OrderBy(res => res.amount).First();
+            InventoryItem minAmountRes = PlayerCargo.inventory.Where(res => res.type == condition.resourceType).OrderBy(res => res.amount).Select(res => res).First();
             if (RequiredResAmount > minAmountRes.amount)
             {
                 RequiredResAmount -= minAmountRes.amount;
-                PlayerCargo.inventory.Remove(minAmountRes);
-                EventBus.CommandOnRefreshUIInventory.Execute();
+                PlayerCargo.inventory.Remove(minAmountRes);                
             }
             else if (RequiredResAmount == minAmountRes.amount)
             {
-                PlayerCargo.inventory.Remove(minAmountRes);
-                EventBus.CommandOnRefreshUIInventory.Execute();
-                return;
+                PlayerCargo.inventory.Remove(minAmountRes);                
+                break;
             }
             else if (RequiredResAmount < minAmountRes.amount)
             {
-                minAmountRes.amount -= RequiredResAmount;
-                EventBus.CommandOnRefreshUIInventory.Execute();
-                return;
+                minAmountRes.amount -= RequiredResAmount;                
+                break;
             }            
-        }        
+        }
+        EventBus.CommandOnRefreshUIInventory.Execute();
     }
 }

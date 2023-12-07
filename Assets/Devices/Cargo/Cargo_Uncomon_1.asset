@@ -24,8 +24,8 @@ MonoBehaviour:
     resources.'
   deviceID: CU1
   slotsNumberLevel:
-    value: 10
-  slotsNumberMaxLevel: 4
+    value: 3
+  slotsNumberMaxLevel: 5
   slotNumberEachLevel: 1
   slotsCapacityLevel:
     value: 4
