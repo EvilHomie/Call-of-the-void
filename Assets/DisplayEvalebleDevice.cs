@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-using UniRx;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,13 +11,12 @@ public class DisplayEvalebleDevice : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] TextMeshProUGUI detailedDescriptionWindow;
     [SerializeField] GameObject deviceMatchText;
     [SerializeField] TextMeshProUGUI deviceNameInDescriptionWindow;
-    [SerializeField] List<Sprite> resourceSprites;
     [SerializeField] List<GameObject> condidionsInDescriptionWindow;
 
     string tempDeviceName;
     IDevice inputDevice;
     List<Condition> createCondition = new();
-    [SerializeField] List<InventoryItem> copyInventory = new();
+    //[SerializeField] List<InventoryItem> copyInventory = new();
     public void Activate<T>(T device)
     {
         GetDeviceData(device);
@@ -78,8 +75,7 @@ public class DisplayEvalebleDevice : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         for (int i = 0; i < createCondition.Count; i++)
         {
-            Sprite newResourceimage = resourceSprites.Find(sprite => sprite.name == createCondition[i].resourceType.ToString());
-            condidionsInDescriptionWindow[i].GetComponentInChildren<Image>().sprite = newResourceimage;
+            condidionsInDescriptionWindow[i].GetComponentInChildren<Image>().sprite = EventBus.CommandOnGetResImageByName(createCondition[i].resourceType.ToString());
 
             condidionsInDescriptionWindow[i].GetComponentInChildren<TextMeshProUGUI>().text = $"x {createCondition[i].resAmount}";
         }

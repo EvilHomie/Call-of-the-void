@@ -15,7 +15,6 @@ public class UIDisplayImprovementData : MonoBehaviour
     [SerializeField] TextMeshProUGUI maximumLevelReachedText;
     [SerializeField] Transform upgContainer;
     [SerializeField] Button upgButton;
-    [SerializeField] List<Sprite> resourceSprites;
     Improvement currentImprovement;
     ImprovementCost currentUpgradeCost;
 
@@ -126,10 +125,9 @@ public class UIDisplayImprovementData : MonoBehaviour
     void FillConditionData(Transform conditionObj, ImprovementCost condition)
     {
         int index = conditionObj.GetSiblingIndex();
-        Sprite newResourceimage = resourceSprites.Find(sprite => sprite.name == condition.conditionsForUpgrade[index].resourceType.ToString());
 
         conditionObj.GetComponentInChildren<TextMeshProUGUI>().text = $"x {condition.conditionsForUpgrade[index].resAmount}";
-        conditionObj.GetComponentInChildren<Image>().sprite = newResourceimage;
+        conditionObj.GetComponentInChildren<Image>().sprite = EventBus.CommandOnGetResImageByName(condition.conditionsForUpgrade[index].resourceType.ToString());
     }
 
     public void UpgradeLevel()
